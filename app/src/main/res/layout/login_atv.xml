@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+    <EditText
+        android:id="@+id/login_username"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="@dimen/login_atv_view_margin"
+        android:layout_marginRight="@dimen/login_atv_view_margin"
+        android:hint="@string/login_input_username_hint"/>
+    <EditText
+        android:id="@+id/login_password"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:inputType="textPassword"
+        android:layout_marginLeft="@dimen/login_atv_view_margin"
+        android:layout_marginRight="@dimen/login_atv_view_margin"
+        android:hint="@string/login_input_password_hint"/>
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/login_atv_view_height"
+        android:layout_marginLeft="@dimen/login_atv_view_margin"
+        android:layout_marginRight="@dimen/login_atv_view_margin"
+        android:text="@string/login"/>
+    <TextView
+        android:id="@+id/test_response_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

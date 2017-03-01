@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hytera.fcls">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name="com.hytera.fcls.FireApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:persistent="true">
+        <activity android:name="com.hytera.fcls.activity.MainActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask">
+            <intent-filter android:priority="2147483647">
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.hytera.fcls.activity.KeepAliveActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:finishOnTaskLaunch="false"
+            android:launchMode="singleInstance"
+            android:process=":live"
+            android:theme="@style/LiveActivityStyle"/>
+
+        <activity android:name="com.hytera.fcls.activity.LoginAtivity"
+            android:excludeFromRecents="true">
+            <!--<intent-filter android:priority="2147483647">
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
+
+        <receiver android:name="com.hytera.fcls.service.KeepLiveReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.SCREEN_OFF"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.hytera.fcls.service.FireService" />
+
+        <!-- Mqtt Service 这是个大坑，必须加 -->
+        <service android:name="org.eclipse.paho.android.service.MqttService" />
+
+    </application>
+
+</manifest>
