@@ -92,11 +92,7 @@ public class MainActivity extends Activity implements IMainAtv {
             if(!sdStatus.equals(Environment.MEDIA_MOUNTED)){
                 Log.e(TAG, "SD card is not available right now.");
             }
-//            Bundle bundle = data.getExtras();
-//            Bitmap bitmap = (Bitmap)bundle.get("data");
             Bitmap bitmap = mainPresenter.getBitmapFromCamera();
-
-
             imageView.setImageBitmap(bitmap);
         }
     }
