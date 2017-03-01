@@ -6,4 +6,7 @@ package com.hytera.fcls;
 
 public interface IMainAtv {
 
+    void updateLocation(double latitude, double longitude);
+
+    void showLogInMain(String s);
 }
