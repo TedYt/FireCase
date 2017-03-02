@@ -1,11 +1,11 @@
 package com.hytera.fcls.activity;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
@@ -23,14 +23,45 @@ public class NaviActivity extends Activity implements LocationSource, AMapLocati
     private OnLocationChangedListener mListener;
     private AMapLocationClient mlocationClient;
     private AMapLocationClientOption mLocationOption;
-
+    private LocationManager locMgr;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navi);
         initview(savedInstanceState);
-
+        initLocationManager();
 //        initMap();
+    }
+
+    private void initLocationManager() {
+         locMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+         locMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 300, 8, new LocationListener() {
+             @Override
+             public void onLocationChanged(Location location) {
+
+                 // 使用GPS提供的定位信息来更新位置
+                 updatePosition(location);
+             }
+
+             @Override
+             public void onStatusChanged(String provider, int status, Bundle extras) {
+
+             }
+
+             @Override
+             public void onProviderEnabled(String s) {
+
+             }
+
+             @Override
+             public void onProviderDisabled(String s) {
+
+             }
+         });
+    }
+    //更新位置
+    private void updatePosition(Location location) {
+
     }
 
     private void initview(Bundle savedInstanceState) {
@@ -138,11 +169,11 @@ public class NaviActivity extends Activity implements LocationSource, AMapLocati
     protected void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
-//        if(null != mlocationClient){
-//            mlocationClient.onDestroy();
-//        }
+        if(null != mlocationClient){
+            mlocationClient.onDestroy();
+        }
     }
-//这个是Poi接口的毁掉
+//这个是Poi接口的回掉
     @Override
     public void onPOIClick(Poi poi) {
 
