@@ -209,7 +209,7 @@ public class DriveRoutesActivity extends Activity implements AMapNaviListener, O
         /**
          * 当前页面只是展示地图，activity销毁后不需要再回调导航的状态
          */
-        mAMapNavi.removeAMapNaviListener(this);
+//        mAMapNavi.removeAMapNaviListener(this);
         //注意：不要调用这个destory方法，因为在当前页面进行算路，算路成功的数据全部存在此对象中。到另外一个activity中只需要开始导航即可。
         //如果用户是回退退出当前activity，可以调用下面的destory方法。
         //mAMapNavi.destroy();

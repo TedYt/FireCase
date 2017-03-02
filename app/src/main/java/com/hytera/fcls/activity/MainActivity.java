@@ -106,7 +106,7 @@ public class MainActivity extends Activity implements IMainAtv {
                         break;
                     case 2 :
                         Toast.makeText(MainActivity.this, "出发", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainActivity.this,DriveRoutesActivity.class);
+                        Intent intent = new Intent(MainActivity.this,NaviActivity.class);
                         startActivity(intent);
                         break;
                     case 3 :
