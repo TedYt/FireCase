@@ -64,7 +64,8 @@
         </activity>
 
         <activity android:name=".activity.NaviActivity"
-            android:excludeFromRecents="true"/>
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"/>
 
         <activity android:name=".activity.DriveRoutesActivity"
             android:excludeFromRecents="true"/>
