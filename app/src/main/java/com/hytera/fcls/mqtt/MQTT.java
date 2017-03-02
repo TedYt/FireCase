@@ -23,7 +23,7 @@ public class MQTT {
     public static final String TAG = "MQTT";
 
 //    private static final String ServerIP = "30.1.0.101"; // 测试地址
-    private static final String ServerIP = "192.168.43.22"; // 测试地址
+    private static final String ServerIP = "192.168.123.64"; // 测试地址
     private static final String PORTID = "1883"; // MQTT 协议的对应的端口
     private static final String ClientID = "y20650";
     private static final String TOPIC = "fire";

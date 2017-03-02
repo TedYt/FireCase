@@ -3,7 +3,11 @@ package com.hytera.fcls.service;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -13,10 +17,13 @@ import com.hytera.fcls.R;
 import com.hytera.fcls.activity.MainActivity;
 import com.hytera.fcls.mqtt.MQTT;
 import com.hytera.fcls.mqtt.event.MessageEvent;
+import com.hytera.fcls.presenter.MPPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.io.IOException;
 
 /**
  * Created by Tim on 17/2/24.
@@ -24,7 +31,12 @@ import org.greenrobot.eventbus.ThreadMode;
 
 public class FireService extends Service implements IMQConn {
 
-    public static final String TAG = "y20650" + FireService.class.getSimpleName();
+    public static final String TAG = "y2060" + FireService.class.getSimpleName();
+
+    public static final String FIRE_ALARM_FILE = "firealarm.wav";
+
+    public static String DEFAULT_NOTI_TITLE;
+    public static String DEFAULT_NOTI_CONTENT;
 
     public static final int FIRE_NOTIFICATION = 119;
 
@@ -33,6 +45,10 @@ public class FireService extends Service implements IMQConn {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        DEFAULT_NOTI_TITLE = getResources().getString(R.string.default_noti_title);
+        DEFAULT_NOTI_CONTENT = getResources().getString(R.string.default_noti_content);
+
         EventBus.getDefault().register(this); // 订阅消息总线
 
         mqtt = MQTT.getInstance();
@@ -40,7 +56,7 @@ public class FireService extends Service implements IMQConn {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                //mqtt.startConnect(FireService.this);
+                mqtt.startConnect(FireService.this); // 参数是为了传递IMQConn
             }
         }).start();
 
@@ -55,19 +71,9 @@ public class FireService extends Service implements IMQConn {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG, "onStartCommand");
-      //TODO: 暂时注销不兼容honor8
-        Notification.Builder builder = new Notification.Builder(this);
-        Intent nfIntent = new Intent(this, MainActivity.class);
-        builder.setContentIntent(PendingIntent.getActivity(this,0,nfIntent,0))
-                .setContentTitle("下拉列表中的Title") // 必填的属性
-                .setContentText("要显示的内容") // 必填的属性
-                .setSmallIcon(R.mipmap.ic_launcher) // 必填的属性
-                .setWhen(System.currentTimeMillis());
-        Notification notification = builder.build();
-        //notification.flags = Notification.FLAG_ONGOING_EVENT;
-        notification.defaults = Notification.DEFAULT_SOUND;
 
-        startForeground(FIRE_NOTIFICATION, notification);
+        showNotification(null,null,true);
+
         return Service.START_STICKY;
     }
 
@@ -80,14 +86,81 @@ public class FireService extends Service implements IMQConn {
     }
 
     /**
+     * EvenBus的 回调函数
      * 在后台接受消息
      * @param event
      */
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(MessageEvent event){
+        if (event  == null){
+            return;
+        }
+
+        String msg = new String(event.getMqttMessage().getPayload());
+        String title = "新警情";
         Log.i(TAG, "getMessage from MQ : " + event.getString()
                 + ", topic is : " + event.getTopic()
                 + "message is : " + new String(event.getMqttMessage().getPayload()));
+        showNotification(title, msg, false);
+        playFireAlarm();
+    }
+
+    /**
+     * 响警报
+     */
+    private void playFireAlarm() {
+
+        AudioManager audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        int currVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);// 当前音量
+        int maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, 0);
+
+        AssetFileDescriptor fileDescriptor;
+        try {
+            fileDescriptor = getAssets().openFd(FIRE_ALARM_FILE);
+            MediaPlayer mediaPlayer = MPPresenter.getInstance();
+
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mediaPlayer.setDataSource(fileDescriptor.getFileDescriptor(),
+                                            fileDescriptor.getStartOffset(),
+                                            fileDescriptor.getLength());
+
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 显示更新通知
+     * @param title
+     * @param msg
+     */
+    private void showNotification(String title, String msg, boolean sound) {
+        if (title == null || title.isEmpty()){
+            title = DEFAULT_NOTI_TITLE;
+        }
+        if (msg == null || msg.isEmpty()){
+            msg = DEFAULT_NOTI_CONTENT;
+        }
+
+        Notification.Builder builder = new Notification.Builder(this);
+        Intent nfIntent = new Intent(this, MainActivity.class);
+        builder.setContentIntent(PendingIntent.getActivity(this,0,nfIntent,0))
+                .setContentTitle(title) // 必填的属性
+                .setContentText(msg) // 必填的属性
+                .setSmallIcon(R.drawable.icon) // 必填的属性
+                .setWhen(System.currentTimeMillis());
+
+        Notification notification = builder.build();
+        //notification.flags = Notification.FLAG_ONGOING_EVENT;
+        if (sound){
+            notification.defaults = Notification.DEFAULT_SOUND;
+        }
+
+        startForeground(FIRE_NOTIFICATION, notification);
     }
 
     /**

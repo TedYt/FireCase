@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.hytera.fcls.IMainAtv;
 import com.hytera.fcls.R;
+import com.hytera.fcls.presenter.MPPresenter;
 import com.hytera.fcls.presenter.MainAtvPresenter;
 import com.hytera.fcls.service.FireService;
 
@@ -67,6 +69,17 @@ public class MainActivity extends Activity implements IMainAtv {
 
         initView();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume");
+        MediaPlayer mediaPlayer = MPPresenter.getInstance();
+        if (mediaPlayer.isPlaying()){
+            mediaPlayer.stop();
+        }
+    }
+
     //初始化布局资源
     private void initView() {
         gridView.setAdapter(new GridAdapter());

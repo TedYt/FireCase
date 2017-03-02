@@ -3,4 +3,7 @@
     <string name="login_input_username_hint">请输入用户名</string>
     <string name="login_input_password_hint">请输入密码</string>
     <string name="login">登录</string>
+
+    <string name="default_noti_title">消防救援</string>
+    <string name="default_noti_content">天下太平</string>
 </resources>
