@@ -40,16 +40,15 @@ public class MainActivity extends Activity implements IMainAtv {
     public GridView gridView;
     private MainAtvPresenter mainPresenter;
 
-    String[] fuc_names = new String[] { "拍照", "视频", "出发", "确认到达", "结束火警",
-            "信息采集" };
+    String[] fuc_names = new String[] { "拍照", "视频", "出发", "确认到达", "不在本辖区",
+            "警情信息" };
     int[] fuc_icons = new int[] {
-            R.drawable.ic_launcher,
-            R.drawable.ic_launcher,
-            R.drawable.ic_launcher,
-            R.drawable.ic_launcher,
-            R.drawable.ic_launcher,
-            R.drawable.ic_launcher,
-            R.drawable.ic_launcher
+            R.drawable.takephoto,
+            R.drawable.videoshow,
+            R.drawable.nav,
+            R.drawable.confirmarrival,
+            R.drawable.chakan,
+            R.drawable.fireinformation,
     };
 
     @Override
