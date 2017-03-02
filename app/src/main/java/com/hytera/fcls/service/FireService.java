@@ -29,30 +29,20 @@ public class FireService extends Service implements IMQConn {
     public static final int FIRE_NOTIFICATION = 119;
 
     private MQTT mqtt;
+
     @Override
     public void onCreate() {
         super.onCreate();
         EventBus.getDefault().register(this); // 订阅消息总线
 
-
-        mqtt = new MQTT(this);
+        mqtt = MQTT.getInstance();
+        mqtt.setContext(this);
         new Thread(new Runnable() {
             @Override
             public void run() {
                 //mqtt.startConnect(FireService.this);
             }
         }).start();
-
-        initMQTT();
-        subscribeTopic();
-    }
-
-    private void subscribeTopic() {
-
-    }
-
-    private void initMQTT() {
-
 
     }
 
@@ -66,7 +56,7 @@ public class FireService extends Service implements IMQConn {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i(TAG, "onStartCommand");
       //TODO: 暂时注销不兼容honor8
-        /*Notification.Builder builder = new Notification.Builder(this);
+        Notification.Builder builder = new Notification.Builder(this);
         Intent nfIntent = new Intent(this, MainActivity.class);
         builder.setContentIntent(PendingIntent.getActivity(this,0,nfIntent,0))
                 .setContentTitle("下拉列表中的Title") // 必填的属性
@@ -77,7 +67,7 @@ public class FireService extends Service implements IMQConn {
         //notification.flags = Notification.FLAG_ONGOING_EVENT;
         notification.defaults = Notification.DEFAULT_SOUND;
 
-        startForeground(FIRE_NOTIFICATION, notification);*/
+        startForeground(FIRE_NOTIFICATION, notification);
         return Service.START_STICKY;
     }
 
@@ -100,6 +90,9 @@ public class FireService extends Service implements IMQConn {
                 + "message is : " + new String(event.getMqttMessage().getPayload()));
     }
 
+    /**
+     * 链接成功之后，订阅主题
+     */
     @Override
     public void MQConnSuccess() {
         mqtt.subcribeTopic();

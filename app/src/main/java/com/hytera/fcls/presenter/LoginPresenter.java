@@ -3,10 +3,8 @@ package com.hytera.fcls.presenter;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.hytera.fcls.mqtt.bean.FireCaseBean;
 import com.hytera.fcls.ILogin;
-
-import java.util.concurrent.TimeUnit;
+import com.hytera.fcls.mqtt.bean.FireCaseBean;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -27,25 +25,10 @@ public class LoginPresenter {
 
     private ILogin iLogin;
 
-    private static OkHttpClient client;
-
     private final String URL = "http://192.168.72.37:8080/HyteraBS/flow/gooFlow/query";
 
     public LoginPresenter(ILogin iLogin) {
         this.iLogin = iLogin;
-        client = new OkHttpClient.Builder()
-                .readTimeout(10, TimeUnit.SECONDS)
-                .build();
-    }
-
-    public static OkHttpClient getHttpClient(){
-        if (client != null){
-            return client;
-        }
-        client = new OkHttpClient.Builder()
-                .readTimeout(10, TimeUnit.SECONDS)
-                .build();
-        return client;
     }
 
     public void Login(){
@@ -53,6 +36,7 @@ public class LoginPresenter {
                 .map(new Function<String, Response>() {
                     @Override
                     public Response apply(String url) throws Exception {
+                        OkHttpClient client = OKHTTPPresenter.getHttpClient();
                         Request request = new Request.Builder().url(url).build();
                         return client.newCall(request).execute();
                     }
