@@ -1,14 +1,24 @@
 package com.hytera.fcls.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hytera.fcls.service.FireService;
 import com.hytera.fcls.IMainAtv;
@@ -34,18 +44,25 @@ public class MainActivity extends Activity implements IMainAtv {
     private static final String ServerIP = "192.168.43.22"; // 测试地址
     private static final String PORTID = "1883"; // MQTT 协议的对应的端口
     private static final String ClientID = "y20650";
-
     @BindView(R.id.textview)
     public TextView textView;
+
+
 
     @BindView(R.id.image_view)
     public ImageView imageView;
 
+    @BindView(R.id.main_gridview_func)
+    public GridView gridView;
     private MainAtvPresenter mainPresenter;
 
     private static MqttAndroidClient client;
     private MQTT mqtt;
-
+    String[] fuc_names = new String[] { "拍照", "视频", "出发", "确认到达", "结束火警",
+            "信息采集" };
+    int[] fuc_icons = new int[] { R.drawable.ic_launcher, R.drawable.ic_launcher,
+            R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher,
+            R.drawable.ic_launcher };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +79,49 @@ public class MainActivity extends Activity implements IMainAtv {
         mainPresenter = new MainAtvPresenter(this, this);
         //mainPresenter.initMQTT(this);
         EventBus.getDefault().register(this); // 订阅消息总线
+        initView();
+    }
+    //初始化布局资源
+    private void initView() {
+        gridView.setAdapter(new GridAdapter());
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i){
+                    case 0 :
+                        Toast.makeText(MainActivity.this, "照相", Toast.LENGTH_SHORT).show();
+                        //降低应用支持版本22，否则动态权限在华为7.0获取不成功
+                        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA )!= PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(MainActivity.this,
+                                    new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                    2);
+                        }else {
+
+                            mainPresenter.startCamera(MainActivity.this);
+                        }
+
+                        break;
+                    case 1 :
+                        Toast.makeText(MainActivity.this, "视频", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2 :
+                        Toast.makeText(MainActivity.this, "出发", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this,DriveRoutesActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 3 :
+                        Toast.makeText(MainActivity.this, "确认到达", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 4:
+                        Toast.makeText(MainActivity.this, "结束火警", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 5 :
+                        Toast.makeText(MainActivity.this, "信息采集", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+//                Toast.makeText(MainActivity.this, "ssd?dd+"+i+"====L?"+l, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @OnClick(R.id.textview)
@@ -104,6 +164,18 @@ public class MainActivity extends Activity implements IMainAtv {
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case 2:
+                if (grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                    mainPresenter.startCamera(MainActivity.this);
+                }else {
+                    Toast.makeText(MainActivity.this, "权限未开启", Toast.LENGTH_SHORT).show();
+                }
+        }
+    }
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         if(client!=null) {
@@ -116,6 +188,56 @@ public class MainActivity extends Activity implements IMainAtv {
         EventBus.getDefault().unregister(this);
     }
 
+    @Override
+    public void updateLocation(double latitude, double longitude) {
+
+    }
+
+    @Override
+    public void showLogInMain(String s) {
+
+    }
+
+    class GridAdapter extends BaseAdapter {
+
+          @Override
+          public int getCount() {
+              return fuc_names.length;
+          }
+
+          @Override
+          public Object getItem(int i) {
+              return null;
+          }
+
+          @Override
+          public long getItemId(int i) {
+              return 0;
+          }
+
+          @Override
+          public View getView(int i, View convertview, ViewGroup viewGroup) {
+            Holer holer;
+              if (convertview == null){
+                  holer = new Holer();
+                  convertview = View.inflate(MainActivity.this,R.layout.main_function_item,null);
+                  holer.grid_item_text = (TextView) convertview.findViewById(R.id.grid_item_text);
+                  holer.grid_item_image = (ImageView) convertview.findViewById(R.id.grid_item_image);
+
+                  convertview.setTag(holer);
+              }else{
+                  holer = (Holer) convertview.getTag();
+              }
+              //设置item的标题文本
+              holer.grid_item_image.setImageResource(fuc_icons[i]);
+              holer.grid_item_text.setText(fuc_names[i]);
+              return convertview;
+          }
+      }
+    class Holer {
+        TextView grid_item_text;
+        ImageView grid_item_image;
+    }
     /*private void startConnect(String clientID, String serverIP, String port) {
         //服务器地址
         String  uri ="tcp://";
