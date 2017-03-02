@@ -99,6 +99,19 @@ public class MainActivity extends Activity implements IMainAtv {
         }
     }
 
+
+    @Override
+    public void onBackPressed() {
+        /**
+         * 按返回键时，启动home界面
+         */
+        Intent intent =  new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                    | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+        startActivity(intent);
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
