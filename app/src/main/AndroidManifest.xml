@@ -63,6 +63,12 @@
             -->
         </activity>
 
+        <activity android:name=".activity.NaviActivity"
+            android:excludeFromRecents="true"/>
+
+        <activity android:name=".activity.DriveRoutesActivity"
+            android:excludeFromRecents="true"/>
+
         <receiver android:name=".service.KeepLiveReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.SCREEN_OFF" />
@@ -75,9 +81,6 @@
 
         <!-- Mqtt Service 这是个大坑，必须加 -->
         <service android:name="org.eclipse.paho.android.service.MqttService" />
-
-        <activity android:name=".activity.DriveRoutesActivity" />
-        <activity android:name=".activity.NaviActivity"></activity>
     </application>
 
 </manifest>
