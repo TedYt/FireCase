@@ -2,10 +2,12 @@ package com.hytera.fcls.mqtt;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.hytera.fcls.IMQConn;
 import com.hytera.fcls.mqtt.callback.ConnectCallBackHandler;
 import com.hytera.fcls.mqtt.callback.MqttCallbackHandler;
+import com.hytera.fcls.mqtt.callback.PublishCallBackHandler;
 import com.hytera.fcls.mqtt.callback.SubcribeCallBackHandler;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -18,6 +20,8 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 
 public class MQTT {
 
+    public static final String TAG = "MQTT";
+
 //    private static final String ServerIP = "30.1.0.101"; // 测试地址
     private static final String ServerIP = "192.168.43.22"; // 测试地址
     private static final String PORTID = "1883"; // MQTT 协议的对应的端口
@@ -28,9 +32,26 @@ public class MQTT {
 
     private MqttAndroidClient client;
 
+    private static MQTT _instance;
 
-    public MQTT(Context context) {
-        this.context = context;
+    //public MQTT(Context context) {
+    //    this.context = context;
+    //}
+
+    public static MQTT getInstance(){
+        if (_instance == null){
+            synchronized (MQTT.class){
+                if (_instance == null){
+                    _instance = new MQTT();
+                }
+            }
+        }
+
+        return _instance;
+    }
+
+    public void setContext(Context context){
+        _instance.context = context;
     }
 
     public void startConnect(IMQConn imqConn) {
@@ -78,6 +99,36 @@ public class MQTT {
             } catch (MqttException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    /**
+     * 上报GPS信息
+     * @param lat
+     * @param lng
+     */
+    public void postGPSLocation(double lat, double lng) {
+        /**消息的服务质量*/
+        int qos=0;
+        /**消息是否保持*/
+        boolean retain=false;
+        /**要发布的消息内容*/
+        byte[] message = ("Latitude : " + lat + ", Longitude : " + lng).getBytes();
+        if(TOPIC!=null&&!"".equals(TOPIC)){
+            /**获取client对象*/
+            //MqttAndroidClient client = MainActivity.getMqttAndroidClientInstace();
+            if(client!=null){
+                try {
+                    /**发布一个主题:如果主题名一样不会新建一个主题，会复用*/
+                    client.publish(TOPIC,message,qos,retain,null,new PublishCallBackHandler(context));
+                } catch (MqttException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                Log.e(TAG,"MqttAndroidClient==null");
+            }
+        }else{
+            Toast.makeText(context,"发布的主题不能为空",Toast.LENGTH_SHORT).show();
         }
     }
 }

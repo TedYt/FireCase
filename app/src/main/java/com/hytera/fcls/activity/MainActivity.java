@@ -204,12 +204,14 @@ public class MainActivity extends Activity implements IMainAtv {
                     break;
                 case 3 :
                     Toast.makeText(MainActivity.this, "确认到达", Toast.LENGTH_SHORT).show();
+                    mainPresenter.arriveDest();
                     break;
                 case 4:
                     Toast.makeText(MainActivity.this, "结束火警", Toast.LENGTH_SHORT).show();
+                    mainPresenter.closeCase();
                     break;
                 case 5 :
-                    Toast.makeText(MainActivity.this, "信息采集", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "信息采集: 待优化", Toast.LENGTH_SHORT).show();
                     break;
             }
         }

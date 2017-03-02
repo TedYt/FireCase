@@ -19,13 +19,12 @@ import android.util.Log;
 
 import com.hytera.fcls.IMainAtv;
 import com.hytera.fcls.activity.MainActivity;
+import com.hytera.fcls.mqtt.MQTT;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
-import okhttp3.OkHttpClient;
 
 /**
  * Created by Tim on 17/2/25.
@@ -60,6 +59,9 @@ public class MainAtvPresenter {
                         + ", Lng : " + location.getLongitude());
                 iMainAtv.updateLocation(location.getLatitude(), location.getLongitude());
                 /** 在这里处理位置信息上报 */
+                MQTT mqtt = MQTT.getInstance();
+                mqtt.postGPSLocation(Lat, Lng);
+                postGPSLocation(Lat, Lng);
             }
         }
 
@@ -155,23 +157,6 @@ public class MainAtvPresenter {
 
     /**
      * 测试方法
-     * 从服务器中获取数据
-     */
-    public void httpGet() {
-        OkHttpClient client = LoginPresenter.getHttpClient();
-
-    }
-
-    /**
-     * 测试方法
-     * 向服务器上报信息
-     */
-    public void httpPost() {
-        OkHttpClient client = LoginPresenter.getHttpClient();
-    }
-
-    /**
-     * 测试方法
      * 获取GPS信息
      */
     public void getLocation() {
@@ -215,6 +200,21 @@ public class MainAtvPresenter {
         }
     }
 
+    /**
+     * 向服务器上报GPS信息
+     * @param lat 维度
+     * @param lng 经度
+     */
+    private void postGPSLocation(double lat, double lng) {
+
+        /**消息的服务质量*/
+        int qos=0;
+        /**消息是否保持*/
+        boolean retain=false;
+        /**要发布的消息内容*/
+        byte[] message = ("Latitude : " + lat + ", Longitude : " + lng).getBytes();
+    }
+
     public void onDestroy() {
         if (!checkLocationPermission()){
             return;
@@ -238,6 +238,14 @@ public class MainAtvPresenter {
         }
 
         return true;
+    }
+
+    public void arriveDest() {
+
+    }
+
+    public void closeCase() {
+
     }
 
     /*public void initMQTT(MainActivity mainActivity) {
