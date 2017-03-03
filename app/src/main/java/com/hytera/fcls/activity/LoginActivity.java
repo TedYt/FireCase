@@ -117,7 +117,9 @@ public class LoginActivity extends Activity implements ILogin {
         /** 登录时保存用户名和密码 */
         saveLoginInfo();
         disableAllView();
-        loginPresenter.Login();
+        login_btn.setText(getString(R.string.logining));
+        loginPresenter.Login(login_password.getText().toString(),
+                    login_username.getText().toString());
     }
 
     private void disableAllView() {
@@ -165,6 +167,8 @@ public class LoginActivity extends Activity implements ILogin {
     public void LoginFailed() {
         Log.i(TAG, "LoginFailed");
         enableAllView();
+        login_btn.setText(R.string.login_again);
+        login_btn.setBackgroundColor(getResources().getColor(R.color.login_failed_color));
         Toast.makeText(this, "LoginFailed", Toast.LENGTH_SHORT).show();
     }
 
