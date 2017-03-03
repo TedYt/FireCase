@@ -1,5 +1,7 @@
 package com.hytera.fcls.presenter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -21,13 +23,20 @@ import okhttp3.Response;
 
 public class LoginPresenter {
 
-    public static final String TAG = "y20650" + LoginPresenter.class.getSimpleName();
+    private static final String TAG = "y20650" + LoginPresenter.class.getSimpleName();
+    private static final String LOGIN_XML = "Login";
+    private static final String KEY_USERNAME = "username";
+    private static final String KEY_PASSWORD = "password";
+    private static final String KEY_CHECKED = "checked_remember";
 
     private ILogin iLogin;
 
+    private Context context;
+
     private final String URL = "http://192.168.72.37:8080/HyteraBS/flow/gooFlow/query";
 
-    public LoginPresenter(ILogin iLogin) {
+    public LoginPresenter(ILogin iLogin, Context context) {
+        this.context = context;
         this.iLogin = iLogin;
     }
 
@@ -56,16 +65,16 @@ public class LoginPresenter {
                 .subscribe(new Consumer<String>() {
                     @Override
                     public void accept(String body) throws Exception {
-                        // (!body.isEmpty()){
+                         if(!body.isEmpty()){
                             iLogin.LoginSuccess();
                             //response.body().string();
                             Log.i(TAG, "Response Message is :" + ", body is : " + body);
                             FireCaseBean bean = new FireCaseBean();
                             Gson gson = new Gson();
                             //gson.fromJson()
-                        //}else {
-                        //    iLogin.LoginFailed();
-                        //}
+                        }else {
+                            iLogin.LoginFailed();
+                        }
                     }
                 });
 
@@ -91,6 +100,66 @@ public class LoginPresenter {
             }
         }).start();
         */
+    }
+
+    public void onCheckedChange(boolean checked) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(LOGIN_XML,0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(KEY_CHECKED, checked);
+        editor.apply();
+    }
+
+    /**
+     * 是否有选择 记住密码
+     * @return
+     */
+    public boolean isCheckRemPas() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(LOGIN_XML,0);
+        return sharedPreferences.getBoolean(KEY_CHECKED,false);
+    }
+
+    /**
+     * 获取密码
+     * @return
+     */
+    public String getPassword() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(LOGIN_XML,0);
+        return sharedPreferences.getString(KEY_PASSWORD,"");
+    }
+
+    /**
+     * 获取用户名
+     * @return
+     */
+    public String getName() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(LOGIN_XML,0);
+        return sharedPreferences.getString(KEY_USERNAME,"");
+    }
+
+    /**
+     * 保存密码
+     * @param password
+     */
+    public void savePassword(String password) {
+        if (password.isEmpty()) return;
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(LOGIN_XML,0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_PASSWORD, password);
+        editor.apply();
+    }
+
+    /**
+     * 保存用户名
+     * @param name
+     */
+    public void saveName(String name) {
+        if(name.isEmpty()) return;
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(LOGIN_XML,0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_USERNAME, name);
+        editor.apply();
     }
 
 }

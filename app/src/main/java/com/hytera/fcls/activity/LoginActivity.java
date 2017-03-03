@@ -10,6 +10,8 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,15 +22,16 @@ import com.hytera.fcls.presenter.LoginPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 /**
  * Created by Tim on 17/2/25.
  */
 
-public class LoginAtivity extends Activity implements ILogin {
+public class LoginActivity extends Activity implements ILogin {
 
-    private static final String TAG = "y20650" + LoginAtivity.class.getSimpleName();
+    private static final String TAG = "y20650" + LoginActivity.class.getSimpleName();
 
     @BindView(R.id.login_btn)
     protected Button login_btn;
@@ -38,6 +41,8 @@ public class LoginAtivity extends Activity implements ILogin {
     protected EditText login_username;
     @BindView(R.id.test_response_body)
     protected TextView forTest;
+    @BindView(R.id.checkbox_remember_password)
+    protected CheckBox remember_password;
 
     private LoginPresenter loginPresenter;
 
@@ -62,7 +67,7 @@ public class LoginAtivity extends Activity implements ILogin {
 
         ButterKnife.bind(this);
 
-        loginPresenter = new LoginPresenter(this);
+        loginPresenter = new LoginPresenter(this,this);
 
         initView();
     }
@@ -82,13 +87,58 @@ public class LoginAtivity extends Activity implements ILogin {
                 changeLoginBtnState();
             }
         });
+
+        /** 初始化姓名 密码 */
+        boolean checked = loginPresenter.isCheckRemPas();
+        remember_password.setChecked(checked);
+        login_username.setText(loginPresenter.getName());
+        if (checked){
+            login_password.setText(loginPresenter.getPassword());
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        /** 返回时保存用户名和密码 */
+        saveLoginInfo();
+        super.onBackPressed();
+    }
+
+    private void saveLoginInfo(){
+        if (loginPresenter.isCheckRemPas()){
+            loginPresenter.savePassword(login_password.getText().toString());
+        }
+        loginPresenter.saveName(login_username.getText().toString());
     }
 
     @OnClick(R.id.login_btn)
     public void onClickAction(View view){
         Log.i(TAG, "onClickAction");
+        /** 登录时保存用户名和密码 */
+        saveLoginInfo();
+        disableAllView();
         loginPresenter.Login();
+    }
 
+    private void disableAllView() {
+        login_username.setEnabled(false);
+        login_password.setEnabled(false);
+        remember_password.setEnabled(false);
+        login_btn.setEnabled(false);
+    }
+
+    private void enableAllView(){
+        login_username.setEnabled(true);
+        login_password.setEnabled(true);
+        remember_password.setEnabled(true);
+        login_btn.setEnabled(true);
+    }
+
+
+    @OnCheckedChanged(R.id.checkbox_remember_password)
+    protected void OnCheckedChanged(CompoundButton cb, boolean checked){
+        Log.i(TAG, "OnCheckedChanged : " + checked);
+        loginPresenter.onCheckedChange(checked);
     }
 
     public void changeLoginBtnState(){
@@ -114,11 +164,12 @@ public class LoginAtivity extends Activity implements ILogin {
     @Override
     public void LoginFailed() {
         Log.i(TAG, "LoginFailed");
+        enableAllView();
         Toast.makeText(this, "LoginFailed", Toast.LENGTH_SHORT).show();
     }
 
     /**
-     * 辅助类
+     * 辅助类,只是为了让代码看起来更简洁些
      */
     class MyTextWatcher implements TextWatcher{
         @Override

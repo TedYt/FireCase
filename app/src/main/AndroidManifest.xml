@@ -36,11 +36,11 @@
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
-            <intent-filter android:priority="2147483647">
+            <!--<intent-filter android:priority="2147483647">
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity
             android:name=".activity.KeepAliveActivity"
@@ -51,16 +51,14 @@
             android:process=":live"
             android:theme="@style/LiveActivityStyle" />
         <activity
-            android:name=".activity.LoginAtivity"
+            android:name=".activity.LoginActivity"
             android:excludeFromRecents="true"
             android:screenOrientation="portrait">
 
-            <!--
             <intent-filter android:priority="2147483647">
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            -->
         </activity>
 
         <activity android:name=".activity.NaviActivity"

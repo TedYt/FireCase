@@ -91,7 +91,7 @@ public class MainActivity extends Activity implements IMainAtv {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(MainActivity.this, LoginAtivity.class);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         }).start();

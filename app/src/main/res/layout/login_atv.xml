@@ -22,13 +22,29 @@
         android:layout_marginLeft="@dimen/login_atv_view_margin"
         android:layout_marginRight="@dimen/login_atv_view_margin"
         android:hint="@string/login_input_password_hint"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <CheckBox
+            android:id="@+id/checkbox_remember_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:layout_marginLeft="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_remember_password"/>
+    </LinearLayout>
     <Button
         android:id="@+id/login_btn"
         android:layout_width="match_parent"
         android:layout_height="@dimen/login_atv_view_height"
         android:layout_marginLeft="@dimen/login_atv_view_margin"
         android:layout_marginRight="@dimen/login_atv_view_margin"
-        android:text="@string/login"/>
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/login" />
     <TextView
         android:id="@+id/test_response_body"
         android:layout_width="match_parent"
