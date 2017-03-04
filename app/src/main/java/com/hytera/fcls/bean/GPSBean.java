@@ -9,25 +9,38 @@ public class GPSBean extends BaseBean {
     /**
      * 维度
      */
-    private double lat;
+    private double latitude;
     /**
      * 经度
      */
-    private double lng;
+    private double longitude;
 
-    public double getLat() {
-        return lat;
+    /**
+     * 上报GPS时间
+     */
+    private long gpsDateTime;
+
+    public long getGpsDateTime() {
+        return gpsDateTime;
     }
 
-    public void setLat(double lat) {
-        this.lat = lat;
+    public void setGpsDateTime(long gpsDateTime) {
+        this.gpsDateTime = gpsDateTime;
     }
 
-    public double getLng() {
-        return lng;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setLng(double lng) {
-        this.lng = lng;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }

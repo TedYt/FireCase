@@ -60,7 +60,7 @@ public class MainActivity extends Activity implements IMainAtv {
 
         ButterKnife.bind(this);
 
-        textView.setText("ButterKnife");
+        textView.setText("ButterKnife");// 测试
 
         Intent intent1 = new Intent(this, FireService.class);
         startService(intent1);
@@ -128,16 +128,17 @@ public class MainActivity extends Activity implements IMainAtv {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mainPresenter.onDestroy();
     }
 
     @Override
     public void updateLocation(double latitude, double longitude) {
-
+        textView.setText(latitude + ", " + longitude);// 测试
     }
 
     @Override
     public void showLogInMain(String s) {
-
+        textView.setText(s);// 测试
     }
 
     private boolean checkCameraPermissoin(){
@@ -224,8 +225,9 @@ public class MainActivity extends Activity implements IMainAtv {
                     break;
                 case 2 :
                     Toast.makeText(MainActivity.this, "出发", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this,NaviActivity.class);
-                    startActivity(intent);
+                    mainPresenter.getLocation();
+                    //Intent intent = new Intent(MainActivity.this,NaviActivity.class);
+                    //startActivity(intent);
                     break;
                 case 3 :
                     Toast.makeText(MainActivity.this, "确认到达", Toast.LENGTH_SHORT).show();

@@ -10,10 +10,6 @@ public class BaseBean {
      * 警情ID : 标识唯一警情
      */
     public String caseID;
-    /**
-     * 时间戳 上报状态的时间
-     */
-    public String time;
 
     /**
      * 警员身份
@@ -26,14 +22,6 @@ public class BaseBean {
 
     public void setCaseID(String caseID) {
         this.caseID = caseID;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
     }
 
     public UserBean getUserBean() {

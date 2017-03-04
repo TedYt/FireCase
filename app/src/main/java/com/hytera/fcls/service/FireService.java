@@ -12,9 +12,11 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.hytera.fcls.IMQConn;
 import com.hytera.fcls.R;
 import com.hytera.fcls.activity.MainActivity;
+import com.hytera.fcls.bean.FireCaseBean;
 import com.hytera.fcls.mqtt.MQTT;
 import com.hytera.fcls.mqtt.event.MessageEvent;
 import com.hytera.fcls.presenter.MPPresenter;
@@ -31,7 +33,7 @@ import java.io.IOException;
 
 public class FireService extends Service implements IMQConn {
 
-    public static final String TAG = "y2060" + FireService.class.getSimpleName();
+    public static final String TAG = "y20650" + FireService.class.getSimpleName();
 
     public static final String FIRE_ALARM_FILE = "firealarm.wav";
 
@@ -87,7 +89,7 @@ public class FireService extends Service implements IMQConn {
 
     /**
      * EvenBus的 回调函数
-     * 在后台接受消息
+     * 在后台接受消息, 有新警情时，会首先传到这里
      * @param event
      */
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
@@ -98,10 +100,14 @@ public class FireService extends Service implements IMQConn {
 
         String msg = new String(event.getMqttMessage().getPayload());
         String title = "新警情";
-        Log.i(TAG, "getMessage from MQ : " + event.getString()
+        Log.i(TAG, "getMessage from MQ : "
                 + ", topic is : " + event.getTopic()
-                + "message is : " + new String(event.getMqttMessage().getPayload()));
-        showNotification(title, msg, false);
+                + "; message is : " + new String(event.getMqttMessage().getPayload()));
+
+        Gson gson = new Gson();
+        FireCaseBean fireCase = gson.fromJson(msg,FireCaseBean.class);
+        showNotification(fireCase.getCompDeptName(), fireCase.getCaseDesc(), false);
+
         playFireAlarm();
     }
 

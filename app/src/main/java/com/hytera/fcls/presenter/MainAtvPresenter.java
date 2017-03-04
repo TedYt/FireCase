@@ -61,7 +61,6 @@ public class MainAtvPresenter {
                 /** 在这里处理位置信息上报 */
                 MQTT mqtt = MQTT.getInstance();
                 mqtt.postGPSLocation(Lat, Lng);
-                postGPSLocation(Lat, Lng);
             }
         }
 
@@ -170,6 +169,8 @@ public class MainAtvPresenter {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             iMainAtv.showLogInMain("GPS_Provider is enable");
+            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+            //        LOCATION_UPDATE_TIME, 0, locationListener);
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (location != null) {
                 latitude = location.getLatitude();
@@ -178,7 +179,9 @@ public class MainAtvPresenter {
                         + ", Lng : " + longitude);
             }
         } else {
-            iMainAtv.showLogInMain("NETWORK_Provider is enable");
+            //MQTT mqtt = MQTT.getInstance();
+            //mqtt.postGPSLocation(110.110, 119.119);
+            //iMainAtv.showLogInMain("NETWORK_Provider is enable");
             /**
              * 绑定监听
              * 参数1：获取GPS的方式：GPS 还是 NETWORK
@@ -198,21 +201,6 @@ public class MainAtvPresenter {
                         + ", Lng : " + longitude);
             }
         }
-    }
-
-    /**
-     * 向服务器上报GPS信息
-     * @param lat 维度
-     * @param lng 经度
-     */
-    private void postGPSLocation(double lat, double lng) {
-
-        /**消息的服务质量*/
-        int qos=0;
-        /**消息是否保持*/
-        boolean retain=false;
-        /**要发布的消息内容*/
-        byte[] message = ("Latitude : " + lat + ", Longitude : " + lng).getBytes();
     }
 
     public void onDestroy() {
@@ -247,10 +235,5 @@ public class MainAtvPresenter {
     public void closeCase() {
 
     }
-
-    /*public void initMQTT(MainActivity mainActivity) {
-        MQTT mqtt = new MQTT(mainActivity);
-        EventBus.getDefault().register(mainActivity);
-    }*/
 
 }

@@ -47,9 +47,9 @@ public class LoginResponseBean {
 
         private String userCode;
         private String staffName;
-        private Object orgGuid;
-        private Object orgIdentifier;
-        private Object orgName;
+        private String orgGuid;
+        private String orgIdentifier;
+        private String orgName;
         private String loginTime;
         private String ip;
         private String token; // 用户的访问凭证，上报服务器要带有
@@ -70,27 +70,27 @@ public class LoginResponseBean {
             this.staffName = staffName;
         }
 
-        public Object getOrgGuid() {
+        public String getOrgGuid() {
             return orgGuid;
         }
 
-        public void setOrgGuid(Object orgGuid) {
+        public void setOrgGuid(String orgGuid) {
             this.orgGuid = orgGuid;
         }
 
-        public Object getOrgIdentifier() {
+        public String getOrgIdentifier() {
             return orgIdentifier;
         }
 
-        public void setOrgIdentifier(Object orgIdentifier) {
+        public void setOrgIdentifier(String orgIdentifier) {
             this.orgIdentifier = orgIdentifier;
         }
 
-        public Object getOrgName() {
+        public String getOrgName() {
             return orgName;
         }
 
-        public void setOrgName(Object orgName) {
+        public void setOrgName(String orgName) {
             this.orgName = orgName;
         }
 

@@ -5,7 +5,9 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.hytera.fcls.ILogin;
+import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.activity.LoginActivity;
+import com.hytera.fcls.bean.LoginResponseBean;
 
 /**
  * Created by Tim on 17/2/25.
@@ -14,11 +16,6 @@ import com.hytera.fcls.activity.LoginActivity;
 public class LoginPresenter {
 
     private static final String TAG = "y20650" + LoginPresenter.class.getSimpleName();
-
-    private static final String LOGIN_XML = "Login";
-    private static final String KEY_USERNAME = "username";
-    private static final String KEY_PASSWORD = "password";
-    private static final String KEY_CHECKED = "checked_remember";
 
     private static final int LOGIN_STATE_SUCCESS = 0;
     private static final int LOGIN_STATE_FAILED = 1;
@@ -46,9 +43,10 @@ public class LoginPresenter {
                 Log.i(TAG, "response is : " + response);
                 Gson gson = new Gson();
                 LoginResponseBean bean = gson.fromJson(response, LoginResponseBean.class);
-                if (bean.getUser() == null){
+                if (response == null || bean.getUser() == null){
                     context.runOnUiThread(new LoginFailureRunnable());
                 }else {
+                    DataUtil.saveLoginResponseBean(bean);
                     context.runOnUiThread(new LoginSuccessRunnable());
                 }
             }
@@ -70,9 +68,9 @@ public class LoginPresenter {
     }
 
     public void onCheckedChange(boolean checked) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(LOGIN_XML,0);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(KEY_CHECKED, checked);
+        editor.putBoolean(DataUtil.KEY_CHECKED, checked);
         editor.apply();
     }
 
@@ -81,8 +79,8 @@ public class LoginPresenter {
      * @return
      */
     public boolean isCheckRemPas() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(LOGIN_XML,0);
-        return sharedPreferences.getBoolean(KEY_CHECKED,false);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
+        return sharedPreferences.getBoolean(DataUtil.KEY_CHECKED,false);
     }
 
     /**
@@ -90,8 +88,8 @@ public class LoginPresenter {
      * @return
      */
     public String getPassword() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(LOGIN_XML,0);
-        return sharedPreferences.getString(KEY_PASSWORD,"");
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
+        return sharedPreferences.getString(DataUtil.KEY_PASSWORD,"");
     }
 
     /**
@@ -99,8 +97,8 @@ public class LoginPresenter {
      * @return
      */
     public String getName() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(LOGIN_XML,0);
-        return sharedPreferences.getString(KEY_USERNAME,"");
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
+        return sharedPreferences.getString(DataUtil.KEY_USERNAME,"");
     }
 
     /**
@@ -110,9 +108,9 @@ public class LoginPresenter {
     public void savePassword(String password) {
         if (password.isEmpty()) return;
 
-        SharedPreferences sharedPreferences = context.getSharedPreferences(LOGIN_XML,0);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KEY_PASSWORD, password);
+        editor.putString(DataUtil.KEY_PASSWORD, password);
         editor.apply();
     }
 
@@ -123,9 +121,9 @@ public class LoginPresenter {
     public void saveName(String name) {
         if(name.isEmpty()) return;
 
-        SharedPreferences sharedPreferences = context.getSharedPreferences(LOGIN_XML,0);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KEY_USERNAME, name);
+        editor.putString(DataUtil.KEY_USERNAME, name);
         editor.apply();
     }
 
