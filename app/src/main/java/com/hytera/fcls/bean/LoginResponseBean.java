@@ -1,9 +1,12 @@
-package com.hytera.fcls.presenter;
+package com.hytera.fcls.bean;
 
 /**
  * Created by Tim on 17/3/3.
  */
 
+/**
+ * 登录后，服务器返回的信息
+ */
 public class LoginResponseBean {
 
     /**
@@ -49,7 +52,7 @@ public class LoginResponseBean {
         private Object orgName;
         private String loginTime;
         private String ip;
-        private String token;
+        private String token; // 用户的访问凭证，上报服务器要带有
 
         public String getUserCode() {
             return userCode;
