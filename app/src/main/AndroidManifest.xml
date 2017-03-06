@@ -80,6 +80,13 @@
 
         <!-- Mqtt Service 这是个大坑，必须加 -->
         <service android:name="org.eclipse.paho.android.service.MqttService" />
+        <!-- 定位需要的服务 使用2.0的定位需要加上这个 -->
+        <service android:name="com.amap.api.location.APSService"></service>
+
+        <service
+            android:name=".service.AmapGpsService"
+            android:enabled="true"
+            android:exported="true"/>
     </application>
 
 </manifest>

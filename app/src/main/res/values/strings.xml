@@ -3,5 +3,6 @@
     <string name="login_input_username_hint">Please input your ID</string>
     <string name="login_input_password_hint">Please input password</string>
     <string name="login">LogIn</string>
+    <string name="app_id">ppid</string>
     <string name="login_again">Login One More Time</string>
 </resources>

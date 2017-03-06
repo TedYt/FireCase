@@ -19,11 +19,15 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.hytera.fcls.DataUtil;
+import com.amap.api.maps.AMapUtils;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.NaviPara;
 import com.hytera.fcls.IMainAtv;
 import com.hytera.fcls.activity.MainActivity;
 import com.hytera.fcls.bean.CaseStateBean;
 import com.hytera.fcls.bean.LoginResponseBean;
 import com.hytera.fcls.mqtt.MQTT;
+import com.hytera.fcls.service.AmapGpsService;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -288,8 +292,42 @@ public class MainAtvPresenter {
             userBean.setOrgGuid("1234");
             caseStateBean.setUserBean(userBean);
         }
+    }
+    //开始出发
+    public void depart(){
+        //1.开始导航
+        //外部导航
+        InstatNav();
+        //内部导航暂未修订
+        //修改内置
+//                    Intent intent = new Intent(MainActivity.this,NaviActivity.class);
+//                    startActivity(intent);
+        //2.开启服务上传定位结果
+         Intent startGpsLocation =new Intent(context, AmapGpsService.class);
+         context.startService(startGpsLocation);
+         Log.d(TAG, "depart: 开始导航服务开启");
+    }
 
         Gson gson = new Gson();
         return gson.toJson(caseStateBean);
+    }
+    //手写一个方法导航
+    public void InstatNav(){
+        //创建一个虚拟位置
+        LatLng fakepostion = new LatLng(23.534606,114.943771);
+        // 构造导航参数
+        NaviPara naviPara = new NaviPara();
+        // 设置终点位置
+        naviPara.setTargetPoint(fakepostion);
+        // 设置导航策略，这里是避免拥堵
+        naviPara.setNaviStyle(AMapUtils.DRIVING_AVOID_CONGESTION);
+        try {
+            // 调起高德地图导航
+            AMapUtils.openAMapNavi(naviPara, context);
+        } catch (com.amap.api.maps.AMapException e) {
+            // 如果没安装会进入异常，调起下载页面
+            AMapUtils.getLatestAMapApp(context);
+        }
+//        mAMap.clear();
     }
 }

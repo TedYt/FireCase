@@ -5,4 +5,10 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorRed">#d40505</color>
     <color name="login_failed_color">#fc5f5f</color>
+
+    <color name="grey"> #ebebeb</color>
+    <color name="black"> #000000</color>
+    <color name="darkgrey"> #C0C0C0</color>
+    <color name="white"> #FFFFFF</color>
+    <color name="red"> #FF0000</color>
 </resources>

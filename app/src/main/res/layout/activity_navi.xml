@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_navi"
     android:layout_width="match_parent"
@@ -11,4 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
     </com.amap.api.maps.MapView>
-</RelativeLayout>
+    <TextView
+        android:id="@+id/location_errInfo_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="@color/red"
+        android:textColor="@color/darkgrey"
+        android:text="TextView"
+        android:visibility="gone"/>
+</FrameLayout>

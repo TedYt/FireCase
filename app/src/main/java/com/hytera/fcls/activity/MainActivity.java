@@ -225,9 +225,9 @@ public class MainActivity extends Activity implements IMainAtv {
                     break;
                 case 2 :
                     Toast.makeText(MainActivity.this, "出发", Toast.LENGTH_SHORT).show();
-                    mainPresenter.getLocation();
-                    //Intent intent = new Intent(MainActivity.this,NaviActivity.class);
-                    //startActivity(intent);
+                    // 获取之前定位位置，如果之前未曾定位，则重新定位
+                    //应先判断是否有gps信息数据，没有应该不开启
+                    mainPresenter.depart();
                     break;
                 case 3 :
                     Toast.makeText(MainActivity.this, "确认到达", Toast.LENGTH_SHORT).show();

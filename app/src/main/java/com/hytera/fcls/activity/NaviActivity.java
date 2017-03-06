@@ -6,13 +6,23 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Window;
+
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMap;
+import com.amap.api.maps.AMapUtils;
+import com.amap.api.maps.CameraUpdate;
+import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.MarkerOptions;
+import com.amap.api.maps.model.NaviPara;
 import com.amap.api.maps.model.Poi;
 import com.hytera.fcls.R;
 
@@ -27,10 +37,19 @@ public class NaviActivity extends Activity implements LocationSource, AMapLocati
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);// 不显示程序的标题栏
         setContentView(R.layout.activity_navi);
         initview(savedInstanceState);
         initLocationManager();
 //        initMap();
+        LatLng case2 = new LatLng(22.534606,113.943771);//纬度，精度
+        MarkerOptions testicon2 =new MarkerOptions().position(case2)
+                .snippet("着火了")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.fire))
+                .title("ddd")
+                .draggable(true)
+                .visible(true);
+        aMap.addMarker(testicon2);
     }
 
     private void initLocationManager() {
@@ -49,8 +68,10 @@ public class NaviActivity extends Activity implements LocationSource, AMapLocati
              }
 
              @Override
-             public void onProviderEnabled(String s) {
-
+             public void onProviderEnabled(String provider) {
+                    // 使用GPS提供的定位信息来更新位置
+                 updatePosition(locMgr
+                         .getLastKnownLocation(provider));
              }
 
              @Override
@@ -61,12 +82,30 @@ public class NaviActivity extends Activity implements LocationSource, AMapLocati
     }
     //更新位置
     private void updatePosition(Location location) {
+        LatLng pos = new LatLng(location.getLatitude(),location.getLongitude());
+
+        // 创建一个设置经纬度的CameraUpdate
+        CameraUpdate cu = CameraUpdateFactory.changeLatLng(pos);
+        // 更新地图的显示区域
+        aMap.moveCamera(cu);
+        // 清除所有Marker等覆盖物
+        aMap.clear();
+        MarkerOptions markerOptions = new MarkerOptions()
+                .position(pos)
+                .title("着火了怎么办")
+                .snippet("速呼119，119，119")
+                // 设置使用自定义图标
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.car))
+                .draggable(true);
+        // 添加Marker
+        aMap.addMarker(markerOptions);
 
     }
 
     private void initview(Bundle savedInstanceState) {
 
         mapView = (MapView) findViewById(R.id.amap);
+
         mapView.onCreate(savedInstanceState);// 此方法必须重写
         initMap();
     }
@@ -88,6 +127,8 @@ public class NaviActivity extends Activity implements LocationSource, AMapLocati
         aMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
         // 设置定位的类型为定位模式 ，可以由定位、跟随或地图根据面向方向旋转几种
         aMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
+
+
     }
 
     //LocationSource的接口实现方法2-1
@@ -109,6 +150,7 @@ public class NaviActivity extends Activity implements LocationSource, AMapLocati
             // 在定位结束后，在合适的生命周期调用onDestroy()方法
             // 在单次定位情况下，定位无论成功与否，都无需调用stopLocation()方法移除请求，定位sdk内部会移除
             mlocationClient.startLocation();
+
         }
     }
     //LocationSource的接口实现方法2-2
@@ -125,6 +167,23 @@ public class NaviActivity extends Activity implements LocationSource, AMapLocati
                     && aMapLocation.getErrorCode() == 0) {
 //                mLocationErrText.setVisibility(View.GONE);
                 mListener.onLocationChanged(aMapLocation);// 显示系统小蓝点
+                //TODO 测试着火点图标
+                Location mypos = aMap.getMyLocation();
+                aMapLocation.getLatitude();
+                aMapLocation.getLongitude();
+                LatLng fireposition =new LatLng(aMapLocation.getLatitude(),aMapLocation.getLatitude());
+                mypos.getLatitude();
+                mypos.getLongitude();
+                Log.e("当前经纬度1",""+mypos.getLongitude()+"dfdfdfdfd"+mypos.getLatitude());//当前经纬度: 113.943766dfdfdfdfd22.534607
+                Log.e("当前经纬度2",""+mypos.getLongitude()+"dfdfdfdfd"+mypos.getLatitude());//当前经纬度: 113.943766dfdfdfdfd22.534607
+                LatLng testfire = new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude());
+                MarkerOptions testicon =new MarkerOptions().position(fireposition)
+                        .snippet("着火了")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.fire))
+                        .title("ddd")
+                        .draggable(true)
+                        .visible(true);
+                aMap.addMarker(testicon);
             } else {
 //                String errText = "定位失败," + amapLocation.getErrorCode()+ ": " + amapLocation.getErrorInfo();
 //                Log.e("AmapErr",errText);
@@ -177,5 +236,24 @@ public class NaviActivity extends Activity implements LocationSource, AMapLocati
     @Override
     public void onPOIClick(Poi poi) {
 
+    }
+    //手写一个方法导航
+    public void InstatNav(){
+        //创建一个虚拟位置
+        LatLng fakepostion = new LatLng(39.92463,116.389139);
+        // 构造导航参数
+        NaviPara naviPara = new NaviPara();
+        // 设置终点位置
+        naviPara.setTargetPoint(fakepostion);
+        // 设置导航策略，这里是避免拥堵
+        naviPara.setNaviStyle(AMapUtils.DRIVING_AVOID_CONGESTION);
+        try {
+            // 调起高德地图导航
+            AMapUtils.openAMapNavi(naviPara, getApplicationContext());
+        } catch (com.amap.api.maps.AMapException e) {
+            // 如果没安装会进入异常，调起下载页面
+            AMapUtils.getLatestAMapApp(getApplicationContext());
+        }
+//        mAMap.clear();
     }
 }
