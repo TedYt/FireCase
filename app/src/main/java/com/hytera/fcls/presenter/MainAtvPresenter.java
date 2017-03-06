@@ -17,8 +17,12 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.IMainAtv;
 import com.hytera.fcls.activity.MainActivity;
+import com.hytera.fcls.bean.CaseStateBean;
+import com.hytera.fcls.bean.LoginResponseBean;
 import com.hytera.fcls.mqtt.MQTT;
 
 import java.io.File;
@@ -228,12 +232,64 @@ public class MainAtvPresenter {
         return true;
     }
 
+    /**
+     * 确认到达现场
+     * 上传确认到达信息
+     */
     public void arriveDest() {
-
+        DataUtil.fireCaseState = DataUtil.CASE_STATE_ARRIVE;
+        String arriveInfo = getStateInfo(DataUtil.CASE_STATE_ARRIVE);
+        Log.i(TAG, "info : " + arriveInfo);
+        HTTPPresenter.post(DataUtil.FIRE_CASE_URL, arriveInfo, new HTTPPresenter.CallBack() {
+            @Override
+            public void onResponse(String response) {
+                Log.i(TAG, "arriveDest, response is " + response);
+            }
+        });
     }
 
+    /**
+     * 结束警情，上报服务器
+     */
     public void closeCase() {
-
+        DataUtil.fireCaseState = DataUtil.CASE_STATE_FINISH;
+        String closeInfo = getStateInfo(DataUtil.CASE_STATE_FINISH);
+        Log.i(TAG, "info : " + closeInfo);
+        HTTPPresenter.post(DataUtil.FIRE_CASE_URL, closeInfo, new HTTPPresenter.CallBack() {
+            @Override
+            public void onResponse(String response) {
+                Log.i(TAG, "arriveDest, response is " + response);
+            }
+        });
     }
 
+    private String getStateInfo(int state) {
+        CaseStateBean caseStateBean = new CaseStateBean();
+        caseStateBean.setState(state);
+        caseStateBean.setUpdatetime(System.currentTimeMillis());
+        caseStateBean.setCaseID("1234567890");
+        LoginResponseBean.UserBean loginUserBean;
+        CaseStateBean.UserBean userBean;
+
+        try {
+            loginUserBean = DataUtil.getLoginUserBean();
+            userBean = new CaseStateBean.UserBean();
+            userBean.setUserCode(loginUserBean.getUserCode());
+            userBean.setToken(loginUserBean.getToken());
+            userBean.setStaffName(loginUserBean.getStaffName());
+            userBean.setOrgName(loginUserBean.getOrgName());
+            userBean.setOrgGuid(loginUserBean.getOrgGuid());
+        }catch (NullPointerException e){
+            userBean = new CaseStateBean.UserBean();
+            userBean.setUserCode("303798");
+            userBean.setToken("1E5CA34FC811430FBD401CF2187C81C1");
+            userBean.setStaffName("张大安");
+            userBean.setOrgName("新安大队");
+            userBean.setOrgGuid("1234");
+            caseStateBean.setUserBean(userBean);
+        }
+
+        Gson gson = new Gson();
+        return gson.toJson(caseStateBean);
+    }
 }

@@ -5,6 +5,7 @@ package com.hytera.fcls.presenter;
  */
 
 import android.accounts.NetworkErrorException;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -17,6 +18,8 @@ import java.net.URL;
  * 处理HTTP的get和post方法
  */
 public class NetUtils {
+
+    private static final String TAG = "y20650" + "NetUtils";
 
     public static String post(final String url, final String data){
         HttpURLConnection conn = null;
@@ -40,10 +43,12 @@ public class NetUtils {
 
             int responseCode = conn.getResponseCode(); // 调动此方法，就不用调用connect方法了
             if (responseCode == 200){
+                Log.i(TAG, "connect ok.");
                 InputStream is = conn.getInputStream();
                 return getStringFromInputStream(is);// 返回response
             }else {
-                throw new NetworkErrorException("response status is " + responseCode);
+                Log.i(TAG, "connect failed.");
+                throw new NetworkErrorException("response status is " + responseCode + "y20650");
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -68,10 +73,12 @@ public class NetUtils {
 
             int responseCode = conn.getResponseCode();
             if (responseCode == 200){
+                Log.i(TAG, "connect ok.");
                 InputStream is = conn.getInputStream();
                 return getStringFromInputStream(is); // 返回response
             }else {
-                throw new NetworkErrorException("Response status is " + responseCode);
+                Log.i(TAG, "connect failed.");
+                throw new NetworkErrorException("Response status is " + responseCode + "y20650");
             }
         } catch (Exception e) {
             e.printStackTrace();

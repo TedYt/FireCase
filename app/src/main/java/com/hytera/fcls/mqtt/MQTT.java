@@ -68,10 +68,13 @@ public class MQTT {
     }
 
     public void startConnect(IMQConn imqConn) {
-        String clientID = DataUtil.getLoginedUserBean().getUserCode();
-        if (clientID == null || clientID.isEmpty()){
+        String clientID;
+        try{
+            clientID = DataUtil.getLoginUserBean().getUserCode();
+        }catch (NullPointerException e){
             clientID = "y20650";
         }
+
 
         //服务器地址
         String  uri ="tcp://";
@@ -177,7 +180,7 @@ public class MQTT {
         userBean.setToken("1E5CA34FC811430FBD401CF2187C81C1");
         userBean.setUserCode("20650");
 */
-        LoginResponseBean.UserBean loginBean = DataUtil.getLoginedUserBean();
+        LoginResponseBean.UserBean loginBean = DataUtil.getLoginUserBean();
         userBean.setOrgGuid(loginBean.getOrgGuid());
         userBean.setOrgName(loginBean.getOrgName());
         userBean.setStaffName(loginBean.getStaffName());

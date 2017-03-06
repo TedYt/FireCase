@@ -128,7 +128,9 @@ public class LoginPresenter {
     }
 
 
-
+    /**
+     * 供主线程调用
+     */
     private class LoginFailureRunnable implements Runnable{
 
         @Override
@@ -137,6 +139,9 @@ public class LoginPresenter {
         }
     }
 
+    /**
+     * 供主线程调用
+     */
     private class LoginSuccessRunnable implements Runnable{
 
         @Override
