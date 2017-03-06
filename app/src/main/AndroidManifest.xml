@@ -68,6 +68,11 @@
         <activity android:name=".activity.DriveRoutesActivity"
             android:excludeFromRecents="true"/>
 
+        <activity android:name=".activity.FireCasePopActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Holo.Light.Dialog"/>
+
         <receiver android:name=".service.KeepLiveReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.SCREEN_OFF" />

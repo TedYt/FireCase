@@ -8,13 +8,16 @@ import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.IMQConn;
 import com.hytera.fcls.R;
+import com.hytera.fcls.activity.FireCasePopActivity;
 import com.hytera.fcls.activity.MainActivity;
 import com.hytera.fcls.bean.FireCaseBean;
 import com.hytera.fcls.mqtt.MQTT;
@@ -106,13 +109,40 @@ public class FireService extends Service implements IMQConn {
 
         Gson gson = new Gson();
         FireCaseBean fireCase = gson.fromJson(msg,FireCaseBean.class);
-        if (!copyThisCase(fireCase)) return;
-        showNotification(fireCase.getCompDeptName(), fireCase.getCaseDesc(), false);
 
+        if (!copyThisCase(fireCase)) return;
+
+        showCasePop(fireCase);
+        showNotification(fireCase.getCompDeptName(), fireCase.getCaseDesc(), false);
         playFireAlarm();
     }
 
+    /**
+     * 显示新警情
+     * @param fireCase
+     */
+    private void showCasePop(FireCaseBean fireCase) {
+        Intent intent = new Intent(this, FireCasePopActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(DataUtil.EXTRA_FIRE_DESC, fireCase.getCaseDesc());// 警情描述
+        bundle.putString(DataUtil.EXTRA_FIRE_LEVERL, fireCase.getCaseLevel());// 警情级别
+        bundle.putString(DataUtil.EXTRA_FIRE_DEPR, fireCase.getCompDeptName());// 主管中队
+        intent.putExtra("data", bundle);
+
+        startActivity(intent);
+    }
+
+    /**
+     * 判断是否接收这个警情
+     * @param fireCase
+     * @return
+     */
     private boolean copyThisCase(FireCaseBean fireCase) {
+        // 当有警情在处理的时，就不接受新警情
+        if(DataUtil.fireCaseState > DataUtil.CASE_STATE_INIT &&
+                DataUtil.fireCaseState < DataUtil.CASE_STATE_FINISH){
+            return false;
+        }
         return true;
     }
 

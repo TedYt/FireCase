@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.amap.api.location.AMapLocation;
 import com.hytera.fcls.comutil.GpsUtil;
-import com.hytera.fcls.presenter.NetUtils;
+import com.hytera.fcls.mqtt.MQTT;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -95,8 +95,8 @@ public class AmapGpsService extends Service {
                 "gps状态"+ aMapLocation.getGpsAccuracyStatus()+"\r \n"+
                 "gps来源"+ aMapLocation.getLocationType()+"\r \n"
         );
-        //TODO 开启上传
-//        NetUtils.post();
-
+        // 上传位置信息
+        MQTT mqtt = MQTT.getInstance();
+        mqtt.pushGPSLocation(aMapLocation.getLatitude(), aMapLocation.getLongitude());
     }
 }

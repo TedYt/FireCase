@@ -9,4 +9,7 @@
     <string name="default_noti_content">天下太平</string>
     <string name="login_again">登录失败，请检查后重试</string>
     <string name="logining">正在登录…</string>
+    <string name="fire_case_no_copy">不接收</string>
+    <string name="fire_case_copy">接收</string>
+    <string name="fire_case_pop_hint">请点击接收或不接收</string>
 </resources>

@@ -16,16 +16,14 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.hytera.fcls.DataUtil;
 import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.NaviPara;
+import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.IMainAtv;
 import com.hytera.fcls.activity.MainActivity;
-import com.hytera.fcls.bean.CaseStateBean;
-import com.hytera.fcls.bean.LoginResponseBean;
 import com.hytera.fcls.mqtt.MQTT;
 import com.hytera.fcls.service.AmapGpsService;
 
@@ -52,7 +50,7 @@ public class MainAtvPresenter {
 
     private Context context;
 
-    /** 具体实现 */
+    /** 上传位置信息在 AmapGpsService 实现 */
     private LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
@@ -68,7 +66,7 @@ public class MainAtvPresenter {
                 iMainAtv.updateLocation(location.getLatitude(), location.getLongitude());
                 /** 在这里处理位置信息上报 */
                 MQTT mqtt = MQTT.getInstance();
-                mqtt.postGPSLocation(Lat, Lng);
+                mqtt.pushGPSLocation(Lat, Lng);
             }
         }
 
@@ -188,7 +186,7 @@ public class MainAtvPresenter {
             }
         } else {
             //MQTT mqtt = MQTT.getInstance();
-            //mqtt.postGPSLocation(110.110, 119.119);
+            //mqtt.pushGPSLocation(110.110, 119.119);
             //iMainAtv.showLogInMain("NETWORK_Provider is enable");
             /**
              * 绑定监听
@@ -239,77 +237,67 @@ public class MainAtvPresenter {
     /**
      * 确认到达现场
      * 上传确认到达信息
+     * 上传图片
      */
     public void arriveDest() {
-        DataUtil.fireCaseState = DataUtil.CASE_STATE_ARRIVE;
+        if (DataUtil.fireCaseState != DataUtil.CASE_STATE_DEPART){
+            Log.w(TAG, "last state is not Depart");
+            Toast.makeText(context, "请先出发", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         //到达后停止gps上传服务
         Intent stopGpsUpLoad = new Intent(context,AmapGpsService.class);
         context.stopService(stopGpsUpLoad);
 
-        String arriveInfo = getStateInfo(DataUtil.CASE_STATE_ARRIVE);
-        Log.i(TAG, "info : " + arriveInfo);
-        HTTPPresenter.post(DataUtil.FIRE_CASE_URL, arriveInfo, new HTTPPresenter.CallBack() {
-            @Override
-            public void onResponse(String response) {
-                Log.i(TAG, "arriveDest, response is " + response);
-            }
-        });
+        postState(DataUtil.CASE_STATE_ARRIVE);
     }
 
     /**
      * 结束警情，上报服务器
      */
     public void closeCase() {
-        DataUtil.fireCaseState = DataUtil.CASE_STATE_FINISH;
-        String closeInfo = getStateInfo(DataUtil.CASE_STATE_FINISH);
-        Log.i(TAG, "info : " + closeInfo);
-        HTTPPresenter.post(DataUtil.FIRE_CASE_URL, closeInfo, new HTTPPresenter.CallBack() {
+        if (DataUtil.fireCaseState != DataUtil.CASE_STATE_ARRIVE){
+            Log.w(TAG, "last state is not arrive");
+            Toast.makeText(context, "还未确认到达现场", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        postState(DataUtil.CASE_STATE_FINISH);
+    }
+
+    private void postState(final int state) {
+        DataUtil.fireCaseState = state;
+        String closeInfo = DataUtil.getStateInfo(DataUtil.CASE_STATE_FINISH);
+        Log.i(TAG, "close case Info : " + closeInfo);
+        HTTPPresenter.post(DataUtil.FIRE_CASE_URL, "jsonStr=" + closeInfo, new HTTPPresenter.CallBack() {
             @Override
             public void onResponse(String response) {
-                Log.i(TAG, "arriveDest, response is " + response);
+                Log.i(TAG, "state = " + state + "arriveDest, response is " + response);
             }
         });
     }
 
-    private String getStateInfo(int state) {
-        CaseStateBean caseStateBean = new CaseStateBean();
-        caseStateBean.setState(state);
-        caseStateBean.setUpdatetime(System.currentTimeMillis());
-        caseStateBean.setCaseID("1234567890");
-        LoginResponseBean.UserBean loginUserBean;
-        CaseStateBean.UserBean userBean;
-
-        try {
-            loginUserBean = DataUtil.getLoginUserBean();
-            userBean = new CaseStateBean.UserBean();
-            userBean.setUserCode(loginUserBean.getUserCode());
-            userBean.setToken(loginUserBean.getToken());
-            userBean.setStaffName(loginUserBean.getStaffName());
-            userBean.setOrgName(loginUserBean.getOrgName());
-            userBean.setOrgGuid(loginUserBean.getOrgGuid());
-        }catch (NullPointerException e){
-            userBean = new CaseStateBean.UserBean();
-            userBean.setUserCode("303798");
-            userBean.setToken("1E5CA34FC811430FBD401CF2187C81C1");
-            userBean.setStaffName("张大安");
-            userBean.setOrgName("新安大队");
-            userBean.setOrgGuid("1234");
-            caseStateBean.setUserBean(userBean);
-        }
-        Gson gson = new Gson();
-        return gson.toJson(caseStateBean);
-    }
-
-    //开始出发
+    /**
+     * 出发去现场
+     */
     public void depart(){
+        if (DataUtil.fireCaseState != DataUtil.CASE_STATE_COPY){
+            Log.w(TAG, "last state is not copy");
+            Toast.makeText(context, "请先接警!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        postState(DataUtil.CASE_STATE_DEPART);
+
         //1.开始导航
         //外部导航
         InstatNav();
+
         //内部导航暂未修订
         //修改内置
-//                    Intent intent = new Intent(MainActivity.this,NaviActivity.class);
-//                    startActivity(intent);
+//      Intent intent = new Intent(MainActivity.this,NaviActivity.class);
+//      startActivity(intent);
+
         //2.开启服务上传定位结果
          Intent startGpsLocation =new Intent(context, AmapGpsService.class);
          context.startService(startGpsLocation);

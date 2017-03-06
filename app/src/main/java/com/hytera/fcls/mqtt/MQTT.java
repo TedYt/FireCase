@@ -128,24 +128,21 @@ public class MQTT {
      * @param lat
      * @param lng
      */
-    public void postGPSLocation(double lat, double lng) {
+    public void pushGPSLocation(double lat, double lng) {
         /**消息的服务质量*/
         int qos=0;
         /**消息是否保持*/
         boolean retain=false;
         /**要发布的消息内容*/
         byte[] message = getGPSMsg(lat,lng);
-        Log.i(TAG, "postGPSLocation 1");
         if(GPS_TOPIC!=null&&!"".equals(GPS_TOPIC)){
             /**获取client对象*/
             //MqttAndroidClient client = MainActivity.getMqttAndroidClientInstace();
             if(client!=null){
                 try {
-                    Log.i(TAG, "postGPSLocation 2");
                     /**发布一个主题:如果主题名一样不会新建一个主题，会复用*/
                     client.publish(GPS_TOPIC,message,qos,retain,null,new PublishCallBackHandler(context));
                 } catch (MqttException e) {
-                    Log.i(TAG, "postGPSLocation 3");
                     e.printStackTrace();
                 }
             }else{

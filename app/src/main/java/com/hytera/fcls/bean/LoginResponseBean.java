@@ -37,7 +37,7 @@ public class LoginResponseBean {
         /**
          * userCode : 303798
          * staffName : 李世兴
-         * orgGuid : null
+         * orgGuid : null 组织结构代码，用于判断是哪个机构
          * orgIdentifier : null
          * orgName : null
          * loginTime : 2017-03-03 15:37:03

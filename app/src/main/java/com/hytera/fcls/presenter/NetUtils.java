@@ -47,7 +47,7 @@ public class NetUtils {
                 InputStream is = conn.getInputStream();
                 return getStringFromInputStream(is);// 返回response
             }else {
-                Log.i(TAG, "connect failed.");
+                Log.i(TAG, "connect failed : " + responseCode);
                 throw new NetworkErrorException("response status is " + responseCode + "y20650");
             }
         }catch (Exception e){
@@ -77,7 +77,7 @@ public class NetUtils {
                 InputStream is = conn.getInputStream();
                 return getStringFromInputStream(is); // 返回response
             }else {
-                Log.i(TAG, "connect failed.");
+                Log.i(TAG, "connect failed : " + responseCode);
                 throw new NetworkErrorException("Response status is " + responseCode + "y20650");
             }
         } catch (Exception e) {
