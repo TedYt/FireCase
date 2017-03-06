@@ -13,7 +13,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.IMQConn;
 import com.hytera.fcls.R;
 import com.hytera.fcls.activity.MainActivity;
@@ -114,8 +113,7 @@ public class FireService extends Service implements IMQConn {
     }
 
     private boolean copyThisCase(FireCaseBean fireCase) {
-        if (DataUtil.fireCaseState == 0)
-        return false;
+        return true;
     }
 
     /**
