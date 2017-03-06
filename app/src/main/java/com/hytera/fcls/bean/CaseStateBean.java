@@ -12,18 +12,18 @@ public class CaseStateBean extends BaseBean {
     /**
      * 接警,出发，到达，结束
      */
-    private String state;
+    private int state;
 
     /**
      * 状态改变时间
      */
     private long updatetime;
 
-    public String getState() {
+    public int getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(int state) {
         this.state = state;
     }
 
