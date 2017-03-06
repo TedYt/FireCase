@@ -242,6 +242,11 @@ public class MainAtvPresenter {
      */
     public void arriveDest() {
         DataUtil.fireCaseState = DataUtil.CASE_STATE_ARRIVE;
+
+        //到达后停止gps上传服务
+        Intent stopGpsUpLoad = new Intent(context,AmapGpsService.class);
+        context.stopService(stopGpsUpLoad);
+
         String arriveInfo = getStateInfo(DataUtil.CASE_STATE_ARRIVE);
         Log.i(TAG, "info : " + arriveInfo);
         HTTPPresenter.post(DataUtil.FIRE_CASE_URL, arriveInfo, new HTTPPresenter.CallBack() {
@@ -292,7 +297,10 @@ public class MainAtvPresenter {
             userBean.setOrgGuid("1234");
             caseStateBean.setUserBean(userBean);
         }
+        Gson gson = new Gson();
+        return gson.toJson(caseStateBean);
     }
+
     //开始出发
     public void depart(){
         //1.开始导航
@@ -308,9 +316,6 @@ public class MainAtvPresenter {
          Log.d(TAG, "depart: 开始导航服务开启");
     }
 
-        Gson gson = new Gson();
-        return gson.toJson(caseStateBean);
-    }
     //手写一个方法导航
     public void InstatNav(){
         //创建一个虚拟位置
