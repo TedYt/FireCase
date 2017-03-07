@@ -11,4 +11,6 @@
     <color name="darkgrey"> #C0C0C0</color>
     <color name="white"> #FFFFFF</color>
     <color name="red"> #FF0000</color>
+    <color name="line">#ffd3dde6</color>
 </resources>
+

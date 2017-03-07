@@ -5,23 +5,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center"
     tools:context="com.hytera.fcls.activity.MainActivity">
-
-    <TextView
-        android:id="@+id/textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
-    <ImageView
-        android:id="@+id/image_view"
-        android:background="@color/colorRed"
+    <!--android:background="@drawable/mainbackgroud"-->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_below="@id/textview"
-        android:scaleType="centerInside"/>
-        <GridView
-            android:numColumns="3"
-            android:id="@+id/main_gridview_func"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:visibility="visible"
+            android:id="@+id/image_view"
+            android:background="@drawable/banner"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="618px"
+            android:scaleType="centerInside"/>
+
+        <ImageView
+            android:visibility="visible"
+            android:background="@drawable/ani_list_main_1_wave"
+            android:layout_width="match_parent"
+            android:layout_height="200px"
+            android:id="@+id/image_wave"
+            android:layout_alignBottom="@+id/image_view"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
+    <GridView
+
+        android:listSelector="@drawable/sel_1_gridview"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:stretchMode="columnWidth"
+        android:horizontalSpacing="2dp"
+        android:verticalSpacing="2dp"
+        android:numColumns="2"
+        android:id="@+id/main_gridview_func"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <!--android:listSelector="@android:color/transparent"-->
 </LinearLayout>

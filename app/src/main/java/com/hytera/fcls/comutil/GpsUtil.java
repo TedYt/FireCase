@@ -1,6 +1,5 @@
 package com.hytera.fcls.comutil;
 
-
 import android.content.Context;
 import android.util.Log;
 
@@ -77,6 +76,7 @@ public class GpsUtil {
         mlocationClient = null;
         mLocationOption = null;
         aMapLocationListener = null;
+
     }
 
 

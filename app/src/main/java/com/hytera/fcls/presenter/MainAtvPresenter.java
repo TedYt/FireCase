@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.AnimationDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -16,6 +17,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.amap.api.maps.AMapUtils;
@@ -322,5 +324,30 @@ public class MainAtvPresenter {
             AMapUtils.getLatestAMapApp(context);
         }
 //        mAMap.clear();
+    }
+    AnimationDrawable animation;
+    public void play(View view) {
+        if (view.getBackground() instanceof AnimationDrawable) {
+            animation = (AnimationDrawable) view.getBackground();
+            view.post(new Runnable() {
+                @Override
+                public void run() {
+                        animation.start();
+                }
+            });
+
+        }
+    }
+    public void endPlayAnim(View view) {
+        if (view.getBackground() instanceof AnimationDrawable) {
+                    animation = (AnimationDrawable) view.getBackground();
+                    view.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            animation.stop();
+                        }
+                    });
+
+                }
     }
 }

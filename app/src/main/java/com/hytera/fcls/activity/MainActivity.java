@@ -34,23 +34,23 @@ public class MainActivity extends Activity implements IMainAtv {
 
     public static final String TAG = "y20650" + MainActivity.class.getSimpleName();
 
-    @BindView(R.id.textview)
-    public TextView textView;
+    @BindView(R.id.image_wave)
+    public ImageView image_wave;
     @BindView(R.id.image_view)
     public ImageView imageView;
     @BindView(R.id.main_gridview_func)
     public GridView gridView;
     private MainAtvPresenter mainPresenter;
 
-    String[] fuc_names = new String[] { "拍照", "视频", "出发", "确认到达", "不在本辖区",
-            "警情信息" };
+    String[] fuc_names = new String[] { "拍照", "视频", "出发", "确认到达", "结束警情",
+            "设置" };
     int[] fuc_icons = new int[] {
-            R.drawable.takephoto,
-            R.drawable.videoshow,
-            R.drawable.nav,
-            R.drawable.confirmarrival,
-            R.drawable.chakan,
-            R.drawable.fireinformation,
+            R.drawable.sel_1_upload_photo,
+            R.drawable.sel_1_upload_video,
+            R.drawable.sel_1_depart,
+            R.drawable.sel_1_confrim_arrival,
+            R.drawable.sel_1_endfire,
+            R.drawable.sel_1_setting,
     };
 
     @Override
@@ -59,8 +59,6 @@ public class MainActivity extends Activity implements IMainAtv {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-
-        textView.setText("ButterKnife");// 测试
 
         Intent intent1 = new Intent(this, FireService.class);
         startService(intent1);
@@ -86,18 +84,6 @@ public class MainActivity extends Activity implements IMainAtv {
         gridView.setOnItemClickListener(new GridViewOnItemClick());
     }
 
-    @OnClick(R.id.textview)
-    public void onClick(View view){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        }).start();
-
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -112,6 +98,27 @@ public class MainActivity extends Activity implements IMainAtv {
         }
     }
 
+    @OnClick(R.id.image_wave)
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.image_wave:
+              mainPresenter.play(image_wave);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(3000);
+                            mainPresenter.endPlayAnim(image_wave);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }).start();
+                break;
+        }
+    }
 
     @Override
     public void onBackPressed() {
@@ -133,12 +140,12 @@ public class MainActivity extends Activity implements IMainAtv {
 
     @Override
     public void updateLocation(double latitude, double longitude) {
-        textView.setText(latitude + ", " + longitude);// 测试
+
     }
 
     @Override
     public void showLogInMain(String s) {
-        textView.setText(s);// 测试
+
     }
 
     private boolean checkCameraPermissoin(){
@@ -199,6 +206,8 @@ public class MainActivity extends Activity implements IMainAtv {
               //设置item的标题文本
               holder.grid_item_image.setImageResource(fuc_icons[i]);
               holder.grid_item_text.setText(fuc_names[i]);
+
+
               return convertview;
           }
       }

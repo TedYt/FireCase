@@ -30,7 +30,6 @@ public class AmapGpsService extends Service {
 
     @Override
     public void onCreate() {
-        super.onCreate();
         // 定位工具初始化
         GpsUtil.init(this);
     }
