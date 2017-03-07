@@ -8,6 +8,9 @@
     app:cardCornerRadius="1dp"
     android:clickable="false"
     android:layout_margin="5dp"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="5dp"
+
     android:foreground="?android:attr/selectableItemBackground"
     tools:showIn="@layout/activity_main">
     <!--    android:foreground="?android:attr/selectableItemBackground"-->
