@@ -26,6 +26,8 @@ import com.amap.api.maps.model.NaviPara;
 import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.IMainAtv;
 import com.hytera.fcls.activity.MainActivity;
+import com.hytera.fcls.bean.FireCaseBean;
+import com.hytera.fcls.bean.LoginResponseBean;
 import com.hytera.fcls.mqtt.MQTT;
 import com.hytera.fcls.service.AmapGpsService;
 
@@ -41,6 +43,7 @@ import java.util.Locale;
 public class MainAtvPresenter {
 
     public static final String TAG = "y20650" + MainAtvPresenter.class.getSimpleName();
+    public static final int CAMERA_RESULT = 100;
 
     /** 一些常量 */
     private final int IMAGE_WIDTH = 720;
@@ -51,6 +54,10 @@ public class MainAtvPresenter {
     private IMainAtv iMainAtv;
 
     private Context context;
+
+    private String filePath;
+
+    private String fileName;
 
     /** 上传位置信息在 AmapGpsService 实现 */
     private LocationListener locationListener = new LocationListener() {
@@ -96,25 +103,64 @@ public class MainAtvPresenter {
 
     public void startCamera(MainActivity context) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File out = new File(getPhotoPath());
+        File out = new File(getImagePath());
         Uri uri = Uri.fromFile(out);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-        context.startActivityForResult(intent, 1);
+        context.startActivityForResult(intent, CAMERA_RESULT);
     }
 
-    private String getPhotoPath() {
-        String filepath = "";
+    private String getImagePath() {
         String pathUri = Environment.getExternalStorageDirectory() + "/fireDispatcher/";
-        String imageName = "imageTest" + ".jpg";
+        fileName = getCurDateStr() + ".jpg";
         File file = new File(pathUri);
-        file.mkdirs();
-        filepath = pathUri + imageName;
-        return filepath;
+        if (!file.exists()){
+            file.mkdirs();
+        }
+        filePath = pathUri + fileName;
+        return filePath;
+    }
+
+    /**
+     * 上传图片
+     */
+    public synchronized void postImage() {
+        // url : token + appGuid(userCode) + caseGuid(caseID)
+        LoginResponseBean.UserBean userBean = DataUtil.getLoginUserBean();
+        FireCaseBean fireCaseBean = DataUtil.getFireCaseBean();
+        String url;
+        if (userBean != null || fireCaseBean == null) {
+            url = DataUtil.FIRE_CASE_IMG_URL
+                    + "token="
+                    + ((userBean.getToken() == null) ? "1233456789" : userBean.getToken())
+                    + "&"
+                    + "appGuid="
+                    + ((userBean.getUserCode() == null) ? "y20650" : userBean.getUserCode())
+                    + "&"
+                    + "caseGuid="
+                    + ((fireCaseBean.getGuid() == null) ? "123245" : fireCaseBean.getGuid()) ;
+        }else {
+            url = DataUtil.FIRE_CASE_IMG_URL
+                    + "token="
+                    + "1233456789"
+                    + "&"
+                    + "appGuid="
+                    + "y20650"
+                    + "&"
+                    + "caseGuid="
+                    + "test";
+        }
+
+        HTTPPresenter.postFile(url, fileName, filePath, new HTTPPresenter.CallBack() {
+            @Override
+            public void onResponse(String response) {
+                Log.i(TAG, "postImage, response is " + response);
+            }
+        });
     }
 
     public Bitmap getBitmapFromCamera() {
-        //Drawable drawable = BitmapDrawable.createFromPath(getPhotoPath());
-        Bitmap bitmap = getBitmapFromUrl(getPhotoPath());
+        //Drawable drawable = BitmapDrawable.createFromPath(getImagePath());
+        Bitmap bitmap = getBitmapFromUrl(getImagePath());
         if (bitmap != null) {
             int w = bitmap.getWidth();
             int h = bitmap.getHeight();
@@ -270,7 +316,7 @@ public class MainAtvPresenter {
 
     private void postState(final int state) {
         DataUtil.fireCaseState = state;
-        String closeInfo = DataUtil.getStateInfo(DataUtil.CASE_STATE_FINISH);
+        String closeInfo = DataUtil.getStateInfo(state);
         Log.i(TAG, "close case Info : " + closeInfo);
         HTTPPresenter.post(DataUtil.FIRE_CASE_URL, "jsonStr=" + closeInfo, new HTTPPresenter.CallBack() {
             @Override

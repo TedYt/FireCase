@@ -101,7 +101,8 @@ public class NetUtils {
      * @param filename
      * @param filepath
      */
-    public static void postFile(String u, String filename,String filepath) {
+    public static String postFile(String u, String filename,String filepath) {
+        Log.i(TAG, "filepath is " + filepath + ", filename is " + filename);
         HttpURLConnection conn = null;
         // boundary就是request头和上传文件内容的分隔符
         String BOUNDARY = "---------------------------hytera";
@@ -149,12 +150,11 @@ public class NetUtils {
             while ((line = reader.readLine()) != null) {
                 strBuf.append(line).append("\n");
             }
-            Log.e(TAG, "post successfully");
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(TAG, "post failed : " + e.getMessage());
         }
-
+        return "";
     }
 
     private static String getStringFromInputStream(InputStream is) throws IOException{

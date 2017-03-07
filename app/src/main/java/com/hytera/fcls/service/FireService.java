@@ -109,9 +109,10 @@ public class FireService extends Service implements IMQConn {
 
         Gson gson = new Gson();
         FireCaseBean fireCase = gson.fromJson(msg,FireCaseBean.class);
+        DataUtil.saveFireCaseBean(fireCase);
         Log.i(TAG, "got fire case bean");
 
-        if (!copyThisCase(fireCase)) return;
+        //if (!copyThisCase(fireCase)) return;
 
         showCasePop(fireCase);
         showNotification(fireCase.getCompDeptName(), fireCase.getCaseDesc(), false);

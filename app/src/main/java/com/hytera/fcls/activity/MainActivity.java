@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
@@ -88,13 +87,12 @@ public class MainActivity extends Activity implements IMainAtv {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK){
+        if (requestCode == mainPresenter.CAMERA_RESULT && resultCode == RESULT_OK){
             String sdStatus = Environment.getExternalStorageState();
             if(!sdStatus.equals(Environment.MEDIA_MOUNTED)){
                 Log.e(TAG, "SD card is not available right now.");
             }
-            Bitmap bitmap = mainPresenter.getBitmapFromCamera();
-            imageView.setImageBitmap(bitmap);
+            mainPresenter.postImage();
         }
     }
 

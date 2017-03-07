@@ -42,7 +42,7 @@ public class FireCasePopPresenter {
 
         DataUtil.fireCaseState = DataUtil.CASE_STATE_COPY;
         String copyInfo = DataUtil.getStateInfo(DataUtil.CASE_STATE_COPY);
-        Log.i(TAG, "close case Info : " + copyInfo);
+        Log.i(TAG, "copyCase case Info : " + copyInfo);
         HTTPPresenter.post(DataUtil.FIRE_CASE_URL, "jsonStr=" + copyInfo, new HTTPPresenter.CallBack() {
             @Override
             public void onResponse(String response) {

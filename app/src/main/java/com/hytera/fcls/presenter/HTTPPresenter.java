@@ -47,4 +47,19 @@ public class HTTPPresenter {
             }
         });
     }
+
+    /**
+     *
+     * @param url
+     * @param callBack
+     */
+    public static void postFile(final String url, final String fileName, final String filePath, final CallBack callBack){
+        singleThreadExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                final String response = NetUtils.postFile(url, fileName,filePath);
+                callBack.onResponse(response);
+            }
+        });
+    }
 }

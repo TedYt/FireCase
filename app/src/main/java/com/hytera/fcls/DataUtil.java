@@ -2,6 +2,7 @@ package com.hytera.fcls;
 
 import com.google.gson.Gson;
 import com.hytera.fcls.bean.CaseStateBean;
+import com.hytera.fcls.bean.FireCaseBean;
 import com.hytera.fcls.bean.LoginResponseBean;
 
 /**
@@ -16,6 +17,9 @@ public class DataUtil {
 
     public static final String FIRE_CASE_URL =
             "http://192.168.123.104:8080/icc_fcls/alarmStatus/reportStatus";
+
+    public static final String FIRE_CASE_IMG_URL =
+            "http://192.168.123.101:8080/fcls/media/save?";
 
     /** 传递输入的key */
     public static final String EXTRA_FIRE_LEVERL = "fire_level";
@@ -42,14 +46,29 @@ public class DataUtil {
      */
     private static LoginResponseBean loginResponseBean;
 
+    /**
+     * 记录警情的信息
+     * 供上报服务器用
+     */
+    private static FireCaseBean fireCaseBean;
+
     public static void saveLoginResponseBean(LoginResponseBean bean){
         loginResponseBean = bean;
+    }
+    public static void saveFireCaseBean(FireCaseBean bean){
+        fireCaseBean = bean;
     }
 
     public static LoginResponseBean.UserBean getLoginUserBean(){
         if (loginResponseBean == null) return null;
 
         return loginResponseBean.getUser();
+    }
+
+    public static FireCaseBean getFireCaseBean(){
+        if (fireCaseBean == null) return null;
+
+        return fireCaseBean;
     }
 
     /**
@@ -71,8 +90,8 @@ public class DataUtil {
             userBean.setUserCode(loginUserBean.getUserCode());
             userBean.setToken(loginUserBean.getToken());
             userBean.setStaffName(loginUserBean.getStaffName());
-            userBean.setOrgName(loginUserBean.getOrgName());
-            userBean.setOrgGuid(loginUserBean.getOrgGuid());
+            userBean.setOrgName(loginUserBean.getOrgName() == null ? "保安大队" : loginUserBean.getOrgName());
+            userBean.setOrgGuid(loginUserBean.getOrgGuid() == null ? "1231212321" : loginUserBean.getOrgGuid());
         }catch (NullPointerException e){
             userBean = new CaseStateBean.UserBean();
             userBean.setUserCode("303798");
@@ -80,8 +99,9 @@ public class DataUtil {
             userBean.setStaffName("张大安");
             userBean.setOrgName("新安大队");
             userBean.setOrgGuid("1234");
-            caseStateBean.setUserBean(userBean);
         }
+
+        caseStateBean.setUserBean(userBean);
         Gson gson = new Gson();
         return gson.toJson(caseStateBean);
     }
