@@ -36,6 +36,9 @@ public class FireCasePopActivity extends Activity implements IFireCasePop {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 点击activity（dialog属性）外面，不退出activity
+        setFinishOnTouchOutside(false);
+
         setContentView(R.layout.fire_case_pop_layout);
         ButterKnife.bind(this);
 
