@@ -22,6 +22,8 @@ import butterknife.OnClick;
  */
 public class FireCasePopActivity extends Activity implements IFireCasePop {
 
+    public static final String TAG = "y20650" + "FireCasePop";
+
     @BindView(R.id.fire_case_info)
     protected TextView fireCaseInfo;
     @BindView(R.id.fire_case_copy)
@@ -51,7 +53,8 @@ public class FireCasePopActivity extends Activity implements IFireCasePop {
     private void extraData(Bundle bundle) {
         StringBuilder sb = new StringBuilder();
         if (bundle != null) {
-            sb.append(bundle.getStringArrayList(DataUtil.EXTRA_FIRE_LEVERL) + "\n")
+            String levelDesc = getLevelDesc(bundle.getString(DataUtil.EXTRA_FIRE_LEVERL));
+            sb.append(levelDesc + "\n")
                     .append(bundle.getString(DataUtil.EXTRA_FIRE_DEPR) + "\n")
                     .append(bundle.getString(DataUtil.EXTRA_FIRE_DESC) + "\n");
         } else {
@@ -60,6 +63,23 @@ public class FireCasePopActivity extends Activity implements IFireCasePop {
                     + "新安中队");
         }
         fireCaseInfo.setText(sb.toString());
+    }
+
+    private String getLevelDesc(String s) {
+        int level = Integer.valueOf(s);
+        switch (level){
+            case 1:
+                return "一级火警";
+            case 2:
+                return "二级火警";
+            case 3:
+                return "三级火警";
+            case 4:
+                return "四级火警";
+            case 5:
+                return "五级火警";
+        }
+        return "无效级别";
     }
 
     @OnClick({R.id.fire_case_no_copy, R.id.fire_case_copy})

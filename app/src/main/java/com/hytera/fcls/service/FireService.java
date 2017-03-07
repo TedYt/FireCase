@@ -109,6 +109,7 @@ public class FireService extends Service implements IMQConn {
 
         Gson gson = new Gson();
         FireCaseBean fireCase = gson.fromJson(msg,FireCaseBean.class);
+        Log.i(TAG, "got fire case bean");
 
         if (!copyThisCase(fireCase)) return;
 
@@ -128,6 +129,7 @@ public class FireService extends Service implements IMQConn {
         bundle.putString(DataUtil.EXTRA_FIRE_LEVERL, fireCase.getCaseLevel());// 警情级别
         bundle.putString(DataUtil.EXTRA_FIRE_DEPR, fireCase.getCompDeptName());// 主管中队
         intent.putExtra("data", bundle);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         startActivity(intent);
     }
@@ -141,6 +143,7 @@ public class FireService extends Service implements IMQConn {
         // 当有警情在处理的时，就不接受新警情
         if(DataUtil.fireCaseState > DataUtil.CASE_STATE_INIT &&
                 DataUtil.fireCaseState < DataUtil.CASE_STATE_FINISH){
+            Log.w(TAG, "fire case is not inti or finish");
             return false;
         }
         return true;
