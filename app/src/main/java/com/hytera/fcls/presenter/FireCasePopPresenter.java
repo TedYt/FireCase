@@ -1,7 +1,7 @@
 package com.hytera.fcls.presenter;
 
+import android.media.MediaPlayer;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.IFireCasePop;
@@ -28,13 +28,17 @@ public class FireCasePopPresenter {
      * 接收警情
      */
     public void copyCase() {
+
+        iFireCasePop.showMainActivity();
+        stopFireAlarm();
+
         // 上报状态
-        if (DataUtil.fireCaseState != DataUtil.CASE_STATE_FINISH ||
+        /*if (DataUtil.fireCaseState != DataUtil.CASE_STATE_FINISH ||
                 DataUtil.fireCaseState != DataUtil.CASE_STATE_INIT){
             Log.w(TAG, "last state is not init or finish");
             Toast.makeText(context, "请先结束警情", Toast.LENGTH_SHORT).show();
             return;
-        }
+        }*/
 
         DataUtil.fireCaseState = DataUtil.CASE_STATE_COPY;
         String copyInfo = DataUtil.getStateInfo(DataUtil.CASE_STATE_COPY);
@@ -45,8 +49,6 @@ public class FireCasePopPresenter {
                 Log.i(TAG, "arriveDest, response is " + response);
             }
         });
-
-        iFireCasePop.showMainActivity();
     }
 
     /**
@@ -54,6 +56,13 @@ public class FireCasePopPresenter {
      */
     public void rejectCopy() {
         iFireCasePop.closeActivity();
+        stopFireAlarm();
     }
 
+    private void stopFireAlarm() {
+        MediaPlayer mediaPlayer = MPPresenter.getInstance();
+        //if (mediaPlayer.isPlaying()){
+        mediaPlayer.stop();
+        //}
+    }
 }
