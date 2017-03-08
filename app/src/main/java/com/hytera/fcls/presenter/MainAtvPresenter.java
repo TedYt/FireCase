@@ -45,12 +45,16 @@ public class MainAtvPresenter {
     public static final String TAG = "y20650" + MainAtvPresenter.class.getSimpleName();
     public static final int CAMERA_RESULT = 100;
 
-    /** 一些常量 */
+    /**
+     * 一些常量
+     */
     private final int IMAGE_WIDTH = 720;
     private final int IMAGE_HEIGHT = 1080;
     public static final int LOCATION_UPDATE_TIME = 5000; // GPS每5秒更新
 
-    /** 其他成员变量 */
+    /**
+     * 其他成员变量
+     */
     private IMainAtv iMainAtv;
 
     private Context context;
@@ -59,7 +63,9 @@ public class MainAtvPresenter {
 
     private String fileName;
 
-    /** 上传位置信息在 AmapGpsService 实现 */
+    /**
+     * 上传位置信息在 AmapGpsService 实现
+     */
     private LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
@@ -113,7 +119,7 @@ public class MainAtvPresenter {
         String pathUri = Environment.getExternalStorageDirectory() + "/fireDispatcher/";
         fileName = getCurDateStr() + ".jpg";
         File file = new File(pathUri);
-        if (!file.exists()){
+        if (!file.exists()) {
             file.mkdirs();
         }
         filePath = pathUri + fileName;
@@ -137,8 +143,8 @@ public class MainAtvPresenter {
                     + ((userBean.getUserCode() == null) ? "y20650" : userBean.getUserCode())
                     + "&"
                     + "caseGuid="
-                    + ((fireCaseBean.getGuid() == null) ? "123245" : fireCaseBean.getGuid()) ;
-        }else {
+                    + ((fireCaseBean.getGuid() == null) ? "123245" : fireCaseBean.getGuid());
+        } else {
             url = DataUtil.FIRE_CASE_IMG_URL
                     + "token="
                     + "1233456789"
@@ -258,14 +264,14 @@ public class MainAtvPresenter {
     }
 
     public void onDestroy() {
-        if (!checkLocationPermission()){
+        if (!checkLocationPermission()) {
             return;
         }
-        LocationManager locationManager = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         locationManager.removeUpdates(locationListener);
     }
 
-    private boolean checkLocationPermission(){
+    private boolean checkLocationPermission() {
 
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -288,14 +294,14 @@ public class MainAtvPresenter {
      * 上传图片
      */
     public void arriveDest() {
-        if (DataUtil.fireCaseState != DataUtil.CASE_STATE_DEPART){
+        if (DataUtil.fireCaseState != DataUtil.CASE_STATE_DEPART) {
             Log.w(TAG, "last state is not Depart");
             Toast.makeText(context, "请先出发", Toast.LENGTH_SHORT).show();
             return;
         }
 
         //到达后停止gps上传服务
-        Intent stopGpsUpLoad = new Intent(context,AmapGpsService.class);
+        Intent stopGpsUpLoad = new Intent(context, AmapGpsService.class);
         context.stopService(stopGpsUpLoad);
 
         postState(DataUtil.CASE_STATE_ARRIVE);
@@ -305,7 +311,7 @@ public class MainAtvPresenter {
      * 结束警情，上报服务器
      */
     public void closeCase() {
-        if (DataUtil.fireCaseState != DataUtil.CASE_STATE_ARRIVE){
+        if (DataUtil.fireCaseState != DataUtil.CASE_STATE_ARRIVE) {
             Log.w(TAG, "last state is not arrive");
             Toast.makeText(context, "还未确认到达现场", Toast.LENGTH_SHORT).show();
             return;
@@ -329,8 +335,8 @@ public class MainAtvPresenter {
     /**
      * 出发去现场
      */
-    public void depart(){
-        if (DataUtil.fireCaseState != DataUtil.CASE_STATE_COPY){
+    public void depart() {
+        if (DataUtil.fireCaseState != DataUtil.CASE_STATE_COPY) {
             Log.w(TAG, "last state is not copy");
             Toast.makeText(context, "请先接警!", Toast.LENGTH_SHORT).show();
             return;
@@ -347,15 +353,15 @@ public class MainAtvPresenter {
 //      startActivity(intent);
 
         //2.开启服务上传定位结果
-         Intent startGpsLocation =new Intent(context, AmapGpsService.class);
-         context.startService(startGpsLocation);
-         Log.d(TAG, "depart: 开始导航服务开启");
+        Intent startGpsLocation = new Intent(context, AmapGpsService.class);
+        context.startService(startGpsLocation);
+        Log.d(TAG, "depart: 开始导航服务开启");
     }
 
     //手写一个方法导航
-    public void InstatNav(){
+    public void InstatNav() {
         //创建一个虚拟位置
-        LatLng fakepostion = new LatLng(23.534606,114.943771);
+        LatLng fakepostion = new LatLng(23.534606, 114.943771);
         // 构造导航参数
         NaviPara naviPara = new NaviPara();
         // 设置终点位置
@@ -371,29 +377,30 @@ public class MainAtvPresenter {
         }
 //        mAMap.clear();
     }
+
+
     AnimationDrawable animation;
+
+    /**
+     * 播放主界面中的波浪动画
+     * @param view
+     */
     public void play(View view) {
         if (view.getBackground() instanceof AnimationDrawable) {
             animation = (AnimationDrawable) view.getBackground();
-            view.post(new Runnable() {
-                @Override
-                public void run() {
-                        animation.start();
-                }
-            });
-
+            animation.start();
         }
     }
+
+    /**
+     * 停止主界面中的波浪动画
+     * @param view
+     */
     public void endPlayAnim(View view) {
         if (view.getBackground() instanceof AnimationDrawable) {
-                    animation = (AnimationDrawable) view.getBackground();
-                    view.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            animation.stop();
-                        }
-                    });
+            animation = (AnimationDrawable) view.getBackground();
+            animation.stop();
 
-                }
+        }
     }
 }

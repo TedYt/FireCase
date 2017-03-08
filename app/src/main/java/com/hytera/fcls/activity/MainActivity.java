@@ -101,19 +101,7 @@ public class MainActivity extends Activity implements IMainAtv {
         int id = view.getId();
         switch (id) {
             case R.id.image_wave:
-              mainPresenter.play(image_wave);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(3000);
-                            mainPresenter.endPlayAnim(image_wave);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }).start();
+                mainPresenter.play(image_wave);
                 break;
         }
     }
@@ -242,6 +230,7 @@ public class MainActivity extends Activity implements IMainAtv {
                     break;
                 case 4:
                     Toast.makeText(MainActivity.this, "结束火警", Toast.LENGTH_SHORT).show();
+                    mainPresenter.endPlayAnim(image_wave);
                     mainPresenter.closeCase();
                     break;
                 case 5 :
