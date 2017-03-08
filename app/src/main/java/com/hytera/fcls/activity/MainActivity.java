@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -21,7 +20,6 @@ import android.widget.Toast;
 
 import com.hytera.fcls.IMainAtv;
 import com.hytera.fcls.R;
-import com.hytera.fcls.presenter.MPPresenter;
 import com.hytera.fcls.presenter.MainAtvPresenter;
 import com.hytera.fcls.service.FireService;
 
@@ -71,10 +69,9 @@ public class MainActivity extends Activity implements IMainAtv {
     protected void onResume() {
         super.onResume();
         Log.i(TAG, "onResume");
-        MediaPlayer mediaPlayer = MPPresenter.getInstance();
-        if (mediaPlayer.isPlaying()){
-            mediaPlayer.stop();
-        }
+
+        mainPresenter.stopFireAlarm();
+        mainPresenter.getFireCaseInfo(getIntent());
     }
 
     //初始化布局资源
@@ -131,6 +128,15 @@ public class MainActivity extends Activity implements IMainAtv {
 
     @Override
     public void showLogInMain(String s) {
+
+    }
+
+    /**
+     * 在主界面显示警情
+     * @param s
+     */
+    @Override
+    public void showFireCaseInfo(String s) {
 
     }
 

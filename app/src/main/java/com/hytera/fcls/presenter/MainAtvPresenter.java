@@ -11,6 +11,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -414,5 +415,31 @@ public class MainAtvPresenter {
             animation.stop();
 
         }
+    }
+
+    public void stopFireAlarm() {
+        MediaPlayer mediaPlayer = MPPresenter.getInstance();
+        if (mediaPlayer.isPlaying()){
+            mediaPlayer.stop();
+        }
+    }
+
+    /**
+     * 获取警情信息
+     * @param intent
+     */
+    public void getFireCaseInfo(Intent intent) {
+        if (intent != null){
+            Bundle bundle = intent.getBundleExtra("fire_case_data");
+            if (bundle != null){
+                StringBuilder sb = new StringBuilder();
+                String levelDesc = DataUtil.getLevelDesc(bundle.getString(DataUtil.EXTRA_FIRE_LEVERL));
+                sb.append(levelDesc + "\n")
+                        .append(bundle.getString(DataUtil.EXTRA_FIRE_DEPR) + "\n")
+                        .append(bundle.getString(DataUtil.EXTRA_FIRE_DESC) + "\n");
+                iMainAtv.showFireCaseInfo(sb.toString());
+            }
+        }
+        Log.d(TAG, "intent is null. Fail get fire case info!");
     }
 }

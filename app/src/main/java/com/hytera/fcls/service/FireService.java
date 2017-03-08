@@ -136,21 +136,6 @@ public class FireService extends Service implements IMQConn {
     }
 
     /**
-     * 判断是否接收这个警情
-     * @param fireCase
-     * @return
-     */
-    private boolean copyThisCase(FireCaseBean fireCase) {
-        // 当有警情在处理的时，就不接受新警情
-        if(DataUtil.fireCaseState > DataUtil.CASE_STATE_INIT &&
-                DataUtil.fireCaseState < DataUtil.CASE_STATE_FINISH){
-            Log.w(TAG, "fire case is not inti or finish");
-            return false;
-        }
-        return true;
-    }
-
-    /**
      * 响警报
      */
     private void playFireAlarm() {

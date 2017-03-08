@@ -53,7 +53,7 @@ public class FireCasePopActivity extends Activity implements IFireCasePop {
     private void extraData(Bundle bundle) {
         StringBuilder sb = new StringBuilder();
         if (bundle != null) {
-            String levelDesc = getLevelDesc(bundle.getString(DataUtil.EXTRA_FIRE_LEVERL));
+            String levelDesc = DataUtil.getLevelDesc(bundle.getString(DataUtil.EXTRA_FIRE_LEVERL));
             sb.append(levelDesc + "\n")
                     .append(bundle.getString(DataUtil.EXTRA_FIRE_DEPR) + "\n")
                     .append(bundle.getString(DataUtil.EXTRA_FIRE_DESC) + "\n");
@@ -63,23 +63,6 @@ public class FireCasePopActivity extends Activity implements IFireCasePop {
                     + "新安中队");
         }
         fireCaseInfo.setText(sb.toString());
-    }
-
-    private String getLevelDesc(String s) {
-        int level = Integer.valueOf(s);
-        switch (level){
-            case 1:
-                return "一级火警";
-            case 2:
-                return "二级火警";
-            case 3:
-                return "三级火警";
-            case 4:
-                return "四级火警";
-            case 5:
-                return "五级火警";
-        }
-        return "无效级别";
     }
 
     @OnClick({R.id.fire_case_no_copy, R.id.fire_case_copy})
@@ -110,7 +93,7 @@ public class FireCasePopActivity extends Activity implements IFireCasePop {
     public void showMainActivity() {
         // 进入App的主界面
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("data", data);
+        intent.putExtra("fire_case_data", data);
         startActivity(intent);
 
         finish();

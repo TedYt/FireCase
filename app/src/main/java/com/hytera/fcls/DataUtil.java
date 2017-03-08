@@ -105,4 +105,26 @@ public class DataUtil {
         Gson gson = new Gson();
         return gson.toJson(caseStateBean);
     }
+
+    /**
+     * 火警级别的文字描述
+     * @param s
+     * @return
+     */
+    public static String getLevelDesc(String s) {
+        int level = Integer.valueOf(s);
+        switch (level){
+            case 1:
+                return "一级火警";
+            case 2:
+                return "二级火警";
+            case 3:
+                return "三级火警";
+            case 4:
+                return "四级火警";
+            case 5:
+                return "五级火警";
+        }
+        return "无效级别";
+    }
 }
