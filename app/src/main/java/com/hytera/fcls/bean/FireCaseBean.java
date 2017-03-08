@@ -25,6 +25,7 @@ public class FireCaseBean {
      * mapy : 22.69247
      * repeat : false
      * sendAllMsg : false
+     * orgIdentifier : null. 与登录的 orgIdentifier 匹配，确定是哪个中队负责该警情
      */
 
     private String caseDesc;
@@ -42,6 +43,16 @@ public class FireCaseBean {
     private double mapy;
     private boolean repeat;
     private boolean sendAllMsg;
+
+    public String getOrgIdentifier() {
+        return orgIdentifier;
+    }
+
+    public void setOrgIdentifier(String orgIdentifier) {
+        this.orgIdentifier = orgIdentifier;
+    }
+
+    private String orgIdentifier;
 
     public String getCaseDesc() {
         return caseDesc;

@@ -131,7 +131,7 @@ public class MainAtvPresenter {
      * 上传图片
      */
     public synchronized void postImage() {
-        // url : token + appGuid(userCode) + caseGuid(caseID)
+        // url : token + appGuid(userCode) + caseGuid(caseID) + orgName + appName (staffName)
         LoginResponseBean.UserBean userBean = DataUtil.getLoginUserBean();
         FireCaseBean fireCaseBean = DataUtil.getFireCaseBean();
         String url;
@@ -144,17 +144,24 @@ public class MainAtvPresenter {
                     + ((userBean.getUserCode() == null) ? "y20650" : userBean.getUserCode())
                     + "&"
                     + "caseGuid="
-                    + ((fireCaseBean.getGuid() == null) ? "123245" : fireCaseBean.getGuid());
+                    + ((fireCaseBean.getGuid() == null) ? "123245" : fireCaseBean.getGuid())
+                    + "&"
+                    + "orgName="
+                    + ((userBean.getOrgName() == null) ? "" : userBean.getOrgName())
+                    + "&"
+                    + "appName="
+                    + ((userBean.getStaffName() == null) ? "" : userBean.getStaffName());
         } else {
             url = DataUtil.FIRE_CASE_IMG_URL
-                    + "token="
-                    + "1233456789"
+                    + "token=1233456789"
                     + "&"
-                    + "appGuid="
-                    + "y20650"
+                    + "appGuid=y20650"
                     + "&"
-                    + "caseGuid="
-                    + "test";
+                    + "caseGuid=test"
+                    + "&"
+                    + "orgName=宝安大队"
+                    + "&"
+                    + "appName=张三";
         }
 
         HTTPPresenter.postFile(url, fileName, filePath, new HTTPPresenter.CallBack() {

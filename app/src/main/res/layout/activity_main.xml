@@ -1,44 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
+    android:background="#eceaf6"
     tools:context="com.hytera.fcls.activity.MainActivity">
-    <!--android:background="@drawable/mainbackgroud"-->
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:visibility="visible"
             android:id="@+id/image_view"
             android:background="@drawable/banner"
             android:layout_width="match_parent"
-            android:layout_height="618px"
-            android:scaleType="centerInside"/>
+            android:layout_height="wrap_content" />
 
         <ImageView
-            android:visibility="visible"
             android:background="@drawable/ani_list_main_1_wave"
             android:layout_width="match_parent"
             android:layout_height="200px"
             android:id="@+id/image_wave"
-            android:layout_alignBottom="@+id/image_view"
-            android:layout_alignParentStart="true" />
+            android:layout_alignBottom="@+id/image_view" />
     </RelativeLayout>
-    <GridView
 
-        android:listSelector="@drawable/sel_1_gridview"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:stretchMode="columnWidth"
-        android:horizontalSpacing="2dp"
-        android:verticalSpacing="2dp"
-        android:numColumns="2"
-        android:id="@+id/main_gridview_func"
+    <LinearLayout
+        style="@style/MainAtvItemLinearLayoutStyle2">
+        <LinearLayout
+            android:id="@+id/case_upload_photo"
+            style="@style/MainAtvItemLinearLayoutStyle">
+            <ImageView
+                style="@style/MainAtvItemViewFrameStyle"
+                android:src="@drawable/sel_1_upload_photo" />
+            <TextView
+                style="@style/MainAtvItemViewFrameStyle"
+                android:text="拍照" />
+        </LinearLayout>
+        <View
+            android:background="#d0cede"
+            android:layout_width="1px"
+            android:layout_height="match_parent"/><!--分割线-->
+        <LinearLayout
+            android:id="@+id/case_upload_video"
+            style="@style/MainAtvItemLinearLayoutStyle">
+            <ImageView
+                style="@style/MainAtvItemViewFrameStyle"
+                android:src="@drawable/sel_1_upload_video" />
+            <TextView
+                style="@style/MainAtvItemViewFrameStyle"
+                android:text="視頻" />
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:background="#d0cede"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-    <!--android:listSelector="@android:color/transparent"-->
+        android:layout_height="1px"/><!--分割线-->
+    <LinearLayout
+        style="@style/MainAtvItemLinearLayoutStyle2">
+        <LinearLayout
+            android:id="@+id/case_depart"
+            style="@style/MainAtvItemLinearLayoutStyle">
+            <ImageView
+                style="@style/MainAtvItemViewFrameStyle"
+                android:src="@drawable/sel_1_depart" />
+            <TextView
+                style="@style/MainAtvItemViewFrameStyle"
+                android:text="出发" />
+        </LinearLayout>
+        <View
+            android:background="#d0cede"
+            android:layout_width="1px"
+            android:layout_height="match_parent"/><!--分割线-->
+        <LinearLayout
+            android:id="@+id/case_arrive"
+            style="@style/MainAtvItemLinearLayoutStyle">
+            <ImageView
+                style="@style/MainAtvItemViewFrameStyle"
+                android:src="@drawable/sel_1_confrim_arrival" />
+            <TextView
+                style="@style/MainAtvItemViewFrameStyle"
+                android:text="到达" />
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:background="#d0cede"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/><!--分割线-->
+    <LinearLayout
+        style="@style/MainAtvItemLinearLayoutStyle2">
+        <LinearLayout
+            android:id="@+id/case_end_fire"
+            style="@style/MainAtvItemLinearLayoutStyle">
+            <ImageView
+                style="@style/MainAtvItemViewFrameStyle"
+                android:src="@drawable/sel_1_endfire" />
+            <TextView
+                style="@style/MainAtvItemViewFrameStyle"
+                android:text="结束警情" />
+        </LinearLayout>
+        <View
+            android:background="#d0cede"
+            android:layout_width="1px"
+            android:layout_height="match_parent"/><!--分割线-->
+        <LinearLayout
+            android:id="@+id/case_setting"
+            style="@style/MainAtvItemLinearLayoutStyle">
+            <ImageView
+                style="@style/MainAtvItemViewFrameStyle"
+                android:src="@drawable/sel_1_setting" />
+            <TextView
+                style="@style/MainAtvItemViewFrameStyle"
+                android:text="设置" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

@@ -46,6 +46,7 @@ public class LoginPresenter {
                 if (response == null || bean.getUser() == null){
                     context.runOnUiThread(new LoginFailureRunnable());
                 }else {
+                    setLogined(true);
                     DataUtil.saveLoginResponseBean(bean);
                     context.runOnUiThread(new LoginSuccessRunnable());
                 }
@@ -125,6 +126,25 @@ public class LoginPresenter {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(DataUtil.KEY_USERNAME, name);
         editor.apply();
+    }
+
+    /**
+     * 设置已登录
+     */
+    public void setLogined(boolean b){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(DataUtil.KEY_LOGINED, b);
+        editor.apply();
+    }
+
+    /**
+     * 是否 已登录
+     * @return
+     */
+    public boolean isLogined(){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
+        return sharedPreferences.getBoolean(DataUtil.KEY_LOGINED, false);
     }
 
 

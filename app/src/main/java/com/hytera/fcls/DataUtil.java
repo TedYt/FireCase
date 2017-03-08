@@ -14,6 +14,7 @@ public class DataUtil {
     public static final String KEY_USERNAME = "username";
     public static final String KEY_PASSWORD = "password";
     public static final String KEY_CHECKED = "checked_remember";
+    public static final String KEY_LOGINED = "login_or_not";// 标识是否已登录
 
     public static final String FIRE_CASE_URL =
             "http://192.168.123.104:8080/icc_fcls/alarmStatus/reportStatus";
