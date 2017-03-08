@@ -58,7 +58,7 @@ public class MainAtvPresenter {
      */
     private IMainAtv iMainAtv;
 
-    private Context context;
+    private MainActivity context;
 
     private String filePath;
 
@@ -306,6 +306,10 @@ public class MainAtvPresenter {
         context.stopService(stopGpsUpLoad);
 
         postState(DataUtil.CASE_STATE_ARRIVE);
+
+        // 启动相机，上传图片
+        startCamera(context);
+
     }
 
     /**
@@ -321,6 +325,10 @@ public class MainAtvPresenter {
         postState(DataUtil.CASE_STATE_FINISH);
     }
 
+    /**
+     * 上传状态
+     * @param state
+     */
     private void postState(final int state) {
         DataUtil.fireCaseState = state;
         String closeInfo = DataUtil.getStateInfo(state);
