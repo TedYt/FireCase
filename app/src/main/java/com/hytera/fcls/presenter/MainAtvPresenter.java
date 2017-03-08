@@ -336,6 +336,16 @@ public class MainAtvPresenter {
      * 出发去现场
      */
     public void depart() {
+
+        FireCaseBean fireCaseBean = DataUtil.getFireCaseBean();
+        double lng = fireCaseBean.getMapx();
+        double lat = fireCaseBean.getMapy();
+
+        if (lng < 0.0 || lng >= 180.0 || lat < 0.0 || lat >= 90.0){
+            Log.e(TAG, "GPS is not available : mapx = " + lng + ", mapy = " + lat);
+            return;
+        }
+
         if (DataUtil.fireCaseState != DataUtil.CASE_STATE_COPY) {
             Log.w(TAG, "last state is not copy");
             Toast.makeText(context, "请先接警!", Toast.LENGTH_SHORT).show();
@@ -343,12 +353,10 @@ public class MainAtvPresenter {
         }
         postState(DataUtil.CASE_STATE_DEPART);
 
-        //1.开始导航
-        //外部导航
-        InstatNav();
+        //开启外部导航
+        InstatNav(lng,lat);
 
-        //内部导航暂未修订
-        //修改内置
+        //内置导航，暂未修订
 //      Intent intent = new Intent(MainActivity.this,NaviActivity.class);
 //      startActivity(intent);
 
@@ -358,14 +366,18 @@ public class MainAtvPresenter {
         Log.d(TAG, "depart: 开始导航服务开启");
     }
 
-    //手写一个方法导航
-    public void InstatNav() {
+    /**
+     * 调动外部导航
+     * @param lng
+     * @param lat
+     */
+    public void InstatNav(double lng, double lat) {
         //创建一个虚拟位置
-        LatLng fakepostion = new LatLng(23.534606, 114.943771);
+        LatLng destination = new LatLng(lng, lat);
         // 构造导航参数
         NaviPara naviPara = new NaviPara();
         // 设置终点位置
-        naviPara.setTargetPoint(fakepostion);
+        naviPara.setTargetPoint(destination);
         // 设置导航策略，这里是避免拥堵
         naviPara.setNaviStyle(AMapUtils.DRIVING_AVOID_CONGESTION);
         try {
