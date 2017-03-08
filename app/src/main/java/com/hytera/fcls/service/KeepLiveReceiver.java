@@ -8,6 +8,9 @@ import android.content.Intent;
  * Created by Tim on 17/2/24.
  */
 
+/**
+ * 没有作用 2017.3.8
+ */
 public class KeepLiveReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
