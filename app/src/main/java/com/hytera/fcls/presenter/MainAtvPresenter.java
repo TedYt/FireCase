@@ -294,7 +294,7 @@ public class MainAtvPresenter {
      * 上传图片
      */
     public void arriveDest() {
-        if (DataUtil.fireCaseState != DataUtil.CASE_STATE_DEPART) {
+        if (!FireCaseStateUtil.lastStateIsDepart()) {
             Log.w(TAG, "last state is not Depart");
             Toast.makeText(context, "请先出发", Toast.LENGTH_SHORT).show();
             return;
@@ -311,7 +311,7 @@ public class MainAtvPresenter {
      * 结束警情，上报服务器
      */
     public void closeCase() {
-        if (DataUtil.fireCaseState != DataUtil.CASE_STATE_ARRIVE) {
+        if (!FireCaseStateUtil.lastStateIsArrive()) {
             Log.w(TAG, "last state is not arrive");
             Toast.makeText(context, "还未确认到达现场", Toast.LENGTH_SHORT).show();
             return;
@@ -346,7 +346,7 @@ public class MainAtvPresenter {
             return;
         }
 
-        if (DataUtil.fireCaseState != DataUtil.CASE_STATE_COPY) {
+        if (!FireCaseStateUtil.lastStateIsCopy()) {
             Log.w(TAG, "last state is not copy");
             Toast.makeText(context, "请先接警!", Toast.LENGTH_SHORT).show();
             return;
