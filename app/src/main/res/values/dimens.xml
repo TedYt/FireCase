@@ -9,4 +9,5 @@
     <!--登陆界面视觉效果统一宽高-->
     <dimen name="login_row_heigt">125px</dimen>
     <dimen name="login_row_width">800px</dimen>
+    <dimen name="font_normal_40px">40px</dimen>
 </resources>
