@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hytera.fcls.IMainAtv;
@@ -30,6 +31,8 @@ public class MainActivity extends Activity implements IMainAtv {
     public ImageView image_wave;
     @BindView(R.id.image_view)
     public ImageView imageView;
+    @BindView(R.id.case_info_detail)
+    public TextView case_info;
 
     private MainAtvPresenter mainPresenter;
 
@@ -65,7 +68,7 @@ public class MainActivity extends Activity implements IMainAtv {
         Log.i(TAG, "onResume");
 
         mainPresenter.stopFireAlarm();
-        mainPresenter.getFireCaseInfo(getIntent());
+        mainPresenter.getFireCaseInfo();
     }
 
     //初始化布局资源
@@ -161,7 +164,7 @@ public class MainActivity extends Activity implements IMainAtv {
      */
     @Override
     public void showFireCaseInfo(String s) {
-
+        case_info.setText(s);
     }
 
     private boolean checkCameraPermissoin(){

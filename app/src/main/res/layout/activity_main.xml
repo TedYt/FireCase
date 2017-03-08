@@ -22,6 +22,15 @@
             android:layout_height="200px"
             android:id="@+id/image_wave"
             android:layout_alignBottom="@+id/image_view" />
+        <TextView
+            android:id="@+id/case_info_detail"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp"
+            android:text="ceshi"/>
     </RelativeLayout>
 
     <LinearLayout
