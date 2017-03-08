@@ -2,49 +2,90 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_login"
     android:orientation="vertical">
 
+<LinearLayout
+    android:paddingTop="150px"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="200dp" />
-    <EditText
-        android:id="@+id/login_username"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="@dimen/login_atv_view_margin"
-        android:layout_marginRight="@dimen/login_atv_view_margin"
-        android:hint="@string/login_input_username_hint"/>
-    <EditText
-        android:id="@+id/login_password"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:inputType="textPassword"
-        android:layout_marginLeft="@dimen/login_atv_view_margin"
-        android:layout_marginRight="@dimen/login_atv_view_margin"
-        android:hint="@string/login_input_password_hint"/>
+
+        android:background="@drawable/avator_main"
+        android:layout_width="250px"
+        android:layout_height="258px"
+        android:id="@+id/imageView" />
+    <TextView
+        android:paddingTop="25px"
+        android:textColor="@color/white"
+        android:typeface="sans"
+        android:textSize="60px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fire_saving" />
+</LinearLayout>
+<!--android:drawableStart="@drawable/user_main_edittext_normal"-->
     <LinearLayout
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <CheckBox
-            android:id="@+id/checkbox_remember_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:layout_marginLeft="20dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login_remember_password"/>
+        android:layout_marginTop="75px">
+
+        <EditText
+            android:imeOptions="actionNext"
+            android:singleLine="true"
+            android:textSize="40px"
+            android:id="@+id/login_username"
+            android:drawableLeft="@drawable/sel_0_user_icon"
+            android:hint="@string/login_input_username_hint"
+            android:nextFocusForward="@+id/login_password"
+            style="@style/et_login_pwd" />
+
+        <EditText
+            android:textSize="40px"
+            android:layout_marginTop="30px"
+            android:drawableLeft="@drawable/sel_0_pwd_icon"
+            android:id="@+id/login_password"
+            android:inputType="textPassword"
+
+            android:nextFocusForward="@+id/login_btn"
+            android:hint="@string/login_input_password_hint"
+            style="@style/et_login_pwd"/>
+        <LinearLayout
+            android:layout_marginTop="10px"
+            android:orientation="horizontal"
+            style="@style/login_height_width">
+            <CheckBox
+                android:id="@+id/checkbox_remember_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:scaleX="0.6"
+                android:scaleY="0.6"
+                />
+            <TextView
+                android:textSize="36px"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_remember_password"/>
+        </LinearLayout>
+        <Button
+            android:focusableInTouchMode="true"
+            android:textSize="40px"
+            android:background="@color/white"
+            android:id="@+id/login_btn"
+            style="@style/login_height_width"
+            android:textColor="#ee3b0b"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/login" />
     </LinearLayout>
-    <Button
-        android:id="@+id/login_btn"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/login_atv_view_height"
-        android:layout_marginLeft="@dimen/login_atv_view_margin"
-        android:layout_marginRight="@dimen/login_atv_view_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="@string/login" />
+
+
     <TextView
         android:id="@+id/test_response_body"
         android:layout_width="match_parent"

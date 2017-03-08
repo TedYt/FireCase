@@ -17,4 +17,19 @@
         <item name="android:windowNoDisplay">true</item>
     </style>
 
+    <style name="et_login_pwd">
+        <item name="android:background">@drawable/sel_0_login_ps_bg</item>
+        <item name="android:paddingLeft">29px</item>
+        <item name="android:layout_width">@dimen/login_row_width</item>
+        <item name="android:layout_height">@dimen/login_row_heigt</item>
+        <item name="android:drawablePadding">26px</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">#fdb790</item>
+    </style>
+
+    <style name="login_height_width">
+        <item name="android:layout_width">@dimen/login_row_width</item>
+        <item name="android:layout_height">@dimen/login_row_heigt</item>
+    </style>
+
 </resources>
