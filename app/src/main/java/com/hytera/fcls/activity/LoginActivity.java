@@ -122,6 +122,16 @@ public class LoginActivity extends Activity implements ILogin {
                     login_username.getText().toString());
     }
 
+    /**
+     * 辅助测试用
+     * @param view
+     */
+    @OnClick(R.id.imageView)
+    public void testToStartSetting(View view){
+        Intent intent = new Intent(this, SettingActivity.class);
+        startActivity(intent);
+    }
+
     private void disableAllView() {
         login_username.setEnabled(false);
         login_password.setEnabled(false);

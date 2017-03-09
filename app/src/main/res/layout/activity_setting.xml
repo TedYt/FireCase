@@ -64,4 +64,21 @@
             android:text="退出登录"
             style="@style/settting_text_item" />
     </RelativeLayout>
+    <!--为了测试加的设置ip的接口
+        正式发布时，可以删除-->
+    <EditText
+        android:id="@+id/server_ip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入服务器IP"/>
+    <EditText
+        android:id="@+id/server_port"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="8080"/>
+    <Button
+        android:id="@+id/confirm_server_ip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="确定"/>
 </LinearLayout>

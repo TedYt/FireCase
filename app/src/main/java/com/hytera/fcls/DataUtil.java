@@ -1,5 +1,7 @@
 package com.hytera.fcls;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.hytera.fcls.bean.CaseStateBean;
 import com.hytera.fcls.bean.FireCaseBean;
@@ -22,7 +24,7 @@ public class DataUtil {
     public static String FIRE_CASE_IMG_URL =
             "http://192.168.123.64:8080/icc_fcls/media/save?";
 
-    public static final String LOGIN_URL =
+    public static String LOGIN_URL =
             "http://192.168.123.64:8080/icc_fcls/system/login/doLogin?";
     // userCode=303798&password=123456
 
@@ -120,6 +122,21 @@ public class DataUtil {
      */
     public static void setImgPostURL(String ip){
         FIRE_CASE_IMG_URL = "http://"+ ip +":8080/fcls/media/save?";
+    }
+
+    /**
+     * 测试方法 设置服务器端口
+     * @param ip
+     * @param port
+     */
+    public static void setServerIP(String ip, String port){
+        Log.i("y20650", "setServerIP : " + ip + ", port : " + port);
+        FIRE_CASE_IMG_URL = "http://" + ip + ":" + port + "/fcls/media/save?";
+        FIRE_CASE_STATE_URL = "http://" + ip + ":" + port + "/icc_fcls/alarmStatus/reportStatus";
+        LOGIN_URL = "http://" + ip + ":" + port + "/icc_fcls/system/login/doLogin?";
+        Log.i("y20650", FIRE_CASE_IMG_URL + "\n"
+                    + FIRE_CASE_STATE_URL + "\n"
+                    + LOGIN_URL);
     }
 
     /**
