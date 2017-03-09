@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.IMainAtv;
 import com.hytera.fcls.R;
 import com.hytera.fcls.presenter.MainAtvPresenter;
@@ -72,13 +73,14 @@ public class MainActivity extends Activity implements IMainAtv {
         Log.i(TAG, "onResume");
 
         mainPresenter.stopFireAlarm();
-        mainPresenter.getFireCaseInfo();
+        if (DataUtil.isAcceptCase()){
+            mainPresenter.getFireCaseInfo();
+        }
     }
 
     //初始化布局资源
     private void initView() {
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

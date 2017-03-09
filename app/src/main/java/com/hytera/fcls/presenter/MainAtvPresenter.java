@@ -110,6 +110,8 @@ public class MainAtvPresenter {
     }
 
     public void startCamera(MainActivity context) {
+        if (noCase()) return;
+
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         File out = new File(getImagePath());
         Uri uri = Uri.fromFile(out);
@@ -303,6 +305,8 @@ public class MainAtvPresenter {
      * 上传图片
      */
     public void arriveDest() {
+        if (noCase()) return;
+
         if (!FireCaseStateUtil.lastStateIsDepart()) {
             Log.w(TAG, "last state is not Depart");
             Toast.makeText(context, "请先出发", Toast.LENGTH_SHORT).show();
@@ -324,6 +328,8 @@ public class MainAtvPresenter {
      * 结束警情，上报服务器
      */
     public void finishCase() {
+        if (noCase()) return;
+
         if (!FireCaseStateUtil.lastStateIsArrive()) {
             Log.w(TAG, "last state is not arrive");
             Toast.makeText(context, "还未确认到达现场", Toast.LENGTH_SHORT).show();
@@ -342,9 +348,9 @@ public class MainAtvPresenter {
      */
     private void postState(final int state) {
         DataUtil.fireCaseState = state;
-        String closeInfo = DataUtil.getStateInfo(state);
-        Log.i(TAG, "close case Info : " + closeInfo);
-        HTTPPresenter.post(DataUtil.FIRE_CASE_STATE_URL, "jsonStr=" + closeInfo, new HTTPPresenter.CallBack() {
+        String content = DataUtil.getStateURLContent(state);
+        Log.i(TAG, "close case Info : " + content);
+        HTTPPresenter.post(DataUtil.FIRE_CASE_STATE_URL, content, new HTTPPresenter.CallBack() {
             @Override
             public void onResponse(String response) {
                 Log.i(TAG, "state = " + state + "arriveDest, response is " + response);
@@ -356,6 +362,7 @@ public class MainAtvPresenter {
      * 出发去现场
      */
     public void depart() {
+        if (noCase()) return;
 
         FireCaseBean fireCaseBean = DataUtil.getFireCaseBean();
         double lng = fireCaseBean.getMapx();
@@ -461,6 +468,18 @@ public class MainAtvPresenter {
     public void goSettingActivity() {
         Intent setintent = new Intent(context, SettingActivity.class);
         context.startActivity(setintent);
+    }
+
+    /**
+     * 判断 没有警情
+     * @return
+     */
+    public boolean noCase(){
+        if (!DataUtil.haveOneCase()){
+            Log.i(TAG, "There is no case!");
+            return true;
+        }
+        return false;
     }
 
 }

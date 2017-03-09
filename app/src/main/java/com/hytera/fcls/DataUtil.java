@@ -17,7 +17,7 @@ public class DataUtil {
     public static final String KEY_LOGINED = "login_or_not";// 标识是否已登录
 
     public static String FIRE_CASE_STATE_URL =
-            "http://192.168.123.104:8080/icc_fcls/alarmStatus/reportStatus";
+            "http://192.168.123.64:8080/icc_fcls/alarmStatus/reportStatus";
 
     public static String FIRE_CASE_IMG_URL =
             "http://192.168.123.101:8080/fcls/media/save?";
@@ -30,7 +30,7 @@ public class DataUtil {
     /** 初始状态 */
     public static final int CASE_STATE_INIT = 0;
     /** 接收警情 */
-    public static final int CASE_STATE_COPY = 1;
+    public static final int CASE_STATE_ACCEPT = 1;
     /** 出发 */
     public static final int CASE_STATE_DEPART = 2;
     /** 确认到达 */
@@ -43,17 +43,28 @@ public class DataUtil {
     /** 记录警情状态 */
     public static int fireCaseState = CASE_STATE_INIT;
 
+    /** 是否接收了 */
+    public static boolean acceptCase = false;
+
+    public static boolean isAcceptCase() {
+        return acceptCase;
+    }
+
+    public static void setAcceptCase(boolean acceptCase) {
+        DataUtil.acceptCase = acceptCase;
+    }
+
     /**
      * 记录登录用户的信息
      * 供上报服务器用
      */
-    private static LoginResponseBean loginResponseBean;
+    private static LoginResponseBean loginResponseBean = null;
 
     /**
      * 记录警情的信息
      * 供上报服务器用
      */
-    private static FireCaseBean fireCaseBean;
+    private static FireCaseBean fireCaseBean = null;
 
     public static void saveLoginResponseBean(LoginResponseBean bean){
         loginResponseBean = bean;
@@ -75,6 +86,23 @@ public class DataUtil {
     }
 
     /**
+     * 结束火情时，清除火情信息
+     */
+    public static void clearFireCase(){
+        fireCaseBean = null;
+    }
+
+    /**
+     * 是否已在处理一个警情
+     * @return
+     */
+    public static boolean haveOneCase() {
+        if (fireCaseBean != null ){
+            return true;
+        }
+        return false;
+    }
+    /**
      * 设置上报警情状态改变的地址
      * @param ip
      */
@@ -88,13 +116,6 @@ public class DataUtil {
      */
     public static void setImgPostURL(String ip){
         FIRE_CASE_IMG_URL = "http://"+ ip +":8080/fcls/media/save?";
-    }
-
-    /**
-     * 结束火情时，清除火情信息
-     */
-    public static void clearFireCase(){
-        fireCaseBean = null;
     }
 
     /**
@@ -130,6 +151,17 @@ public class DataUtil {
         caseStateBean.setUserBean(userBean);
         Gson gson = new Gson();
         return gson.toJson(caseStateBean);
+    }
+
+    /**
+     * 获取URL对应的state参数
+     * @param state
+     * @return
+     */
+    public static String getStateURLContent(int state){
+        String json = getStateInfo(state);
+        String token = getLoginUserBean().getToken();
+        return "jsonStr=" + json + "&" + "token=" + token;
     }
 
     /**

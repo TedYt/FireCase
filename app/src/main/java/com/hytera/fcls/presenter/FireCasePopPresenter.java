@@ -27,7 +27,7 @@ public class FireCasePopPresenter {
     /**
      * 接收警情
      */
-    public void copyCase() {
+    public void acceptCase() {
 
         iFireCasePop.showMainActivity();
         stopFireAlarm();
@@ -39,11 +39,11 @@ public class FireCasePopPresenter {
             Toast.makeText(context, "请先结束警情", Toast.LENGTH_SHORT).show();
             return;
         }*/
-
-        DataUtil.fireCaseState = DataUtil.CASE_STATE_COPY;
-        String copyInfo = DataUtil.getStateInfo(DataUtil.CASE_STATE_COPY);
-        Log.i(TAG, "copyCase case Info : " + copyInfo);
-        HTTPPresenter.post(DataUtil.FIRE_CASE_STATE_URL, "jsonStr=" + copyInfo, new HTTPPresenter.CallBack() {
+        DataUtil.setAcceptCase(true);
+        DataUtil.fireCaseState = DataUtil.CASE_STATE_ACCEPT;
+        String content = DataUtil.getStateURLContent(DataUtil.CASE_STATE_ACCEPT);
+        Log.i(TAG, "acceptCase case Info : " + content);
+        HTTPPresenter.post(DataUtil.FIRE_CASE_STATE_URL, content, new HTTPPresenter.CallBack() {
             @Override
             public void onResponse(String response) {
                 Log.i(TAG, "arriveDest, response is " + response);
@@ -54,10 +54,11 @@ public class FireCasePopPresenter {
     /**
      * 不接收警情
      */
-    public void rejectCopy() {
+    public void rejectCase() {
+        DataUtil.setAcceptCase(false);
         Log.i(TAG, "reject copy case : " + DataUtil.getFireCaseBean().getGuid());
-        final String rejectInfo = DataUtil.getStateInfo(DataUtil.CASE_STATE_REJECT);
-        HTTPPresenter.post(DataUtil.FIRE_CASE_STATE_URL, "jsonStr=" + rejectInfo, new HTTPPresenter.CallBack() {
+        String content = DataUtil.getStateURLContent(DataUtil.CASE_STATE_REJECT);
+        HTTPPresenter.post(DataUtil.FIRE_CASE_STATE_URL, content, new HTTPPresenter.CallBack() {
             @Override
             public void onResponse(String response) {
                 Log.i(TAG, "response is " + response);

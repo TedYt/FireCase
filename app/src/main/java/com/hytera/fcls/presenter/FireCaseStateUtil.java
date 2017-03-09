@@ -20,7 +20,7 @@ public class FireCaseStateUtil {
      * @return
      */
     public static boolean lastStateIsCopy(){
-        if (DataUtil.fireCaseState == DataUtil.CASE_STATE_COPY){
+        if (DataUtil.fireCaseState == DataUtil.CASE_STATE_ACCEPT){
             return true;
         }
         return false;

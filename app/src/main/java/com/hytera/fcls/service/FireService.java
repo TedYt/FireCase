@@ -119,7 +119,7 @@ public class FireService extends Service implements IMQConn {
         }
 
         // 如果已有一个警情，就不再处理新警情
-        if (haveOneCase()){
+        if (DataUtil.haveOneCase()){
             Log.w(TAG, "Had a case, DO NOT accept new case!");
             return;
         }
@@ -132,32 +132,22 @@ public class FireService extends Service implements IMQConn {
         showNotification(fireCase.getCompDeptName(), fireCase.getCaseDesc(), false);
         playFireAlarm();
         // 上报服务器，已收到警情，但是不一定接收处理
-        postServerAcceptCase();
+        postServerCopyCase();
     }
 
     /**
      * 上报服务器，已收到警情，但是不一定接收处理
      */
-    private void postServerAcceptCase() {
-        String initInfo = DataUtil.getStateInfo(DataUtil.CASE_STATE_INIT);
-        Log.i(TAG, "init Info : " + initInfo);
-        HTTPPresenter.post(DataUtil.FIRE_CASE_STATE_URL, "jsonStr=" + initInfo, new HTTPPresenter.CallBack() {
+    private void postServerCopyCase() {
+        // 上报一个初始状态，说明已收到警情
+        String content = DataUtil.getStateURLContent(DataUtil.CASE_STATE_INIT);
+        Log.i(TAG, "init Info : " + content);
+        HTTPPresenter.post(DataUtil.FIRE_CASE_STATE_URL, content, new HTTPPresenter.CallBack() {
             @Override
             public void onResponse(String response) {
                 Log.i(TAG, "state = 0, " + "arriveDest, response is " + response);
             }
         });
-    }
-
-    /**
-     * 是否已在处理一个警情
-     * @return
-     */
-    private boolean haveOneCase() {
-        if (DataUtil.getFireCaseBean() != null ){
-            return true;
-        }
-        return false;
     }
 
     /**

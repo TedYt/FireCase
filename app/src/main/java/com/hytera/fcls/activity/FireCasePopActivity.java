@@ -20,6 +20,10 @@ import butterknife.OnClick;
 /**
  * Created by Tim on 17/3/6.
  */
+
+/**
+ * 新警情来的时候，弹出的界面
+ */
 public class FireCasePopActivity extends Activity implements IFireCasePop {
 
     public static final String TAG = "y20650" + "FireCasePop";
@@ -70,10 +74,10 @@ public class FireCasePopActivity extends Activity implements IFireCasePop {
         int id = view.getId();
         switch (id) {
             case R.id.fire_case_copy:
-                casePopPresenter.copyCase();
+                casePopPresenter.acceptCase();
                 break;
             case R.id.fire_case_no_copy:
-                casePopPresenter.rejectCopy();
+                casePopPresenter.rejectCase();
                 break;
         }
     }
