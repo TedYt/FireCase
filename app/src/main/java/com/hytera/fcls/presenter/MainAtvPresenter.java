@@ -336,10 +336,9 @@ public class MainAtvPresenter {
             return;
         }
 
+        postState(DataUtil.CASE_STATE_FINISH);
         // 清除火情信息
         DataUtil.clearFireCase();
-
-        postState(DataUtil.CASE_STATE_FINISH);
     }
 
     /**
@@ -353,7 +352,7 @@ public class MainAtvPresenter {
         HTTPPresenter.post(DataUtil.FIRE_CASE_STATE_URL, content, new HTTPPresenter.CallBack() {
             @Override
             public void onResponse(String response) {
-                Log.i(TAG, "state = " + state + "arriveDest, response is " + response);
+                Log.i(TAG, "postState response, state = " + state + ", response is " + response);
             }
         });
     }

@@ -64,8 +64,8 @@ public class AmapGpsService extends Service {
             public void run() {
                 while (flag_upload_gps){
                     try {
-                        //设置2s 上传一次位置
-                        Thread.sleep(3000);
+                        //设置5s 上传一次位置
+                        Thread.sleep(5000);
                         getLocationInfo();//获得位置信息
                     } catch (InterruptedException e) {
                         e.printStackTrace();

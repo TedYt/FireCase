@@ -157,11 +157,13 @@ public class FireService extends Service implements IMQConn {
      * @return
      */
     private boolean isTheSameOrgIdentifier(FireCaseBean fireCase) {
-        String org1 = fireCase.getOrgIdentifier();
+        String org1 = fireCase.getOrgInfo().getOrgIdentifier();
+        Log.i(TAG, "org1 = " + org1);
         if (org1 == null) return true; // 若为null，则认为是相等, 可以接受警情
 
         LoginResponseBean.UserBean bean = DataUtil.getLoginUserBean();
         String org2 = bean.getOrgIdentifier();
+        Log.i(TAG, "org2 = " + org2);
         if (org2 != null){
             if (org1.equals(org2.substring(0,7))){
                 return true;

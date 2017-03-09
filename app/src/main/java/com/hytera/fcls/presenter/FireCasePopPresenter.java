@@ -65,6 +65,8 @@ public class FireCasePopPresenter {
             }
         });
 
+        DataUtil.clearFireCase();
+
         iFireCasePop.closeActivity();
         stopFireAlarm();
     }

@@ -122,28 +122,22 @@ public class MainActivity extends Activity implements IMainAtv {
         int id = view.getId();
         switch (id){
             case R.id.case_upload_photo:
-                Toast.makeText(MainActivity.this, "照相", Toast.LENGTH_SHORT).show();
                 mainPresenter.startCamera(MainActivity.this);
                 break;
             case R.id.case_upload_video:
-                Toast.makeText(MainActivity.this, "视频", Toast.LENGTH_SHORT).show();
                 mainPresenter.depart();
                 break;
             case R.id.case_depart:
-                Toast.makeText(MainActivity.this, "出发", Toast.LENGTH_SHORT).show();
                 mainPresenter.depart();
                 break;
             case R.id.case_arrive:
-                Toast.makeText(MainActivity.this, "到达", Toast.LENGTH_SHORT).show();
                 mainPresenter.arriveDest();
                 break;
             case R.id.case_end_fire:
-                Toast.makeText(MainActivity.this, "结束火警", Toast.LENGTH_SHORT).show();
                 mainPresenter.endPlayAnim(image_wave);
                 mainPresenter.finishCase();
                 break;
             case R.id.case_setting:
-                Toast.makeText(MainActivity.this, "设置", Toast.LENGTH_SHORT).show();
                 mainPresenter.goSettingActivity();
                 break;
         }

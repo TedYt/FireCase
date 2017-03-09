@@ -20,7 +20,11 @@ public class DataUtil {
             "http://192.168.123.64:8080/icc_fcls/alarmStatus/reportStatus";
 
     public static String FIRE_CASE_IMG_URL =
-            "http://192.168.123.101:8080/fcls/media/save?";
+            "http://192.168.123.64:8080/icc_fcls/media/save?";
+
+    public static final String LOGIN_URL =
+            "http://192.168.123.64:8080/icc_fcls/system/login/doLogin?";
+    // userCode=303798&password=123456
 
     /** 传递输入的key */
     public static final String EXTRA_FIRE_LEVERL = "fire_level";
@@ -127,7 +131,7 @@ public class DataUtil {
         CaseStateBean caseStateBean = new CaseStateBean();
         caseStateBean.setState(state);
         caseStateBean.setUpdatetime(System.currentTimeMillis());
-        caseStateBean.setCaseID("1234567890");
+        caseStateBean.setCaseID(DataUtil.getFireCaseBean().getGuid());
 
         LoginResponseBean.UserBean loginUserBean;
         CaseStateBean.UserBean userBean;

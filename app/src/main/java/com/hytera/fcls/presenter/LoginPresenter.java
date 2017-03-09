@@ -24,9 +24,6 @@ public class LoginPresenter {
 
     private LoginActivity context;
 
-    private final String URL =
-            "http://192.168.72.37:8080/fcls/system/login/doLogin?";
-    // userCode=303798&password=123456
     private final String URL_FOR_GET =
             "http://192.168.72.37:8080/fcls/system/login/doLogin?userCode=303798&password=123456";
 
@@ -37,7 +34,7 @@ public class LoginPresenter {
 
     public void Login(String password, String username){
         String content = "userCode=" + username + "&" + "password=" + password;
-        HTTPPresenter.post(URL, content, new HTTPPresenter.CallBack() {
+        HTTPPresenter.post(DataUtil.LOGIN_URL, content, new HTTPPresenter.CallBack() {
             @Override
             public void onResponse(String response) {
                 Log.i(TAG, "response is : " + response);
