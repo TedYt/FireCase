@@ -20,8 +20,10 @@ import com.hytera.fcls.R;
 import com.hytera.fcls.activity.FireCasePopActivity;
 import com.hytera.fcls.activity.MainActivity;
 import com.hytera.fcls.bean.FireCaseBean;
+import com.hytera.fcls.bean.LoginResponseBean;
 import com.hytera.fcls.mqtt.MQTT;
 import com.hytera.fcls.mqtt.event.MessageEvent;
+import com.hytera.fcls.presenter.HTTPPresenter;
 import com.hytera.fcls.presenter.MPPresenter;
 
 import org.greenrobot.eventbus.EventBus;
@@ -109,14 +111,76 @@ public class FireService extends Service implements IMQConn {
 
         Gson gson = new Gson();
         FireCaseBean fireCase = gson.fromJson(msg,FireCaseBean.class);
+
+        // orgIdentifier 不相等的时候，不通知警情
+        if (!isTheSameOrgIdentifier(fireCase)){
+            Log.w(TAG, "orgIdentifier are not same, Don NOT accept the fire case!");
+            return;
+        }
+
+        // 如果已有一个警情，就不再处理新警情
+        if (haveOneCase()){
+            Log.w(TAG, "Had a case, DO NOT accept new case!");
+            return;
+        }
+
         DataUtil.saveFireCaseBean(fireCase);
         Log.i(TAG, "got fire case bean");
 
-        //if (!copyThisCase(fireCase)) return;
 
         showCasePop(fireCase);
         showNotification(fireCase.getCompDeptName(), fireCase.getCaseDesc(), false);
         playFireAlarm();
+        // 上报服务器，已收到警情，但是不一定接收处理
+        postServerAcceptCase();
+    }
+
+    /**
+     * 上报服务器，已收到警情，但是不一定接收处理
+     */
+    private void postServerAcceptCase() {
+        String initInfo = DataUtil.getStateInfo(DataUtil.CASE_STATE_INIT);
+        Log.i(TAG, "init Info : " + initInfo);
+        HTTPPresenter.post(DataUtil.FIRE_CASE_STATE_URL, "jsonStr=" + initInfo, new HTTPPresenter.CallBack() {
+            @Override
+            public void onResponse(String response) {
+                Log.i(TAG, "state = 0, " + "arriveDest, response is " + response);
+            }
+        });
+    }
+
+    /**
+     * 是否已在处理一个警情
+     * @return
+     */
+    private boolean haveOneCase() {
+        if (DataUtil.getFireCaseBean() != null ){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 判断登录的 orgIdentifier 和警情的orgIdentifier 是否相等
+     * 若相等，则通知警情；反之则不通知
+     * @param fireCase
+     * @return
+     */
+    private boolean isTheSameOrgIdentifier(FireCaseBean fireCase) {
+        String org1 = fireCase.getOrgIdentifier();
+        if (org1 == null) return true; // 若为null，则认为是相等, 可以接受警情
+
+        LoginResponseBean.UserBean bean = DataUtil.getLoginUserBean();
+        String org2 = bean.getOrgIdentifier();
+        if (org2 != null){
+            if (org1.equals(org2.substring(0,7))){
+                return true;
+            }
+            Log.i(TAG, "The Login orgIdentifier is " + org2.substring(0,7)
+                    + ", fire case orgIdentifier is " + org1);
+            return false;
+        }
+        return true;
     }
 
     /**

@@ -42,6 +42,8 @@ public class FireCaseBean {
     private double mapx;
     private double mapy;
     private boolean repeat;
+    private String orgIdentifier;
+
     private boolean sendAllMsg;
 
     public String getOrgIdentifier() {
@@ -51,8 +53,6 @@ public class FireCaseBean {
     public void setOrgIdentifier(String orgIdentifier) {
         this.orgIdentifier = orgIdentifier;
     }
-
-    private String orgIdentifier;
 
     public String getCaseDesc() {
         return caseDesc;

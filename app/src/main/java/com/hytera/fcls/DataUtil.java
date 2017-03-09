@@ -16,7 +16,7 @@ public class DataUtil {
     public static final String KEY_CHECKED = "checked_remember";
     public static final String KEY_LOGINED = "login_or_not";// 标识是否已登录
 
-    public static final String FIRE_CASE_URL =
+    public static final String FIRE_CASE_STATE_URL =
             "http://192.168.123.104:8080/icc_fcls/alarmStatus/reportStatus";
 
     public static final String FIRE_CASE_IMG_URL =
@@ -70,6 +70,13 @@ public class DataUtil {
         if (fireCaseBean == null) return null;
 
         return fireCaseBean;
+    }
+
+    /**
+     * 结束火情时，清除火情信息
+     */
+    public static void clearFireCase(){
+        fireCaseBean = null;
     }
 
     /**

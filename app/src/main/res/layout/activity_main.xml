@@ -45,10 +45,10 @@
                 style="@style/MainAtvItemViewFrameStyle"
                 android:text="拍照" />
         </LinearLayout>
-        <View
+        <!--<View
             android:background="#d0cede"
             android:layout_width="1px"
-            android:layout_height="match_parent"/><!--分割线-->
+            android:layout_height="match_parent"/>--><!--分割线-->
         <LinearLayout
             android:id="@+id/case_upload_video"
             style="@style/MainAtvItemLinearLayoutStyle">
@@ -60,10 +60,10 @@
                 android:text="視頻" />
         </LinearLayout>
     </LinearLayout>
-    <View
+    <!--<View
         android:background="#d0cede"
         android:layout_width="match_parent"
-        android:layout_height="1px"/><!--分割线-->
+        android:layout_height="1px"/>--><!--分割线-->
     <LinearLayout
         style="@style/MainAtvItemLinearLayoutStyle2">
         <LinearLayout
@@ -76,10 +76,10 @@
                 style="@style/MainAtvItemViewFrameStyle"
                 android:text="出发" />
         </LinearLayout>
-        <View
+        <!--<View
             android:background="#d0cede"
             android:layout_width="1px"
-            android:layout_height="match_parent"/><!--分割线-->
+            android:layout_height="match_parent"/>--><!--分割线-->
         <LinearLayout
             android:id="@+id/case_arrive"
             style="@style/MainAtvItemLinearLayoutStyle">
@@ -91,10 +91,10 @@
                 android:text="到达" />
         </LinearLayout>
     </LinearLayout>
-    <View
+    <!--<View
         android:background="#d0cede"
         android:layout_width="match_parent"
-        android:layout_height="1px"/><!--分割线-->
+        android:layout_height="1px"/>--><!--分割线-->
     <LinearLayout
         style="@style/MainAtvItemLinearLayoutStyle2">
         <LinearLayout
@@ -107,10 +107,10 @@
                 style="@style/MainAtvItemViewFrameStyle"
                 android:text="结束警情" />
         </LinearLayout>
-        <View
+        <!--<View
             android:background="#d0cede"
             android:layout_width="1px"
-            android:layout_height="match_parent"/><!--分割线-->
+            android:layout_height="match_parent"/>--><!--分割线-->
         <LinearLayout
             android:id="@+id/case_setting"
             style="@style/MainAtvItemLinearLayoutStyle">

@@ -322,12 +322,15 @@ public class MainAtvPresenter {
     /**
      * 结束警情，上报服务器
      */
-    public void closeCase() {
+    public void finishCase() {
         if (!FireCaseStateUtil.lastStateIsArrive()) {
             Log.w(TAG, "last state is not arrive");
             Toast.makeText(context, "还未确认到达现场", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        // 清除火情信息
+        DataUtil.clearFireCase();
 
         postState(DataUtil.CASE_STATE_FINISH);
     }
@@ -340,7 +343,7 @@ public class MainAtvPresenter {
         DataUtil.fireCaseState = state;
         String closeInfo = DataUtil.getStateInfo(state);
         Log.i(TAG, "close case Info : " + closeInfo);
-        HTTPPresenter.post(DataUtil.FIRE_CASE_URL, "jsonStr=" + closeInfo, new HTTPPresenter.CallBack() {
+        HTTPPresenter.post(DataUtil.FIRE_CASE_STATE_URL, "jsonStr=" + closeInfo, new HTTPPresenter.CallBack() {
             @Override
             public void onResponse(String response) {
                 Log.i(TAG, "state = " + state + "arriveDest, response is " + response);

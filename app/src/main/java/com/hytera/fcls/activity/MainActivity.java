@@ -134,7 +134,7 @@ public class MainActivity extends Activity implements IMainAtv {
             case R.id.case_end_fire:
                 Toast.makeText(MainActivity.this, "结束火警", Toast.LENGTH_SHORT).show();
                 mainPresenter.endPlayAnim(image_wave);
-                mainPresenter.closeCase();
+                mainPresenter.finishCase();
                 break;
             case R.id.case_setting:
                 Toast.makeText(MainActivity.this, "设置", Toast.LENGTH_SHORT).show();
