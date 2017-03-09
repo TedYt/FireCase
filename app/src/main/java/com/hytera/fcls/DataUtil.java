@@ -16,10 +16,10 @@ public class DataUtil {
     public static final String KEY_CHECKED = "checked_remember";
     public static final String KEY_LOGINED = "login_or_not";// 标识是否已登录
 
-    public static final String FIRE_CASE_STATE_URL =
+    public static String FIRE_CASE_STATE_URL =
             "http://192.168.123.104:8080/icc_fcls/alarmStatus/reportStatus";
 
-    public static final String FIRE_CASE_IMG_URL =
+    public static String FIRE_CASE_IMG_URL =
             "http://192.168.123.101:8080/fcls/media/save?";
 
     /** 传递输入的key */
@@ -70,6 +70,22 @@ public class DataUtil {
         if (fireCaseBean == null) return null;
 
         return fireCaseBean;
+    }
+
+    /**
+     * 设置上报警情状态改变的地址
+     * @param ip
+     */
+    public static void setFireCaseStateURL(String ip){
+        FIRE_CASE_STATE_URL = "http://"+ ip +":8080/icc_fcls/alarmStatus/reportStatus";
+    }
+
+    /**
+     * 设置图片上传的地址
+     * @param ip
+     */
+    public static void setImgPostURL(String ip){
+        FIRE_CASE_IMG_URL = "http://"+ ip +":8080/fcls/media/save?";
     }
 
     /**
