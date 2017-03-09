@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hytera.fcls.DataUtil;
@@ -22,6 +23,8 @@ public class SettingActivity extends Activity {
     public Button confirm_server_ip;
     @BindView(R.id.server_port)
     public EditText server_port;
+    @BindView(R.id.mq_server_ip)
+    public TextView mq_server_ip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +40,12 @@ public class SettingActivity extends Activity {
      */
     @OnClick(R.id.confirm_server_ip)
     public void onClick(View view){
-        DataUtil.setServerIP(server_ip.getText().toString(), server_port.getText().toString());
+        DataUtil.setServerIP(server_ip.getText().toString(),
+                            server_port.getText().toString(),
+                            mq_server_ip.getText().toString());
         Toast.makeText(this, "ip : " + server_ip.getText().toString()
-                        + "， port : " + server_port.getText().toString(),
+                        + "， port : " + server_port.getText().toString()
+                        + ", mq : " + mq_server_ip.getText().toString(),
                         Toast.LENGTH_LONG).show();
         finish();
     }

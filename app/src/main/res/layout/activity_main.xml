@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/image_view"
-            android:background="@drawable/banner"
+            android:background="@drawable/main_ditu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -22,15 +22,6 @@
             android:layout_height="200px"
             android:id="@+id/image_wave"
             android:layout_alignBottom="@+id/image_view" />
-        <TextView
-            android:id="@+id/main_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="#ffffff"
-            android:textSize="40sp"
-            android:layout_centerInParent="true"
-            android:text="消防救援"/>
         <TextView
             android:id="@+id/case_info_level"
             android:gravity="center"

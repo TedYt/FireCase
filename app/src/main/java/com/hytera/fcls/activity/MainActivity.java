@@ -38,8 +38,6 @@ public class MainActivity extends Activity implements IMainAtv {
     public TextView case_info_deptname;
     @BindView(R.id.case_info_level)
     public TextView case_info_level;
-    @BindView(R.id.main_title)
-    public TextView main_title;
 
     private MainAtvPresenter mainPresenter;
 
@@ -149,7 +147,7 @@ public class MainActivity extends Activity implements IMainAtv {
     @Override
     public void showFireCaseInfo(String levelDesc, String caseDesc, String deptName) {
 
-        main_title.setVisibility(View.GONE);
+        imageView.setBackground(getResources().getDrawable(R.drawable.banner));
         case_info.setVisibility(View.VISIBLE);
         case_info_deptname.setVisibility(View.VISIBLE);
         case_info_level.setVisibility(View.VISIBLE);
@@ -166,7 +164,7 @@ public class MainActivity extends Activity implements IMainAtv {
      */
     @Override
     public void showTitle() {
-        main_title.setVisibility(View.VISIBLE);
+        imageView.setBackground(getResources().getDrawable(R.drawable.main_ditu));
         case_info.setVisibility(View.GONE);
         case_info_deptname.setVisibility(View.GONE);
         case_info_level.setVisibility(View.GONE);
