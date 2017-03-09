@@ -167,9 +167,9 @@ public class LoginActivity extends Activity implements ILogin {
     public void LoginFailed() {
         Log.i(TAG, "LoginFailed");
         enableAllView();
-        login_btn.setText(R.string.login_again);
-        login_btn.setBackgroundColor(getResources().getColor(R.color.login_failed_color));
-        Toast.makeText(this, "LoginFailed", Toast.LENGTH_SHORT).show();
+        login_btn.setText(R.string.login);
+        //login_btn.setBackgroundColor(getResources().getColor(R.color.login_failed_color));
+        Toast.makeText(this, R.string.login_failure, Toast.LENGTH_LONG).show();
     }
 
     /**
