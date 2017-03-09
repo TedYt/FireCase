@@ -1,6 +1,7 @@
 package com.hytera.fcls;
 
-import android.util.Log;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.hytera.fcls.bean.CaseStateBean;
@@ -129,11 +130,8 @@ public class DataUtil {
 
     /**
      * 测试方法 设置服务器端口
-     * @param ip
-     * @param port
-     * @param mq
      */
-    public static void setServerIP(String ip, String port, String mq){
+    /*public static void setServerIP(String ip, String port, String mq){
         Log.i("y20650", "setServerIP : " + ip + ", port : " + port);
         FIRE_CASE_IMG_URL = "http://" + ip + ":" + port + "/fcls/media/save?";
         FIRE_CASE_STATE_URL = "http://" + ip + ":" + port + "/icc_fcls/alarmStatus/reportStatus";
@@ -144,6 +142,54 @@ public class DataUtil {
                     + FIRE_CASE_STATE_URL + "\n"
                     + LOGIN_URL + "\n"
                     + MQ_URL);
+    }*/
+    public static void setSeverIP(String ip, Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("sever_ip", ip);
+        editor.apply();
+    }
+
+
+    public static void setSeverPort(String ip, Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("sever_port", ip);
+        editor.apply();
+    }
+
+    public static void setMQIP(String ip, Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("mq_ip", ip);
+        editor.apply();
+    }
+
+    public static String getCaseIMGUEL(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
+        String ip = sharedPreferences.getString("sever_ip","192.168.1.100");
+        String port = sharedPreferences.getString("sever_port","8080");
+        return "http://" + ip + ":" + port + "/fcls/media/save?";
+    }
+
+    public static String getCaseStateURL(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
+        String ip = sharedPreferences.getString("sever_ip","192.168.1.100");
+        String port = sharedPreferences.getString("sever_port","8080");
+        return "http://" + ip + ":" + port + "/icc_fcls/alarmStatus/reportStatus";
+    }
+
+    public static String getLoginURL(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
+        String ip = sharedPreferences.getString("sever_ip","192.168.1.100");
+        String port = sharedPreferences.getString("sever_port","8080");
+        return "http://" + ip + ":" + port + "/icc_fcls/system/login/doLogin?";
+    }
+
+    public static String getMQIP(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
+        String ip = sharedPreferences.getString("mq_ip","192.168.1.100");
+        return ip;
     }
 
     /**
@@ -201,15 +247,15 @@ public class DataUtil {
         int level = Integer.valueOf(s);
         switch (level){
             case 1:
-                return "一级火警";
+                return "一级";
             case 2:
-                return "二级火警";
+                return "二级";
             case 3:
-                return "三级火警";
+                return "三级";
             case 4:
-                return "四级火警";
+                return "四级";
             case 5:
-                return "五级火警";
+                return "五级";
         }
         return "无效级别";
     }
