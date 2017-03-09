@@ -43,17 +43,6 @@ public class MainActivity extends Activity implements IMainAtv {
 
     private MainAtvPresenter mainPresenter;
 
-    String[] fuc_names = new String[] { "拍照", "视频", "出发", "确认到达", "结束警情",
-            "设置" };
-    int[] fuc_icons = new int[] {
-            R.drawable.sel_1_upload_photo,
-            R.drawable.sel_1_upload_video,
-            R.drawable.sel_1_depart,
-            R.drawable.sel_1_confrim_arrival,
-            R.drawable.sel_1_endfire,
-            R.drawable.sel_1_setting,
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,16 +82,6 @@ public class MainActivity extends Activity implements IMainAtv {
                 Log.e(TAG, "SD card is not available right now.");
             }
             mainPresenter.postImage();
-        }
-    }
-
-    @OnClick(R.id.image_wave)
-    public void onClick(View view) {
-        int id = view.getId();
-        switch (id) {
-            case R.id.image_wave:
-                mainPresenter.playWaveAnim(image_wave);
-                break;
         }
     }
 
