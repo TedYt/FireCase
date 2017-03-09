@@ -37,6 +37,8 @@ public class DataUtil {
     public static final int CASE_STATE_ARRIVE = 3;
     /** 结束警情 */
     public static final int CASE_STATE_FINISH= 4;
+    /** 不接收警情 */
+    public static final int CASE_STATE_REJECT= 5;
 
     /** 记录警情状态 */
     public static int fireCaseState = CASE_STATE_INIT;

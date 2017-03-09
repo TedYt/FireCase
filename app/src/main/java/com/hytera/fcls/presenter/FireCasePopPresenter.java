@@ -55,6 +55,15 @@ public class FireCasePopPresenter {
      * 不接收警情
      */
     public void rejectCopy() {
+        Log.i(TAG, "reject copy case : " + DataUtil.getFireCaseBean().getGuid());
+        final String rejectInfo = DataUtil.getStateInfo(DataUtil.CASE_STATE_REJECT);
+        HTTPPresenter.post(DataUtil.FIRE_CASE_STATE_URL, "jsonStr=" + rejectInfo, new HTTPPresenter.CallBack() {
+            @Override
+            public void onResponse(String response) {
+                Log.i(TAG, "response is " + response);
+            }
+        });
+
         iFireCasePop.closeActivity();
         stopFireAlarm();
     }
