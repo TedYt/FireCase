@@ -38,6 +38,8 @@ public class MainActivity extends Activity implements IMainAtv {
     public TextView case_info_deptname;
     @BindView(R.id.case_info_level)
     public TextView case_info_level;
+    @BindView(R.id.main_title)
+    public TextView main_title;
 
     private MainAtvPresenter mainPresenter;
 
@@ -99,7 +101,7 @@ public class MainActivity extends Activity implements IMainAtv {
         int id = view.getId();
         switch (id) {
             case R.id.image_wave:
-                mainPresenter.play(image_wave);
+                mainPresenter.playWaveAnim(image_wave);
                 break;
         }
     }
@@ -134,7 +136,7 @@ public class MainActivity extends Activity implements IMainAtv {
                 mainPresenter.arriveDest();
                 break;
             case R.id.case_end_fire:
-                mainPresenter.endPlayAnim(image_wave);
+                mainPresenter.endWaveAnim(image_wave);
                 mainPresenter.finishCase();
                 break;
             case R.id.case_setting:
@@ -167,9 +169,28 @@ public class MainActivity extends Activity implements IMainAtv {
      */
     @Override
     public void showFireCaseInfo(String levelDesc, String caseDesc, String deptName) {
+
+        main_title.setVisibility(View.GONE);
+        case_info.setVisibility(View.VISIBLE);
+        case_info_deptname.setVisibility(View.VISIBLE);
+        case_info_level.setVisibility(View.VISIBLE);
+
         case_info.setText(caseDesc);
         case_info_deptname.setText(deptName);
         case_info_level.setText(levelDesc);
+
+        mainPresenter.playWaveAnim(image_wave);
+    }
+
+    /**
+     * 警情结束时，显示 消防救援 的标题
+     */
+    @Override
+    public void showTitle() {
+        main_title.setVisibility(View.VISIBLE);
+        case_info.setVisibility(View.GONE);
+        case_info_deptname.setVisibility(View.GONE);
+        case_info_level.setVisibility(View.GONE);
     }
 
     private boolean checkCameraPermissoin(){

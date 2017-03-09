@@ -23,6 +23,15 @@
             android:id="@+id/image_wave"
             android:layout_alignBottom="@+id/image_view" />
         <TextView
+            android:id="@+id/main_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="40sp"
+            android:layout_centerInParent="true"
+            android:text="消防救援"/>
+        <TextView
             android:id="@+id/case_info_level"
             android:gravity="center"
             android:layout_centerHorizontal="true"
@@ -30,7 +39,8 @@
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
             android:textSize="250px"
-            android:text="3"/>
+            android:text="3"
+            android:visibility="gone"/>
         <TextView
             android:id="@+id/case_info_detail"
             android:gravity="center"
@@ -40,6 +50,7 @@
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
             android:textSize="@dimen/main_case_info_text_size"
+            android:visibility="gone"
             android:text="宝安区福永大洋田中粮福安机器人产业园15栋4楼被困电梯13380333115"/>
         <TextView
             android:id="@+id/case_info_deptname"
@@ -52,6 +63,7 @@
             android:textColor="#ffffff"
             android:layout_marginTop="10dp"
             android:textSize="@dimen/main_case_info_text_size"
+            android:visibility="gone"
             android:text="福永中队"/>
     </RelativeLayout>
 

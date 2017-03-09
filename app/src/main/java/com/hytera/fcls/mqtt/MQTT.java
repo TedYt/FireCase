@@ -168,7 +168,7 @@ public class MQTT {
         GPSBean gpsBean = new GPSBean();
         gpsBean.setLatitude(lat);
         gpsBean.setLongitude(lng);
-        gpsBean.setCaseID("12345678907654321");
+        gpsBean.setCaseID(DataUtil.getFireCaseBean().getGuid());
         gpsBean.setGpsDateTime(System.currentTimeMillis());
 
         GPSBean.UserBean userBean = new GPSBean.UserBean();
