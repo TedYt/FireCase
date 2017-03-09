@@ -33,6 +33,10 @@ public class MainActivity extends Activity implements IMainAtv {
     public ImageView imageView;
     @BindView(R.id.case_info_detail)
     public TextView case_info;
+    @BindView(R.id.case_info_deptname)
+    public TextView case_info_deptname;
+    @BindView(R.id.case_info_level)
+    public TextView case_info_level;
 
     private MainAtvPresenter mainPresenter;
 
@@ -161,11 +165,15 @@ public class MainActivity extends Activity implements IMainAtv {
 
     /**
      * 在主界面显示警情
-     * @param s
+     * @param levelDesc
+     * @param caseDesc
+     * @param deptName
      */
     @Override
-    public void showFireCaseInfo(String s) {
-        case_info.setText(s);
+    public void showFireCaseInfo(String levelDesc, String caseDesc, String deptName) {
+        case_info.setText(caseDesc);
+        case_info_deptname.setText(deptName);
+        case_info_level.setText(levelDesc);
     }
 
     private boolean checkCameraPermissoin(){

@@ -32,7 +32,7 @@ public class MQTT {
 
     public static final String TAG = "y20650" + "MQTT";
 
-    private static final String ServerIP = "192.168.123.64"; // 测试地址
+    private static final String ServerIP = "192.168.123.91"; // 测试地址
     private static final String PORTID = "1883"; // MQTT 协议的对应的端口
     //private static final String ClientID = "y20650";
 
@@ -84,6 +84,8 @@ public class MQTT {
          * 连接的选项
          */
         MqttConnectOptions conOpt = new MqttConnectOptions();
+        conOpt.setUserName("user");
+        conOpt.setPassword("test".toCharArray());
         /**设计连接超时时间*/
         conOpt.setConnectionTimeout(3000);
         /**设计心跳间隔时间300秒*/

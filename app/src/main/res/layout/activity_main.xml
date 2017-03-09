@@ -23,14 +23,36 @@
             android:id="@+id/image_wave"
             android:layout_alignBottom="@+id/image_view" />
         <TextView
-            android:id="@+id/case_info_detail"
+            android:id="@+id/case_info_level"
             android:gravity="center"
             android:layout_centerHorizontal="true"
             android:layout_width="300dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="20dp"
-            android:textSize="20sp"
-            android:text="ceshi"/>
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:textSize="250px"
+            android:text="3"/>
+        <TextView
+            android:id="@+id/case_info_detail"
+            android:gravity="center"
+            android:layout_below="@id/case_info_level"
+            android:layout_centerHorizontal="true"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/main_case_info_text_size"
+            android:text="宝安区福永大洋田中粮福安机器人产业园15栋4楼被困电梯13380333115"/>
+        <TextView
+            android:id="@+id/case_info_deptname"
+            android:gravity="center"
+            android:layout_below="@id/case_info_detail"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/sp_1_main_case_info_deptname_bg"
+            android:layout_width="300px"
+            android:layout_height="66px"
+            android:textColor="#ffffff"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/main_case_info_text_size"
+            android:text="福永中队"/>
     </RelativeLayout>
 
     <LinearLayout

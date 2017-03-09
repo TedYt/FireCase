@@ -18,4 +18,5 @@
     <dimen name="font_leve1_60px">60px</dimen>
     <dimen name="font_main_42px">42px</dimen>
 
+    <dimen name="main_case_info_text_size">46px</dimen>
 </resources>

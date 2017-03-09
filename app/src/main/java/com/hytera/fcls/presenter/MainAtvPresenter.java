@@ -449,12 +449,8 @@ public class MainAtvPresenter {
     public void getFireCaseInfo() {
         FireCaseBean bean = DataUtil.getFireCaseBean();
         if (bean != null) {
-            StringBuilder sb = new StringBuilder();
-            String desc = DataUtil.getLevelDesc(bean.getCaseLevel());
-            sb.append(desc + ",")
-                    .append(bean.getCaseDesc() + ",")
-                    .append(bean.getCompDeptName());
-            iMainAtv.showFireCaseInfo(sb.toString());
+            String levelDesc = DataUtil.getLevelDesc(bean.getCaseLevel());
+            iMainAtv.showFireCaseInfo(levelDesc, bean.getCaseDesc(), bean.getCompDeptName());
         }
         Log.d(TAG, "FireCaseBean is null. Fail get fire case info!");
     }

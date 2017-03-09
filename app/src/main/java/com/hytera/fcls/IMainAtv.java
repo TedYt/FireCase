@@ -10,5 +10,5 @@ public interface IMainAtv {
 
     void showLogInMain(String s);
 
-    void showFireCaseInfo(String s);
+    void showFireCaseInfo(String levelDesc, String caseDesc, String s);
 }
