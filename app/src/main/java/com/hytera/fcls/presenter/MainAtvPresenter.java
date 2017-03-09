@@ -349,7 +349,7 @@ public class MainAtvPresenter {
     private void postState(final int state) {
         DataUtil.fireCaseState = state;
         String content = DataUtil.getStateURLContent(state);
-        Log.i(TAG, "close case Info : " + content);
+        Log.i(TAG, "postState case Info : " + content);
         HTTPPresenter.post(DataUtil.FIRE_CASE_STATE_URL, content, new HTTPPresenter.CallBack() {
             @Override
             public void onResponse(String response) {
