@@ -43,6 +43,7 @@
                 android:src="@drawable/sel_1_upload_photo" />
             <TextView
                 style="@style/MainAtvItemViewFrameStyle"
+                android:textSize="@dimen/font_main_42px"
                 android:text="拍照" />
         </LinearLayout>
         <!--<View
@@ -55,9 +56,12 @@
             <ImageView
                 style="@style/MainAtvItemViewFrameStyle"
                 android:src="@drawable/sel_1_upload_video" />
+
             <TextView
                 style="@style/MainAtvItemViewFrameStyle"
-                android:text="視頻" />
+                android:textSize="@dimen/font_main_42px"
+                android:text="視頻"
+                android:id="@+id/textView" />
         </LinearLayout>
     </LinearLayout>
     <!--<View
@@ -74,6 +78,7 @@
                 android:src="@drawable/sel_1_depart" />
             <TextView
                 style="@style/MainAtvItemViewFrameStyle"
+                android:textSize="@dimen/font_main_42px"
                 android:text="出发" />
         </LinearLayout>
         <!--<View
@@ -88,6 +93,7 @@
                 android:src="@drawable/sel_1_confrim_arrival" />
             <TextView
                 style="@style/MainAtvItemViewFrameStyle"
+                android:textSize="@dimen/font_main_42px"
                 android:text="到达" />
         </LinearLayout>
     </LinearLayout>
@@ -105,6 +111,7 @@
                 android:src="@drawable/sel_1_endfire" />
             <TextView
                 style="@style/MainAtvItemViewFrameStyle"
+                android:textSize="@dimen/font_main_42px"
                 android:text="结束警情" />
         </LinearLayout>
         <!--<View
@@ -118,6 +125,7 @@
                 style="@style/MainAtvItemViewFrameStyle"
                 android:src="@drawable/sel_1_setting" />
             <TextView
+                android:textSize="@dimen/font_main_42px"
                 style="@style/MainAtvItemViewFrameStyle"
                 android:text="设置" />
         </LinearLayout>

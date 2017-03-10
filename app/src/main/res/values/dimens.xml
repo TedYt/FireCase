@@ -16,5 +16,6 @@
 
     <dimen name="height_setting_150px">150px</dimen>
     <dimen name="font_leve1_60px">60px</dimen>
+    <dimen name="font_main_42px">42px</dimen>
 
 </resources>
