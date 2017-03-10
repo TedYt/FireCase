@@ -237,7 +237,7 @@ public class FireService extends Service implements IMQConn {
         builder.setContentIntent(PendingIntent.getActivity(this,0,nfIntent,0))
                 .setContentTitle(title) // 必填的属性
                 .setContentText(msg) // 必填的属性
-                .setSmallIcon(R.drawable.icon) // 必填的属性
+                .setSmallIcon(R.drawable.icon_noti) // 必填的属性
                 .setWhen(System.currentTimeMillis());
 
         Notification notification = builder.build();

@@ -336,6 +336,8 @@ public class MainAtvPresenter {
             return;
         }
 
+        iMainAtv.showTitle();
+
         postState(DataUtil.CASE_STATE_FINISH);
         // 清除火情信息
         DataUtil.clearFireCase();
@@ -423,7 +425,7 @@ public class MainAtvPresenter {
      * 播放主界面中的波浪动画
      * @param view
      */
-    public void play(View view) {
+    public void playWaveAnim(View view) {
         if (view.getBackground() instanceof AnimationDrawable) {
             animation = (AnimationDrawable) view.getBackground();
             animation.start();
@@ -434,7 +436,7 @@ public class MainAtvPresenter {
      * 停止主界面中的波浪动画
      * @param view
      */
-    public void endPlayAnim(View view) {
+    public void endWaveAnim(View view) {
         if (view.getBackground() instanceof AnimationDrawable) {
             animation = (AnimationDrawable) view.getBackground();
             animation.stop();
@@ -476,6 +478,7 @@ public class MainAtvPresenter {
     public boolean noCase(){
         if (!DataUtil.haveOneCase()){
             Log.i(TAG, "There is no case!");
+            Toast.makeText(context, "没用新警情要处理", Toast.LENGTH_SHORT).show();
             return true;
         }
         return false;
