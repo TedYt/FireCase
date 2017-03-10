@@ -22,11 +22,12 @@
         android:paddingTop="25px"
         android:textColor="@color/white"
         android:typeface="sans"
-        android:textSize="60px"
+        android:textSize="@dimen/font_leve1_60px"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/fire_saving" />
 </LinearLayout>
+
     <LinearLayout
         android:gravity="center_horizontal"
         android:orientation="vertical"
@@ -37,7 +38,7 @@
         <EditText
             android:imeOptions="actionNext"
             android:singleLine="true"
-            android:textSize="@dimen/font_normal_40px"
+            android:textSize="@dimen/font_normal_46px"
             android:id="@+id/login_username"
             android:drawableLeft="@drawable/sel_0_user_icon"
             android:hint="@string/login_input_username_hint"
@@ -45,36 +46,46 @@
             style="@style/et_login_pwd" />
 
         <EditText
-            android:textSize="@dimen/font_normal_40px"
-            android:layout_marginTop="30px"
+            android:textSize="@dimen/font_normal_46px"
+            android:layout_marginTop="60px"
             android:drawableLeft="@drawable/sel_0_pwd_icon"
             android:id="@+id/login_password"
             android:inputType="textPassword"
             android:nextFocusForward="@+id/login_btn"
             android:hint="@string/login_input_password_hint"
             style="@style/et_login_pwd"/>
+
         <LinearLayout
+            android:gravity="center_vertical"
             android:layout_marginTop="10px"
             android:orientation="horizontal"
             style="@style/login_height_width">
-            <CheckBox
 
+            <CheckBox
+                android:gravity="center"
                 android:id="@+id/checkbox_remember_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="false"
-                android:scaleX="0.6"
-                android:scaleY="0.6"
-                />
-            <TextView
-                android:textSize="36px"
+                android:button="@null"
+                android:textSize="42px"
+                android:text="@string/login_remember_password"
+                android:drawableLeft="@drawable/sel_0_cb_check"
                 android:textColor="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/login_remember_password"/>
+                android:drawablePadding="29px"
+                 />
+            <!-- android:button="@drawable/sel_0_cb_check"-->
+            <!--<TextView-->
+                <!--android:layout_marginLeft="26px"-->
+                <!--android:textSize="42px"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/login_remember_password"/>-->
         </LinearLayout>
+
         <Button
-            android:textSize="@dimen/font_normal_40px"
+            android:textSize="@dimen/font_normal_46px"
             android:background="@drawable/sel_0_bt_login"
             android:id="@+id/login_btn"
             style="@style/login_height_width"

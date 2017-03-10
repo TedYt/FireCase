@@ -27,6 +27,7 @@ import com.amap.api.maps.model.NaviPara;
 import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.IMainAtv;
 import com.hytera.fcls.activity.MainActivity;
+import com.hytera.fcls.activity.SettingActivity;
 import com.hytera.fcls.bean.FireCaseBean;
 import com.hytera.fcls.bean.LoginResponseBean;
 import com.hytera.fcls.mqtt.MQTT;
@@ -457,4 +458,13 @@ public class MainAtvPresenter {
         }
         Log.d(TAG, "FireCaseBean is null. Fail get fire case info!");
     }
+
+    /**
+     * 设置界面
+     */
+    public void goSettingActivity() {
+        Intent setintent = new Intent(context, SettingActivity.class);
+        context.startActivity(setintent);
+    }
+
 }

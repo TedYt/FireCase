@@ -55,4 +55,36 @@
         <item name="android:layout_height">@dimen/login_row_heigt</item>
     </style>
 
+    <style name="settting_text_item">
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">@dimen/margin_normal_40px</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/font_normal_46px</item>
+    </style>
+
+    <style name="setting_img_item">
+        <item name="android:layout_marginRight">@dimen/margin_normal_40px</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:background">@drawable/right_arrow_setting</item>
+    </style>
+
+    <style name="setting_rl_item_1">
+        <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/sel_s_item_bg1</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/height_setting_150px</item>
+    </style>
+
+    <style name="setting_rl_item_2">
+        <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/sel_s_item_bg2</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/height_setting_150px</item>
+    </style>
+
 </resources>

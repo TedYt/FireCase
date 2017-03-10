@@ -2,14 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hytera.fcls">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- 高德地图 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -37,10 +36,13 @@
             android:name=".activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
-            <!--<intent-filter android:priority="2147483647">
+
+            <!--
+            <intent-filter android:priority="2147483647">
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".activity.KeepAliveActivity"
@@ -54,24 +56,24 @@
             android:name=".activity.LoginActivity"
             android:excludeFromRecents="true"
             android:screenOrientation="portrait">
-
             <intent-filter android:priority="2147483647">
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activity.NaviActivity"
+        <activity
+            android:name=".activity.NaviActivity"
             android:excludeFromRecents="true"
-            android:launchMode="singleInstance"/>
-
-        <activity android:name=".activity.DriveRoutesActivity"
-            android:excludeFromRecents="true"/>
-
-        <activity android:name=".activity.FireCasePopActivity"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name=".activity.DriveRoutesActivity"
+            android:excludeFromRecents="true" />
+        <activity
+            android:name=".activity.FireCasePopActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleTop"
-            android:theme="@android:style/Theme.Holo.Light.Dialog"/>
+            android:theme="@android:style/Theme.Holo.Light.Dialog" />
 
         <receiver android:name=".service.KeepLiveReceiver">
             <intent-filter>
@@ -80,10 +82,9 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
         <receiver android:name=".service.BootupReceive">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
@@ -92,12 +93,13 @@
         <!-- Mqtt Service 这是个大坑，必须加 -->
         <service android:name="org.eclipse.paho.android.service.MqttService" />
         <!-- 定位需要的服务 使用2.0的定位需要加上这个 -->
-        <service android:name="com.amap.api.location.APSService"></service>
-
+        <service android:name="com.amap.api.location.APSService" />
         <service
             android:name=".service.AmapGpsService"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
+
+        <activity android:name=".activity.SettingActivity"></activity>
     </application>
 
 </manifest>

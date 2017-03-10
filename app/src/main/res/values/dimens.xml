@@ -7,7 +7,14 @@
     <dimen name="login_atv_view_height">50dp</dimen>
     <!--<dimen name="login_atv_view_height">50dp</dimen>-->
     <!--登陆界面视觉效果统一宽高-->
-    <dimen name="login_row_heigt">125px</dimen>
-    <dimen name="login_row_width">800px</dimen>
-    <dimen name="font_normal_40px">40px</dimen>
+    <dimen name="login_row_heigt">144px</dimen>
+    <dimen name="login_row_width">900px</dimen>
+    <dimen name="font_normal_46px">46px</dimen>
+
+    <!--设置界面间距-->
+    <dimen name="margin_normal_40px">40px</dimen>
+
+    <dimen name="height_setting_150px">150px</dimen>
+    <dimen name="font_leve1_60px">60px</dimen>
+
 </resources>

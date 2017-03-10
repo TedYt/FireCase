@@ -12,5 +12,15 @@
     <color name="white"> #FFFFFF</color>
     <color name="red"> #FF0000</color>
     <color name="line">#ffd3dde6</color>
+
+    <!--界面总背景颜色值淡灰色-->
+    <color name="normal_all_bg_gray">#eceaf6</color>
+    <!--设置通用颜色-->
+    <color name="setting_normal_orange_gray1">#f7f5ff</color>
+    <!--设置选中颜色只有2种-->
+    <color name="setting_select_orange_gray1">#dddbe7</color>
+    <color name="setting_select_orange_gray2">#eebfaa</color>
+
+
 </resources>
 

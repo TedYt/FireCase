@@ -138,6 +138,7 @@ public class MainActivity extends Activity implements IMainAtv {
                 break;
             case R.id.case_setting:
                 Toast.makeText(MainActivity.this, "设置", Toast.LENGTH_SHORT).show();
+                mainPresenter.goSettingActivity();
                 break;
         }
     }
