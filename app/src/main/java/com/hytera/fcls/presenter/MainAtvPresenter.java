@@ -307,6 +307,12 @@ public class MainAtvPresenter {
     public void arriveDest() {
         if (noCase()) return;
 
+        if (FireCaseStateUtil.lastStateIsArrive()){
+            Log.i(TAG, "已到达现场，直接拍照");
+            startCamera(context);
+            return;
+        }
+
         if (!FireCaseStateUtil.lastStateIsDepart()) {
             Log.w(TAG, "last state is not Depart");
             Toast.makeText(context, "请先出发", Toast.LENGTH_SHORT).show();
@@ -330,12 +336,25 @@ public class MainAtvPresenter {
     public void finishCase() {
         if (noCase()) return;
 
+        if (FireCaseStateUtil.lastStateIsFinish()){
+            Log.w(TAG, "the state was finish");
+            Toast.makeText(context, "已结束案情，勿重复点击", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if (!FireCaseStateUtil.lastStateIsArrive()) {
             Log.w(TAG, "last state is not arrive");
             Toast.makeText(context, "还未确认到达现场", Toast.LENGTH_SHORT).show();
             return;
         }
 
+        iMainAtv.showFinishCaseDialog();
+    }
+
+    /**
+     * 确认结束警情
+     */
+    public void confirmFinishCase() {
         iMainAtv.showTitle();
 
         postState(DataUtil.CASE_STATE_FINISH);
@@ -379,19 +398,8 @@ public class MainAtvPresenter {
             Toast.makeText(context, "请先接警!", Toast.LENGTH_SHORT).show();
             return;
         }
-        postState(DataUtil.CASE_STATE_DEPART);
 
-        //开启外部导航
-        InstatNav(lng,lat);
-
-        //内置导航，暂未修订
-//      Intent intent = new Intent(MainActivity.this,NaviActivity.class);
-//      startActivity(intent);
-
-        //2.开启服务上传定位结果
-        Intent startGpsLocation = new Intent(context, AmapGpsService.class);
-        context.startService(startGpsLocation);
-        Log.d(TAG, "depart: 开始导航服务开启");
+        iMainAtv.showNavDialog();
     }
 
     /**
@@ -418,6 +426,41 @@ public class MainAtvPresenter {
 //        mAMap.clear();
     }
 
+    /**
+     * 启动导航，调用外部或者内置地图
+     * 导航同时，会上报GPS数据
+     */
+    public void launchNav() {
+        FireCaseBean fireCaseBean = DataUtil.getFireCaseBean();
+        double lng = fireCaseBean.getMapx();
+        double lat = fireCaseBean.getMapy();
+
+        //开启外部导航
+        InstatNav(lng,lat);
+        //内置导航，暂未修订
+        //Intent intent = new Intent(MainActivity.this,NaviActivity.class);
+        //startActivity(intent);
+
+        startGPSService();
+    }
+
+    /**
+     * 仅上报状态，不开启导航
+     * 但是会开始GPS服务，上报GPS数据
+     */
+    public void justPostArrState() {
+        postState(DataUtil.CASE_STATE_DEPART);
+        startGPSService();
+    }
+
+    /**
+     * 开启GPS服务，在服务里会上报GPS数据
+     */
+    private void startGPSService() {
+        Intent startGpsLocation = new Intent(context, AmapGpsService.class);
+        context.startService(startGpsLocation);
+        Log.d(TAG, "depart: 开始导航服务开启");
+    }
 
     AnimationDrawable animation;
 
@@ -483,5 +526,4 @@ public class MainAtvPresenter {
         }
         return false;
     }
-
 }

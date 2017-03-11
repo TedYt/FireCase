@@ -13,4 +13,8 @@ public interface IMainAtv {
     void showFireCaseInfo(String levelDesc, String caseDesc, String s);
 
     void showTitle();
+
+    void showFinishCaseDialog();
+
+    void showNavDialog();
 }

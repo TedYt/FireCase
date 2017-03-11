@@ -8,7 +8,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.R;
 
 import butterknife.BindView;
@@ -40,9 +39,9 @@ public class SettingActivity extends Activity {
      */
     @OnClick(R.id.confirm_server_ip)
     public void onClick(View view){
-        DataUtil.setServerIP(server_ip.getText().toString(),
+        /*DataUtil.setServerIP(server_ip.getText().toString(),
                             server_port.getText().toString(),
-                            mq_server_ip.getText().toString());
+                            mq_server_ip.getText().toString());*/
         Toast.makeText(this, "ip : " + server_ip.getText().toString()
                         + "， port : " + server_port.getText().toString()
                         + ", mq : " + mq_server_ip.getText().toString(),

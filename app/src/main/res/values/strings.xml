@@ -9,4 +9,15 @@
     <string name="fire_case_copy">Copy</string>
     <string name="fire_saving">火警救援</string>
     <string name="test_text">宝安区福永大洋田中粮福安机器人产业园15栋4楼被困电梯13380333115</string>
+    <string name="str_main_item_setting">设置</string>
+    <string name="str_main_item_finish_case">结束警情</string>
+    <string name="str_main_item_arrive">到达</string>
+    <string name="str_main_item_depat">出发</string>
+    <string name="str_main_item_video">视频</string>
+    <string name="str_main_item_photo">拍照</string>
+    <string name="confirm_finish_case">确定要结束警情？</string>
+    <string name="navigation">导航</string>
+    <string name="need_navigation_or_not">是否需要导航</string>
+    <string name="need">需要</string>
+    <string name="no_need">不需要</string>
 </resources>

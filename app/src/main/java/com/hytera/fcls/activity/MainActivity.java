@@ -2,6 +2,8 @@ package com.hytera.fcls.activity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -168,6 +170,49 @@ public class MainActivity extends Activity implements IMainAtv {
         case_info.setVisibility(View.GONE);
         case_info_deptname.setVisibility(View.GONE);
         case_info_level.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showFinishCaseDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(R.string.str_main_item_finish_case)
+                .setMessage(R.string.confirm_finish_case)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        mainPresenter.confirmFinishCase();
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        dialog.dismiss();
+                    }
+                });
+        dialog.show();
+    }
+
+    @Override
+    public void showNavDialog() {
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(R.string.navigation)
+                .setMessage(R.string.need_navigation_or_not)
+                .setPositiveButton(R.string.need, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        mainPresenter.launchNav();
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(R.string.no_need, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        mainPresenter.justPostArrState();
+                        dialog.dismiss();
+                    }
+                });
+        dialog.show();
     }
 
     private boolean checkCameraPermissoin(){

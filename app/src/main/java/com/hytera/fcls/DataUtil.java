@@ -20,15 +20,15 @@ public class DataUtil {
     public static final String KEY_LOGINED = "login_or_not";// 标识是否已登录
 
     public static String FIRE_CASE_STATE_URL =
-            "http://192.168.123.64:8080/icc_fcls/alarmStatus/reportStatus";
+            "http://192.168.1.100:8080/icc_fcls/alarmStatus/reportStatus";
 
     public static String FIRE_CASE_IMG_URL =
-            "http://192.168.123.64:8080/icc_fcls/media/save?";
+            "http://192.168.1.100:8080/icc_fcls/media/save?";
 
     public static String LOGIN_URL =
-            "http://192.168.123.64:8080/icc_fcls/system/login/doLogin?";
+            "http://192.168.1.100:8080/icc_fcls/system/login/doLogin?";
 
-    public static String MQ_URL = "192.168.1.104";
+    public static String MQ_URL = "192.168.1.100";
 
     // userCode=303798&password=123456
 

@@ -103,6 +103,10 @@ public class FireService extends Service implements IMQConn {
             return;
         }
 
+        if (event.getMqttMessage() == null) {
+            return;
+        }
+
         String msg = new String(event.getMqttMessage().getPayload());
         String title = "新警情";
         Log.i(TAG, "getMessage from MQ : "
@@ -140,6 +144,7 @@ public class FireService extends Service implements IMQConn {
      */
     private void postServerCopyCase() {
         // 上报一个初始状态，说明已收到警情
+        DataUtil.fireCaseState = DataUtil.CASE_STATE_INIT;
         String content = DataUtil.getStateURLContent(DataUtil.CASE_STATE_INIT);
         Log.i(TAG, "init Info : " + content);
         HTTPPresenter.post(DataUtil.FIRE_CASE_STATE_URL, content, new HTTPPresenter.CallBack() {
