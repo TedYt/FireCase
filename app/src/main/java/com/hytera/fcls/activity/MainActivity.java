@@ -26,7 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends Activity implements IMainAtv {
+public class MainActivity extends BaseActivity implements IMainAtv {
 
     public static final String TAG = "y20650" + MainActivity.class.getSimpleName();
 

@@ -57,6 +57,7 @@
     <include layout="@layout/view_normal_1" />
 
     <RelativeLayout
+        android:id="@+id/exit_application"
         style="@style/setting_rl_item_2"
         android:layout_marginTop="30px"
         >

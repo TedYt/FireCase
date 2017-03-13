@@ -25,7 +25,7 @@ import butterknife.OnClick;
 /**
  * 新警情来的时候，弹出的界面
  */
-public class FireCasePopActivity extends Activity implements IFireCasePop {
+public class FireCasePopActivity extends BaseActivity implements IFireCasePop {
 
     public static final String TAG = "y20650" + "FireCasePop";
 

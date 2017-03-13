@@ -26,7 +26,7 @@ import com.amap.api.maps.model.NaviPara;
 import com.amap.api.maps.model.Poi;
 import com.hytera.fcls.R;
 
-public class NaviActivity extends Activity implements LocationSource, AMapLocationListener,AMap.OnPOIClickListener
+public class NaviActivity extends BaseActivity implements LocationSource, AMapLocationListener,AMap.OnPOIClickListener
 {
     private AMap aMap;
     private MapView mapView;

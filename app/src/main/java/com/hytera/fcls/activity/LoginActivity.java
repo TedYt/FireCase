@@ -29,7 +29,7 @@ import butterknife.OnClick;
  * Created by Tim on 17/2/25.
  */
 
-public class LoginActivity extends Activity implements ILogin {
+public class LoginActivity extends BaseActivity implements ILogin {
 
     private static final String TAG = "y20650" + LoginActivity.class.getSimpleName();
 

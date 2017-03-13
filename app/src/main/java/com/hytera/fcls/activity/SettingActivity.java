@@ -2,19 +2,32 @@ package com.hytera.fcls.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.View;
+import android.widget.RelativeLayout;
 
+import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.R;
+import com.hytera.fcls.presenter.SettingPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SettingActivity extends Activity {
+import butterknife.BindView;
+import butterknife.OnClick;
+
+public class SettingActivity extends BaseActivity {
+
+    @BindView(R.id.exit_application)
+    public RelativeLayout exit_application;
+    private SettingPresenter settingPresenter;
+
 
     @BindView(R.id.server_ip)
     public EditText server_ip;
@@ -30,22 +43,31 @@ public class SettingActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
+        settingPresenter = new SettingPresenter(this);
     }
 
     /**
      * 为了测试加的设置ip的接口
      * 正式发布时，可以删除
+     *
      * @param view
      */
-    @OnClick(R.id.confirm_server_ip)
-    public void onClick(View view){
-        /*DataUtil.setServerIP(server_ip.getText().toString(),
-                            server_port.getText().toString(),
-                            mq_server_ip.getText().toString());*/
-        Toast.makeText(this, "ip : " + server_ip.getText().toString()
-                        + "， port : " + server_port.getText().toString()
-                        + ", mq : " + mq_server_ip.getText().toString(),
+
+    @OnClick({R.id.exit_application, R.id.confirm_server_ip})
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.exit_application:
+                settingPresenter.exit();
+                Log.e("setting", "getInstance: 222222");
+                break;
+            case R.id.confirm_server_ip:
+                Toast.makeText(this, "ip : " + server_ip.getText().toString()
+                                + "， port : " + server_port.getText().toString()
+                                + ", mq : " + mq_server_ip.getText().toString(),
                         Toast.LENGTH_LONG).show();
-        finish();
+                finish();
+                break;
+        }
     }
 }

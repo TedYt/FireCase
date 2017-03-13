@@ -57,7 +57,7 @@ public class MainAtvPresenter {
     /**
      * 其他成员变量
      */
-    private IMainAtv iMainAtv;
+    private IMainAtv iMainAtv;//改变UI时用来回调给activity
 
     private MainActivity context;
 

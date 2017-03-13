@@ -16,6 +16,7 @@ import com.hytera.fcls.mqtt.callback.PublishCallBackHandler;
 import com.hytera.fcls.mqtt.callback.SubcribeCallBackHandler;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
+import org.eclipse.paho.android.service.MqttService;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
@@ -197,5 +198,10 @@ public class MQTT {
         String timeStr = new SimpleDateFormat("yyyMMdd_hhmmss", Locale.CHINA).format(date);
         Log.i(TAG, "timeStr is : " + timeStr);
         return timeStr;
+    }
+    public  MqttAndroidClient   getClient(){
+
+
+        return client;
     }
 }
