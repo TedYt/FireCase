@@ -87,4 +87,65 @@
         <item name="android:layout_height">@dimen/height_setting_150px</item>
     </style>
 
+    <!--警情表单的一些样式-->
+    <style name="fire_case_detail_tv_style1">
+        <item name="android:layout_weight">2.2</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:background">@drawable/fire_case_table_bg</item>
+    </style>
+    <style name="fire_case_detail_tv_style2">
+        <item name="android:layout_weight">3</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:background">@drawable/fire_case_table_bg</item>
+    </style>
+    <style name="fire_case_detail_tv_style3">
+        <item name="android:layout_weight">8.2</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:background">@drawable/fire_case_table_bg</item>
+    </style>
+    <style name="fire_case_detail_tv_style4">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:background">@drawable/fire_case_table_bg</item>
+    </style>
+    <style name="fire_case_detail_tv_style5">
+        <item name="android:layout_weight">6</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:background">@drawable/fire_case_table_bg</item>
+    </style>
+
+    <style name="fire_case_detail_ll_style1">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+    </style>
+
+    <style name="fire_case_detail_ll_style2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <!--警情表单的一些样式-->
 </resources>

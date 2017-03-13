@@ -104,6 +104,14 @@
             android:exported="true" />
 
         <activity android:name=".activity.SettingActivity"></activity>
+        <activity android:name=".activity.FireCaseTable"
+            android:screenOrientation="portrait">
+            <intent-filter android:priority="2147483647">
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
