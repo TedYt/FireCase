@@ -38,8 +38,8 @@
             android:screenOrientation="portrait">
 
             <!--<intent-filter android:priority="2147483647">-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
         <activity
@@ -71,30 +71,42 @@
             android:name=".activity.FireCasePopActivity"
             android:excludeFromRecents="true"
             android:launchMode="singleTop"
-            android:theme="@android:style/Theme.Light.NoTitleBar" >
-          <!--  <intent-filter android:priority="2147483647">
-               <action android:name="android.intent.action.MAIN" />
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+            <!--  <intent-filter android:priority="2147483647">
+                 <action android:name="android.intent.action.MAIN" />
 
-               <category android:name="android.intent.category.LAUNCHER" />
-           </intent-filter>-->
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>-->
         </activity>
 
-    <receiver android:name=".service.KeepLiveReceiver">
-        <intent-filter>
-            <action android:name="android.intent.action.SCREEN_OFF" />
-            <action android:name="android.intent.action.USER_PRESENT" />
-            <action android:name="android.intent.action.BOOT_COMPLETED" />
-        </intent-filter>
-    </receiver>
-    <receiver android:name=".service.BootupReceive">
-        <intent-filter>
-            <action android:name="android.intent.action.BOOT_COMPLETED" />
-        </intent-filter>
-    </receiver>
+        <activity android:name=".activity.SettingActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.FireCaseTable"
+            android:screenOrientation="portrait">
+            <!--<intent-filter android:priority="2147483647">
+                <action android:name="android.intent.action.MAIN" />
 
-    <service android:name=".service.FireService" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
 
-    <!-- Mqtt Service 这是个大坑，必须加 -->
+        <receiver android:name=".service.KeepLiveReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.SCREEN_OFF" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".service.BootupReceive">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".service.FireService" />
+
+        <!-- Mqtt Service 这是个大坑，必须加 -->
         <service android:name="org.eclipse.paho.android.service.MqttService" />
         <!-- 定位需要的服务 使用2.0的定位需要加上这个 -->
         <service android:name="com.amap.api.location.APSService" />
@@ -102,16 +114,6 @@
             android:name=".service.AmapGpsService"
             android:enabled="true"
             android:exported="true" />
-
-        <activity android:name=".activity.SettingActivity"></activity>
-        <activity android:name=".activity.FireCaseTable"
-            android:screenOrientation="portrait">
-            <intent-filter android:priority="2147483647">
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
