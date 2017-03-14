@@ -217,6 +217,7 @@ public class FireService extends Service implements IMQConn {
                                             fileDescriptor.getLength());
 
             mediaPlayer.prepare();
+            mediaPlayer.setLooping(true);
             mediaPlayer.start();
 
         } catch (IOException e) {
