@@ -20,16 +20,24 @@ public class DataUtil {
     public static final String KEY_CHECKED = "checked_remember";
     public static final String KEY_LOGINED = "login_or_not";// 标识是否已登录
 
+    // 各个队伍的标识
+    public static final String ZHONG_DUI = "0"; // 中队
+    public static final String DA_FEN_DUI = "1"; // 大分队
+    public static final String XIAO_FEN_DUI = "2"; // 小分队
+    public static final String SHE_QU = "3"; // 社区
+    public static final String WEI_ZHAN = "4"; // 微站
+
     public static String FIRE_CASE_STATE_URL =
-            "http://192.168.1.100:8080/icc_fcls/alarmStatus/reportStatus";
+            "http://192.168.123.64:8080/icc_fcls/alarmStatus/reportStatus";
 
     public static String FIRE_CASE_IMG_URL =
-            "http://192.168.1.100:8080/icc_fcls/media/save?";
+            "http://192.168.123.64:8080/icc_fcls/media/save?";
 
     public static String LOGIN_URL =
-            "http://192.168.1.100:8080/icc_fcls/system/login/doLogin?";
+            "http://192.168.123.64:8080/icc_fcls/system/login/doLogin?";
 
-    public static String MQ_URL = "192.168.1.100";
+    public static String MQ_URL = "192.168.123.64";
+
     /**
      * 检查自动更新网址
      */
@@ -50,9 +58,11 @@ public class DataUtil {
     /** 确认到达 */
     public static final int CASE_STATE_ARRIVE = 3;
     /** 结束警情 */
-    public static final int CASE_STATE_FINISH= 4;
+    public static final int CASE_STATE_FINISH = 4;
     /** 不接收警情 */
-    public static final int CASE_STATE_REJECT= 5;
+    public static final int CASE_STATE_REJECT = 5;
+    /** 警情预结束：分队及以下没有权限结束警情，只能申请结束警情 */
+    public static final int CASE_STATE_PRE_FINISH = 6;
 
     /** 记录警情状态 */
     public static int fireCaseState = CASE_STATE_INIT;
@@ -262,5 +272,14 @@ public class DataUtil {
                 return "五级";
         }
         return "无效级别";
+    }
+
+    /**
+     * 是否是中队
+     * @param type
+     * @return
+     */
+    public static boolean isZhongDui(String type){
+        return  type != null && type.equals(ZHONG_DUI);
     }
 }

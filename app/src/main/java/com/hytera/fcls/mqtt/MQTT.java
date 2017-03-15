@@ -16,7 +16,6 @@ import com.hytera.fcls.mqtt.callback.PublishCallBackHandler;
 import com.hytera.fcls.mqtt.callback.SubcribeCallBackHandler;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
-import org.eclipse.paho.android.service.MqttService;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
@@ -41,7 +40,10 @@ public class MQTT {
     private static final String PUSH_STATE_TOPIC = "topic_type_case_push";
     /** 上报GPS的主题 */
     private static final String GPS_TOPIC = "topic_type_gps";
-
+    /** 分队申请结束警情，服务器下发，通知中队 */
+    private static final String PRE_FINISH_TOPIC = "topic_type_case_pre_finish";
+    /** 中队结束警情，服务器下发通知分队 */
+    private static final String CASE_FINISH_TOPIC = "topic_type_case_finish";
     private Context context;
 
     private MqttAndroidClient client;
@@ -119,6 +121,7 @@ public class MQTT {
                 // 1 至少发一次
                 // 2 只发一次
                 client.subscribe(PUSH_STATE_TOPIC, 0, null, new SubcribeCallBackHandler(context));
+                client.subscribe(PRE_FINISH_TOPIC, 0, null, new SubcribeCallBackHandler(context));
             } catch (MqttException e) {
                 e.printStackTrace();
             }
@@ -199,9 +202,26 @@ public class MQTT {
         Log.i(TAG, "timeStr is : " + timeStr);
         return timeStr;
     }
-    public  MqttAndroidClient   getClient(){
 
-
+    public  MqttAndroidClient getClient(){
         return client;
+    }
+
+    /**
+     * 判断是否是预结束警情主题
+     * @param topic
+     * @return
+     */
+    public boolean isPreFinishTopic(String topic){
+        return (topic != null && topic.equals(PRE_FINISH_TOPIC));
+    }
+
+    /**
+     * 判断是否是结束警情的主题
+     * @param topic
+     * @return
+     */
+    public boolean isFinishTopic(String topic){
+        return (topic != null && topic.equals(CASE_FINISH_TOPIC));
     }
 }

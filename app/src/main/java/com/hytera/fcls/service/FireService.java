@@ -100,10 +100,12 @@ public class FireService extends Service implements IMQConn {
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(MessageEvent event){
         if (event  == null){
+            Log.i(TAG, "EVENT is NULL");
             return;
         }
 
         if (event.getMqttMessage() == null) {
+            Log.i(TAG, "mqtt message is NULL");
             return;
         }
 
@@ -112,6 +114,17 @@ public class FireService extends Service implements IMQConn {
         Log.i(TAG, "getMessage from MQ : "
                 + ", topic is : " + event.getTopic()
                 + "; message is : " + new String(event.getMqttMessage().getPayload()));
+        // 分队预结束警情的消息，发给中队
+        if (isPreFinishTopic(event)){
+            Log.i(TAG, "这是预结束警情的消息，由中队处理");
+            return;
+        }
+
+        // 结束警情的消息，发给分队
+        if (isFinishTopic(event)){
+            Log.i(TAG, "这是结束警情的消息，通知给分队");
+            return;
+        }
 
         Gson gson = new Gson();
         FireCaseBean fireCase = gson.fromJson(msg,FireCaseBean.class);
@@ -137,6 +150,38 @@ public class FireService extends Service implements IMQConn {
         playFireAlarm();
         // 上报服务器，已收到警情，但是不一定接收处理
         postServerCopyCase();
+    }
+
+    /**
+     * 结束警情主题的判断，通知给分队
+     * 接到这个主题的消息，说明中队已结束了警情
+     * @param event
+     * @return
+     */
+    private boolean isFinishTopic(MessageEvent event) {
+        if (mqtt.isPreFinishTopic(event.getTopic())){
+            LoginResponseBean.UserBean userBean = DataUtil.getLoginUserBean();
+            if (!DataUtil.isZhongDui(userBean.getOrgType())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 预结束警情主题的判断，通知给中队
+     * 接到这个主题的消息，说明有分队申请结束警情
+     * @param event
+     * @return
+     */
+    private boolean isPreFinishTopic(MessageEvent event) {
+        if (mqtt.isFinishTopic(event.getTopic())){
+            LoginResponseBean.UserBean userBean = DataUtil.getLoginUserBean();
+            if (DataUtil.isZhongDui(userBean.getOrgType())){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

@@ -43,6 +43,7 @@ public class LoginResponseBean {
          * loginTime : 2017-03-03 15:37:03
          * ip : 192.168.123.76
          * token : 1E5CA34FC811430FBD401CF2187C81C1
+         * orgType : 0 中队，1 大分队，2 小分队，3 社区 4 微站
          */
 
         private String userCode;
@@ -53,6 +54,15 @@ public class LoginResponseBean {
         private String loginTime;
         private String ip;
         private String token; // 用户的访问凭证，上报服务器要带有
+        private String orgType;
+
+        public String getOrgType() {
+            return orgType;
+        }
+
+        public void setOrgType(String orgType) {
+            this.orgType = orgType;
+        }
 
         public String getUserCode() {
             return userCode;

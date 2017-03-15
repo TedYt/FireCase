@@ -356,8 +356,14 @@ public class MainAtvPresenter {
      */
     public void confirmFinishCase() {
         iMainAtv.showTitle();
-
-        postState(DataUtil.CASE_STATE_FINISH);
+        // 只有中队或者以上才有权限结束火警
+        LoginResponseBean.UserBean userBean = DataUtil.getLoginUserBean();
+        if (userBean.getOrgType().equals(DataUtil.ZHONG_DUI)){
+            postState(DataUtil.CASE_STATE_FINISH);
+        }else {
+            // 中队以下的队伍只能申请结束
+            postState(DataUtil.CASE_STATE_PRE_FINISH);
+        }
         // 清除火情信息
         DataUtil.clearFireCase();
     }

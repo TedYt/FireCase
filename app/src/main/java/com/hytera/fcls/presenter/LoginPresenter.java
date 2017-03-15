@@ -24,8 +24,8 @@ public class LoginPresenter {
 
     private LoginActivity context;
 
-    private final String URL_FOR_GET =
-            "http://192.168.72.37:8080/fcls/system/login/doLogin?userCode=303798&password=123456";
+    //private final String URL_FOR_GET =
+    //        "http://192.168.72.37:8080/fcls/system/login/doLogin?userCode=303798&password=123456";
 
     public LoginPresenter(ILogin iLogin, LoginActivity context) {
         this.context = context;
