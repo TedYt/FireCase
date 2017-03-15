@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="update_url">http://192.168.43.22:8080/update/updateinfo.json</string>
+</resources>

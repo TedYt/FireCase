@@ -43,10 +43,19 @@
 
     <include layout="@layout/view_normal_1" />
 
-    <RelativeLayout style="@style/setting_rl_item_1">
+    <RelativeLayout
+        android:id="@+id/rl_checkupdate"
+        style="@style/setting_rl_item_1">
         <TextView
-            android:text="当前版本号"
+            android:id="@+id/tv_checkupdate"
+            android:text="检查更新"
             style="@style/settting_text_item" />
+        <TextView
+            android:id="@+id/tv_version"
+            android:layout_toRightOf="@id/tv_checkupdate"
+            style="@style/settting_text_item"
+            android:text="(1.0.0)"
+            android:textColor="@color/darkgrey"/>
         <ImageView
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"

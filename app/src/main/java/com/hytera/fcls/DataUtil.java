@@ -10,6 +10,7 @@ import com.hytera.fcls.bean.LoginResponseBean;
 
 /**
  * Created by Tim on 17/3/4.
+ * 工具类，包含：警情状态，警情图片，登陆地址，MQ地址以及自动更新地址
  */
 
 public class DataUtil {
@@ -29,7 +30,10 @@ public class DataUtil {
             "http://192.168.1.100:8080/icc_fcls/system/login/doLogin?";
 
     public static String MQ_URL = "192.168.1.100";
-
+    /**
+     * 检查自动更新网址
+     */
+    public static String UPDATE_URL= "http://192.168.1.103:8080/update/updateinfo.json";//192.168.1.103
     // userCode=303798&password=123456
 
     /** 传递输入的key */

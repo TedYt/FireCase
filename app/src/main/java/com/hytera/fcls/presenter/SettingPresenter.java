@@ -1,10 +1,8 @@
 package com.hytera.fcls.presenter;
 
 import android.content.Intent;
-import android.provider.Settings;
 import android.widget.Toast;
 
-import com.hytera.fcls.FireApplication;
 import com.hytera.fcls.activity.SettingActivity;
 import com.hytera.fcls.mqtt.MQTT;
 import com.hytera.fcls.service.FireService;
@@ -27,7 +25,11 @@ public class SettingPresenter {
         this.context = context;
     }
 
-    //退出程序
+
+
+    /**
+     * 退出程序
+     */
     public void exit() {
         //如果在两秒大于2秒
         if (System.currentTimeMillis() - time > 2000) {
@@ -49,4 +51,5 @@ public class SettingPresenter {
             System.exit(0);
         }
     }
+
 }

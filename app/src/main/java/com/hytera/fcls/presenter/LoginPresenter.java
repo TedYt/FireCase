@@ -32,7 +32,7 @@ public class LoginPresenter {
         this.iLogin = iLogin;
     }
 
-    public void Login(String password, String username){
+    public void Login(String password, String username) {
         String content = "userCode=" + username + "&" + "password=" + password;
         HTTPPresenter.post(DataUtil.LOGIN_URL, content, new HTTPPresenter.CallBack() {
             @Override
@@ -40,9 +40,9 @@ public class LoginPresenter {
                 Log.i(TAG, "response is : " + response);
                 Gson gson = new Gson();
                 LoginResponseBean bean = gson.fromJson(response, LoginResponseBean.class);
-                if (response == null || bean.getUser() == null){
+                if (response == null || bean.getUser() == null) {
                     context.runOnUiThread(new LoginFailureRunnable());
-                }else {
+                } else {
                     setLogined(true);
                     DataUtil.saveLoginResponseBean(bean);
                     context.runOnUiThread(new LoginSuccessRunnable());
@@ -66,7 +66,7 @@ public class LoginPresenter {
     }
 
     public void onCheckedChange(boolean checked) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML, 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(DataUtil.KEY_CHECKED, checked);
         editor.apply();
@@ -74,39 +74,43 @@ public class LoginPresenter {
 
     /**
      * 是否有选择 记住密码
+     *
      * @return
      */
     public boolean isCheckRemPas() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
-        return sharedPreferences.getBoolean(DataUtil.KEY_CHECKED,false);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML, 0);
+        return sharedPreferences.getBoolean(DataUtil.KEY_CHECKED, false);
     }
 
     /**
      * 获取密码
+     *
      * @return
      */
     public String getPassword() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
-        return sharedPreferences.getString(DataUtil.KEY_PASSWORD,"");
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML, 0);
+        return sharedPreferences.getString(DataUtil.KEY_PASSWORD, "");
     }
 
     /**
      * 获取用户名
+     *
      * @return
      */
     public String getName() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
-        return sharedPreferences.getString(DataUtil.KEY_USERNAME,"");
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML, 0);
+        return sharedPreferences.getString(DataUtil.KEY_USERNAME, "");
     }
 
     /**
      * 保存密码
+     *
      * @param password
      */
     public void savePassword(String password) {
         if (password.isEmpty()) return;
 
-        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML, 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(DataUtil.KEY_PASSWORD, password);
         editor.apply();
@@ -114,12 +118,13 @@ public class LoginPresenter {
 
     /**
      * 保存用户名
+     *
      * @param name
      */
     public void saveName(String name) {
-        if(name.isEmpty()) return;
+        if (name.isEmpty()) return;
 
-        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML, 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(DataUtil.KEY_USERNAME, name);
         editor.apply();
@@ -128,8 +133,8 @@ public class LoginPresenter {
     /**
      * 设置已登录
      */
-    public void setLogined(boolean b){
-        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
+    public void setLogined(boolean b) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML, 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(DataUtil.KEY_LOGINED, b);
         editor.apply();
@@ -137,10 +142,11 @@ public class LoginPresenter {
 
     /**
      * 是否 已登录
+     *
      * @return
      */
-    public boolean isLogined(){
-        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
+    public boolean isLogined() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML, 0);
         return sharedPreferences.getBoolean(DataUtil.KEY_LOGINED, false);
     }
 
@@ -148,7 +154,7 @@ public class LoginPresenter {
     /**
      * 供主线程调用
      */
-    private class LoginFailureRunnable implements Runnable{
+    private class LoginFailureRunnable implements Runnable {
 
         @Override
         public void run() {
@@ -159,11 +165,13 @@ public class LoginPresenter {
     /**
      * 供主线程调用
      */
-    private class LoginSuccessRunnable implements Runnable{
+    private class LoginSuccessRunnable implements Runnable {
 
         @Override
         public void run() {
             iLogin.LoginSuccess();
         }
     }
+
+
 }

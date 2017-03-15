@@ -1,6 +1,5 @@
 package com.hytera.fcls.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,22 +7,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.R;
+import com.hytera.fcls.comutil.AppInfoUtils;
+import com.hytera.fcls.comutil.CheckVersionUtil;
 import com.hytera.fcls.presenter.SettingPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import butterknife.BindView;
-import butterknife.OnClick;
 
 public class SettingActivity extends BaseActivity {
-
+    @BindView(R.id.tv_version)
+    public TextView tv_version;
+    @BindView(R.id.rl_checkupdate)
+    public RelativeLayout rl_about;
     @BindView(R.id.exit_application)
     public RelativeLayout exit_application;
     private SettingPresenter settingPresenter;
@@ -44,6 +44,7 @@ public class SettingActivity extends BaseActivity {
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
         settingPresenter = new SettingPresenter(this);
+        tv_version.setText("(" + AppInfoUtils.getPackageVersion(this) + ")");
     }
 
     /**
@@ -53,7 +54,7 @@ public class SettingActivity extends BaseActivity {
      * @param view
      */
 
-    @OnClick({R.id.exit_application, R.id.confirm_server_ip})
+    @OnClick({R.id.exit_application, R.id.rl_checkupdate, R.id.confirm_server_ip})
     public void onClick(View view) {
         int id = view.getId();
         switch (id) {
@@ -67,6 +68,10 @@ public class SettingActivity extends BaseActivity {
                                 + ", mq : " + mq_server_ip.getText().toString(),
                         Toast.LENGTH_LONG).show();
                 finish();
+                break;
+            case R.id.rl_checkupdate:
+//                检查更新
+//                CheckVersionUtil.startCheckAndDown(this);
                 break;
         }
     }
