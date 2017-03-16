@@ -275,7 +275,7 @@ public class FireCaseBean {
 
     public static class DispatchRecordBean {
         /**
-         * biztype : 1
+         * biztype : 1 初次调派 2 增援 3 重新调派 4 预案调派
          * caseid : 20170309152647489
          * createtime : 1489044407587
          * createuser : system
