@@ -14,31 +14,21 @@ import java.util.List;
  */
 public class FireApplication extends Application {
 
-    private static FireApplication _instance = new FireApplication();
+    private static FireApplication _instance;
     private List<Activity> runningActivities = new ArrayList<Activity>();//用于存放启动的activity的集合
     private static final String TAG = "y20650" + FireApplication.class.getSimpleName();
     //private FireApplication(){}
 
     public static FireApplication getInstance(){
-        if (_instance == null){
-            Log.e(TAG, "getInstance: 1111111" );
-            synchronized (FireApplication.class){
-                if (_instance == null){
-                    _instance = new FireApplication();
-                    Log.e(TAG, "getInstance: 222222" );
-                }
-            }
-        }
-        Log.e(TAG, "getInstance: 3333333333" );
         return _instance;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        _instance = this;
         // 初始化Bugly
         CrashReport.initCrashReport(getApplicationContext(), "db81990995", false);
-//        _instance = this;
     }
 
     /**
