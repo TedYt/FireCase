@@ -121,7 +121,11 @@ public class MQTT {
                 // 1 至少发一次
                 // 2 只发一次
                 client.subscribe(PUSH_STATE_TOPIC, 0, null, new SubcribeCallBackHandler(context));
-                client.subscribe(PRE_FINISH_TOPIC, 0, null, new SubcribeCallBackHandler(context));
+                if (DataUtil.isZhongDui()){// 中队账号订阅 预结束警情主题
+                    client.subscribe(PRE_FINISH_TOPIC, 0, null, new SubcribeCallBackHandler(context));
+                }else { // 分队账号订阅 结束警情主题
+                    client.subscribe(CASE_FINISH_TOPIC, 0, null, new SubcribeCallBackHandler(context));
+                }
             } catch (MqttException e) {
                 e.printStackTrace();
             }

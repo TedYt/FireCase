@@ -33,7 +33,8 @@ public class LoginPresenter {
     }
 
     public void Login(String password, String username) {
-        String content = "userCode=" + username + "&" + "password=" + password;
+        String content = "userCode=" + username + "&" + "password=" + password + "&"
+                    + "remark=MOBILE";
         HTTPPresenter.post(DataUtil.LOGIN_URL, content, new HTTPPresenter.CallBack() {
             @Override
             public void onResponse(String response) {

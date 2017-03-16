@@ -21,10 +21,10 @@ public class DataUtil {
     public static final String KEY_LOGINED = "login_or_not";// 标识是否已登录
 
     // 各个队伍的标识
-    public static final String ZHONG_DUI = "0"; // 中队
-    public static final String DA_FEN_DUI = "1"; // 大分队
-    public static final String XIAO_FEN_DUI = "2"; // 小分队
-    public static final String SHE_QU = "3"; // 社区
+    public static final String DA_DUI = "0";
+    public static final String ZHONG_DUI = "1"; // 中队
+    public static final String DA_FEN_DUI = "2"; // 大分队
+    public static final String XIAO_FEN_DUI = "3"; // 小分队
     public static final String WEI_ZHAN = "4"; // 微站
 
     public static String FIRE_CASE_STATE_URL =
@@ -276,10 +276,11 @@ public class DataUtil {
 
     /**
      * 是否是中队
-     * @param type
      * @return
      */
-    public static boolean isZhongDui(String type){
+    public static boolean isZhongDui(){
+        LoginResponseBean.UserBean bean = getLoginUserBean();
+        String type = bean.getOrgType();
         return  type != null && type.equals(ZHONG_DUI);
     }
 }

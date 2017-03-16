@@ -9,7 +9,6 @@ import com.amap.api.location.AMapLocation;
 import com.hytera.fcls.comutil.GpsUtil;
 import com.hytera.fcls.mqtt.MQTT;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AmapGpsService extends Service {
@@ -82,11 +81,13 @@ public class AmapGpsService extends Service {
      */
     public void getLocationInfo(){
         AMapLocation aMapLocation = GpsUtil.getLocation();
+        if (aMapLocation == null) return;
+
         //获取定位时间
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        date = new Date(aMapLocation.getTime());
-        df.format(date);
-        Log.d(TAG," 当前位置信息"+ df.format(date)+"\r \n"+
+        //SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //date = new Date(aMapLocation.getTime());
+        //df.format(date);
+        Log.d(TAG,
                 "获取纬度"+aMapLocation.getLatitude()+"\r \n"+
                 "获取经度"+aMapLocation.getLongitude()+"\r \n"+
                 "地址"+ aMapLocation.getAddress()+"\r \n"+

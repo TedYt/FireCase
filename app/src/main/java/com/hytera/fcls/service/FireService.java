@@ -19,6 +19,7 @@ import com.hytera.fcls.IMQConn;
 import com.hytera.fcls.R;
 import com.hytera.fcls.activity.FireCasePopActivity;
 import com.hytera.fcls.activity.MainActivity;
+import com.hytera.fcls.bean.CaseFinishBean;
 import com.hytera.fcls.bean.FireCaseBean;
 import com.hytera.fcls.bean.LoginResponseBean;
 import com.hytera.fcls.mqtt.MQTT;
@@ -114,14 +115,16 @@ public class FireService extends Service implements IMQConn {
         Log.i(TAG, "getMessage from MQ : "
                 + ", topic is : " + event.getTopic()
                 + "; message is : " + new String(event.getMqttMessage().getPayload()));
-        // 分队预结束警情的消息，发给中队
-        if (isPreFinishTopic(event)){
+        // 分队预结束警情后，发送的消息，发给中队
+        if (isPreFinishTopic(event) && isZhongdui()
+                && isOneCaseIn() && isCurrentCase(event)){
             Log.i(TAG, "这是预结束警情的消息，由中队处理");
             return;
         }
 
-        // 结束警情的消息，发给分队
-        if (isFinishTopic(event)){
+        // 中队结束警情后，发送的消息，发给分队, 分队就不用再结束警情了
+        if (isFinishTopic(event) && !isZhongdui()
+                && isOneCaseIn() && isCurrentCase(event)){
             Log.i(TAG, "这是结束警情的消息，通知给分队");
             return;
         }
@@ -148,7 +151,7 @@ public class FireService extends Service implements IMQConn {
         showCasePop(fireCase);
         showNotification(fireCase.getCompDeptName(), fireCase.getCaseDesc(), false);
         playFireAlarm();
-        // 上报服务器，已收到警情，但是不一定接收处理
+        // 上报服务器，已收到警情通知，但是后面不一定接收处理
         postServerCopyCase();
     }
 
@@ -159,29 +162,52 @@ public class FireService extends Service implements IMQConn {
      * @return
      */
     private boolean isFinishTopic(MessageEvent event) {
-        if (mqtt.isPreFinishTopic(event.getTopic())){
-            LoginResponseBean.UserBean userBean = DataUtil.getLoginUserBean();
-            if (!DataUtil.isZhongDui(userBean.getOrgType())){
-                return true;
-            }
-        }
-        return false;
+        return mqtt.isFinishTopic(event.getTopic());
     }
 
     /**
-     * 预结束警情主题的判断，通知给中队
+     * 预结束警情主题的判断，通知给中队，由中队账号处理
      * 接到这个主题的消息，说明有分队申请结束警情
      * @param event
      * @return
      */
     private boolean isPreFinishTopic(MessageEvent event) {
-        if (mqtt.isFinishTopic(event.getTopic())){
-            LoginResponseBean.UserBean userBean = DataUtil.getLoginUserBean();
-            if (DataUtil.isZhongDui(userBean.getOrgType())){
-                return true;
-            }
+        return mqtt.isPreFinishTopic(event.getTopic());
+    }
+
+    /**
+     * 传来的警情，判断是否是当前处理的警情
+     * @param event
+     * @return
+     */
+    private boolean isCurrentCase(MessageEvent event) {
+        FireCaseBean fireCaseBean = DataUtil.getFireCaseBean();
+        String currCaseID = fireCaseBean.getGuid();
+
+        String msg = new String(event.getMqttMessage().getPayload());
+        Gson gson = new Gson();
+        CaseFinishBean caseFinishBean = gson.fromJson(msg, CaseFinishBean.class);
+        return caseFinishBean.getCaseID().equals(currCaseID);
+    }
+
+    /**
+     * 是否是中队账号
+     * @return
+     */
+    private boolean isZhongdui(){
+        return DataUtil.isZhongDui();
+    }
+
+    /**
+     * 用于警情进行中，警情数据是否消失的判断
+     * @return
+     */
+    private boolean isOneCaseIn(){
+        if (!DataUtil.haveOneCase()){
+            Log.e(TAG, "当前没有警情要处理");
+            return false;
         }
-        return false;
+        return true;
     }
 
     /**
