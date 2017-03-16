@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.hytera.fcls.DataUtil;
@@ -126,6 +127,9 @@ public class FireService extends Service implements IMQConn {
         if (isFinishTopic(event) && !isZhongdui()
                 && isOneCaseIn() && isCurrentCase(event)){
             Log.i(TAG, "这是结束警情的消息，通知给分队");
+            Toast.makeText(this, "警情已由中队结束", Toast.LENGTH_SHORT).show();
+            DataUtil.clearFireCase();
+            DataUtil.resetCaseState();
             return;
         }
 
@@ -234,18 +238,16 @@ public class FireService extends Service implements IMQConn {
      */
     private boolean isTheSameOrgIdentifier(FireCaseBean fireCase) {
         String org1 = fireCase.getOrgInfo().getOrgIdentifier();
-        Log.i(TAG, "org1 = " + org1);
+        Log.i(TAG, "警情对应的orgID，     org1 = " + org1);
         if (org1 == null) return true; // 若为null，则认为是相等, 可以接受警情
 
         LoginResponseBean.UserBean bean = DataUtil.getLoginUserBean();
         String org2 = bean.getOrgIdentifier();
-        Log.i(TAG, "org2 = " + org2);
+        Log.i(TAG, "登录账户对应的orgID，  org2 = " + org2);
         if (org2 != null){
             if (org1.equals(org2.substring(0,7))){
                 return true;
             }
-            Log.i(TAG, "The Login orgIdentifier is " + org2.substring(0,7)
-                    + ", fire case orgIdentifier is " + org1);
             return false;
         }
         return true;

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.hytera.fcls.activity.KeepAliveActivity;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,8 @@ public class FireApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        // 初始化Bugly
+        CrashReport.initCrashReport(getApplicationContext(), "db81990995", false);
 //        _instance = this;
     }
 

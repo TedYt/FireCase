@@ -283,4 +283,11 @@ public class DataUtil {
         String type = bean.getOrgType();
         return  type != null && type.equals(ZHONG_DUI);
     }
+
+    /**
+     * 重置警情状态
+     */
+    public static void resetCaseState() {
+        fireCaseState = CASE_STATE_INIT;
+    }
 }
