@@ -2,10 +2,8 @@ package com.hytera.fcls;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Intent;
 import android.util.Log;
 
-import com.hytera.fcls.activity.KeepAliveActivity;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
@@ -33,16 +31,6 @@ public class FireApplication extends Application {
         }
         Log.e(TAG, "getInstance: 3333333333" );
         return _instance;
-    }
-
-    public void startKeepLiveActivity(){
-        Log.i("y20650", "FireApplication, startKeepLiveActivity");
-        Intent intent = new Intent(getInstance().getApplicationContext(), KeepAliveActivity.class);
-        getInstance().getApplicationContext().startActivity(intent);
-    }
-
-    public void stopKeepLiveActivity(){
-
     }
 
     @Override
