@@ -366,6 +366,8 @@ public class MainAtvPresenter {
             Log.i(TAG, "分队申请结束警情");
             postState(DataUtil.CASE_STATE_PRE_FINISH);
         }
+
+        FireSerPresenter.getInstance().onCaseFinish();
         // 清除火情信息
         DataUtil.clearFireCase();
     }

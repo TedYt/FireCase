@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.hytera.fcls.DataUtil;
+import com.hytera.fcls.IFireService;
 import com.hytera.fcls.IMQConn;
 import com.hytera.fcls.R;
 import com.hytera.fcls.activity.FireCasePopActivity;
@@ -25,6 +26,7 @@ import com.hytera.fcls.bean.FireCaseBean;
 import com.hytera.fcls.bean.LoginResponseBean;
 import com.hytera.fcls.mqtt.MQTT;
 import com.hytera.fcls.mqtt.event.MessageEvent;
+import com.hytera.fcls.presenter.FireSerPresenter;
 import com.hytera.fcls.presenter.HTTPPresenter;
 import com.hytera.fcls.presenter.MPPresenter;
 
@@ -38,7 +40,7 @@ import java.io.IOException;
  * Created by Tim on 17/2/24.
  */
 
-public class FireService extends Service implements IMQConn {
+public class FireService extends Service implements IMQConn, IFireService {
 
     public static final String TAG = "y20650" + FireService.class.getSimpleName();
 
@@ -68,6 +70,9 @@ public class FireService extends Service implements IMQConn {
                 mqtt.startConnect(FireService.this); // 参数是为了传递IMQConn
             }
         }).start();
+
+        // 初始化presenter
+        FireSerPresenter.getInstance().setInterFace(this);
 
     }
 
@@ -149,10 +154,10 @@ public class FireService extends Service implements IMQConn {
         }
 
         DataUtil.saveFireCaseBean(fireCase);
-        Log.i(TAG, "got fire case bean");
+        Log.i(TAG, "save fire case bean");
 
 
-        showCasePop(fireCase);
+        showCasePop(fireCase); // 弹出新界面，显示警情详情
         showNotification(fireCase.getCompDeptName(), fireCase.getCaseDesc(), false);
         playFireAlarm();
         // 上报服务器，已收到警情通知，但是后面不一定接收处理
@@ -254,7 +259,7 @@ public class FireService extends Service implements IMQConn {
     }
 
     /**
-     * 显示新警情
+     * 启动一个新界面，显示警情详情
      * @param fireCase
      */
     private void showCasePop(FireCaseBean fireCase) {
@@ -339,5 +344,15 @@ public class FireService extends Service implements IMQConn {
     @Override
     public void MQConnFailure() {
 
+    }
+
+    /**
+     * 警情结束，重置notification
+     * 由FireSerPresenter调用
+     */
+    @Override
+    public void onCaseFinished() {
+        Log.i(TAG, "重置notification");
+        showNotification(null, null, false);
     }
 }
