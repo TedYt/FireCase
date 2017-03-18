@@ -105,7 +105,7 @@ public class MainActivity extends BaseActivity implements IMainAtv {
                 mainPresenter.startCamera(MainActivity.this);
                 break;
             case R.id.case_upload_video:
-                Toast.makeText(this, "待优化", Toast.LENGTH_SHORT).show();
+                mainPresenter.goVideoActivity();
                 break;
             case R.id.case_depart:
                 mainPresenter.depart();

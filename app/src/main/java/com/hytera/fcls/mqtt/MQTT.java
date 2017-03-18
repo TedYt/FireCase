@@ -168,7 +168,7 @@ public class MQTT {
      */
     public String getName() {
         SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML,0);
-        return sharedPreferences.getString(DataUtil.KEY_USERNAME,"");
+        return sharedPreferences.getString(DataUtil.KEY_USERCODE,"");
     }
 
     private byte[] getGPSMsg(double lat, double lng) {

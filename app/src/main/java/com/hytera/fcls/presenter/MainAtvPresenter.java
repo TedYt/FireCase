@@ -28,6 +28,7 @@ import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.IMainAtv;
 import com.hytera.fcls.activity.MainActivity;
 import com.hytera.fcls.activity.SettingActivity;
+import com.hytera.fcls.activity.VideoActivity;
 import com.hytera.fcls.bean.FireCaseBean;
 import com.hytera.fcls.bean.LoginResponseBean;
 import com.hytera.fcls.mqtt.MQTT;
@@ -524,6 +525,13 @@ public class MainAtvPresenter {
         context.startActivity(setintent);
     }
 
+    /**
+     * 打开视频界面开始录像
+     */
+    public void goVideoActivity(){
+        Intent videointent = new Intent(context, VideoActivity.class);
+        context.startActivity(videointent);
+    }
     /**
      * 判断 没有警情
      * @return

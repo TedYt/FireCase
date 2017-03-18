@@ -15,11 +15,12 @@ import com.hytera.fcls.bean.LoginResponseBean;
 
 public class DataUtil {
     public static final String LOGIN_XML = "Login";
-    public static final String KEY_USERNAME = "username";
+    public static final String KEY_USERCODE = "usercode";
     public static final String KEY_PASSWORD = "password";
     public static final String KEY_CHECKED = "checked_remember";
     public static final String KEY_LOGINED = "login_or_not";// 标识是否已登录
 
+    public static final String KEY_STAFFNAME = "staff_name";
     // 各个队伍的标识
     public static final String DA_DUI = "0";
     public static final String ZHONG_DUI = "1"; // 中队
@@ -280,6 +281,9 @@ public class DataUtil {
      */
     public static boolean isZhongDui(){
         LoginResponseBean.UserBean bean = getLoginUserBean();
+        if (bean==null){
+            return  false;
+        }
         String type = bean.getOrgType();
         return  type != null && type.equals(ZHONG_DUI);
     }

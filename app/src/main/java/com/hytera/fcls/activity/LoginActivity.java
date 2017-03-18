@@ -90,7 +90,7 @@ public class LoginActivity extends BaseActivity implements ILogin {
         /** 初始化姓名 密码 */
         boolean checked = loginPresenter.isCheckRemPas();
         remember_password.setChecked(checked);
-        login_username.setText(loginPresenter.getName());
+        login_username.setText(loginPresenter.getUserCode());
         if (checked){
             login_password.setText(loginPresenter.getPassword());
         }
@@ -107,7 +107,7 @@ public class LoginActivity extends BaseActivity implements ILogin {
         if (loginPresenter.isCheckRemPas()){
             loginPresenter.savePassword(login_password.getText().toString());
         }
-        loginPresenter.saveName(login_username.getText().toString());
+        loginPresenter.saveUserCode(login_username.getText().toString());
     }
 
     @OnClick(R.id.login_btn)

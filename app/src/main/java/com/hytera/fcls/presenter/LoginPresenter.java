@@ -4,8 +4,8 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.hytera.fcls.ILogin;
 import com.hytera.fcls.DataUtil;
+import com.hytera.fcls.ILogin;
 import com.hytera.fcls.activity.LoginActivity;
 import com.hytera.fcls.bean.LoginResponseBean;
 
@@ -46,6 +46,7 @@ public class LoginPresenter {
                 } else {
                     setLogined(true);
                     DataUtil.saveLoginResponseBean(bean);
+                    saveStaffName(bean);
                     context.runOnUiThread(new LoginSuccessRunnable());
                 }
             }
@@ -64,6 +65,24 @@ public class LoginPresenter {
             }
         });*/
 
+    }
+
+    private void saveStaffName(LoginResponseBean bean) {
+        String staff_name = bean.getUser().getStaffName();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML, 0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(DataUtil.KEY_STAFFNAME, staff_name);
+        editor.apply();
+    }
+
+    /**
+     * 获取用户名
+     *
+     * @return
+     */
+    public String getStaffName() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML, 0);
+        return sharedPreferences.getString(DataUtil.KEY_STAFFNAME, "amdin");
     }
 
     public void onCheckedChange(boolean checked) {
@@ -98,9 +117,9 @@ public class LoginPresenter {
      *
      * @return
      */
-    public String getName() {
+    public String getUserCode() {
         SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML, 0);
-        return sharedPreferences.getString(DataUtil.KEY_USERNAME, "");
+        return sharedPreferences.getString(DataUtil.KEY_USERCODE, "");
     }
 
     /**
@@ -122,12 +141,12 @@ public class LoginPresenter {
      *
      * @param name
      */
-    public void saveName(String name) {
+    public void saveUserCode(String name) {
         if (name.isEmpty()) return;
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML, 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(DataUtil.KEY_USERNAME, name);
+        editor.putString(DataUtil.KEY_USERCODE, name);
         editor.apply();
     }
 

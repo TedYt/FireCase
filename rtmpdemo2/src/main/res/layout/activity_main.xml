@@ -4,18 +4,13 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     tools:context="net.ossrs.yasea.demo.MainActivity">
-
     <net.ossrs.yasea.SrsCameraView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/glsurfaceview_camera"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -58,4 +53,61 @@
         android:id="@+id/url"
         android:textColor="@color/accent_material_light" />
 
+
+
+    <RadioGroup
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:background="#ffffff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/rb1"
+            android:text="640*480"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:id="@+id/rb2"
+            android:text="704*576"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:id="@+id/rb3"
+            android:text="720*576"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:id="@+id/rb4"
+            android:text="800*600"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:id="@+id/rb5"
+            android:text="1024, 768"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:id="@+id/rb6"
+            android:text="1280, 720"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:id="@+id/rb7"
+            android:text="1920, 1080"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <!-- mPublisher.setOutputResolution(640, 480);//vga效果不错
+        mPublisher.setPreviewResolution(704, 576);//4cif
+        mPublisher.setOutputResolution(704, 576);//4cif
+        mPublisher.setPreviewResolution(720, 576);//4cif
+        mPublisher.setOutputResolution(720, 720);//4cif
+        mPublisher.setPreviewResolution(800, 600);//svga
+        mPublisher.setOutputResolution(800, 600);//svga
+        mPublisher.setPreviewResolution(1024, 768);//svga
+        mPublisher.setOutputResolution(1024, 768);//svga
+        mPublisher.setPreviewResolution(1280, 720);//720p
+        mPublisher.setOutputResolution(1280, 720);//720p
+        mPublisher.setPreviewResolution(1920, 1080);//1080p
+        mPublisher.setOutputResolution(1920, 1080);//1080p-->
+    </RadioGroup>
 </RelativeLayout>

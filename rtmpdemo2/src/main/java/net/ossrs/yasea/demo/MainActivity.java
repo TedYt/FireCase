@@ -13,7 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.github.faucamp.simplertmp.RtmpHandler;
@@ -29,7 +31,7 @@ import java.net.SocketException;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements RtmpHandler.RtmpListener,
-                        SrsRecordHandler.SrsRecordListener, SrsEncodeHandler.SrsEncodeListener {
+                        SrsRecordHandler.SrsRecordListener, SrsEncodeHandler.SrsEncodeListener, CompoundButton.OnCheckedChangeListener {
 
     private static final String TAG = "Yasea";
 
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements RtmpHandler.RtmpL
     private String recPath = Environment.getExternalStorageDirectory().getPath() + "/test.mp4";
 
     private SrsPublisher mPublisher;
+    private RadioButton rb1,rb2,rb3,rb4,rb5,rb6,rb7;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements RtmpHandler.RtmpL
         // initialize url.
         final EditText efu = (EditText) findViewById(R.id.url);
         efu.setText(rtmpUrl);
-
+        initRadio();
         btnPublish = (Button) findViewById(R.id.publish);
         btnSwitchCamera = (Button) findViewById(R.id.swCam);
         btnRecord = (Button) findViewById(R.id.record);
@@ -72,8 +75,24 @@ public class MainActivity extends AppCompatActivity implements RtmpHandler.RtmpL
         mPublisher.setRtmpHandler(new RtmpHandler(this));
         mPublisher.setRecordHandler(new SrsRecordHandler(this));
         mPublisher.setPreviewResolution(640, 480);
-        mPublisher.setOutputResolution(720, 1280);
+//        mPublisher.setOutputResolution(640, 480);//vga效果不错款
+//        mPublisher.setOutputResolution(480, 640);//vga效果不错窄
+//        mPublisher.setPreviewResolution(704, 576);//4cif
+//        mPublisher.setOutputResolution(704, 576);//4cif 不支持
+//        mPublisher.setPreviewResolution(720, 576);//4cif
+//        mPublisher.setOutputResolution(720, 576);//4cif不支持
+//        mPublisher.setPreviewResolution(800, 600);//svga
+//        mPublisher.setOutputResolution(800, 600);//svga不支持
+//        mPublisher.setPreviewResolution(1024, 768);//svga
+//        mPublisher.setOutputResolution(1024, 768);//svga不支持
+//        mPublisher.setPreviewResolution(1280, 720);//720p
+        mPublisher.setOutputResolution(1280, 720);//720p
+//        mPublisher.setPreviewResolution(1920, 1080);//1080p
+//        mPublisher.setOutputResolution(1920, 1080);//1080p
+//        mPublisher.setOutputResolution(1080, 1920);//1080p太细了
+//        mPublisher.setOutputResolution(640, 480);//这个效果好些
         mPublisher.setVideoHDMode();
+//        mPublisher.setVideoSmoothMode();
 
         btnPublish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,6 +159,23 @@ public class MainActivity extends AppCompatActivity implements RtmpHandler.RtmpL
                 }
             }
         });
+    }
+
+    private void initRadio() {
+        rb1= (RadioButton) findViewById(R.id.rb1);
+        rb2= (RadioButton) findViewById(R.id.rb2);
+        rb3= (RadioButton) findViewById(R.id.rb3);
+        rb4= (RadioButton) findViewById(R.id.rb4);
+        rb5= (RadioButton) findViewById(R.id.rb5);
+        rb6= (RadioButton) findViewById(R.id.rb6);
+        rb7= (RadioButton) findViewById(R.id.rb7);
+        rb1.setOnCheckedChangeListener(this);
+        rb2.setOnCheckedChangeListener(this);
+        rb3.setOnCheckedChangeListener(this);
+        rb4.setOnCheckedChangeListener(this);
+        rb5.setOnCheckedChangeListener(this);
+        rb6.setOnCheckedChangeListener(this);
+        rb7.setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -405,5 +441,56 @@ public class MainActivity extends AppCompatActivity implements RtmpHandler.RtmpL
     @Override
     public void onEncodeIllegalArgumentException(IllegalArgumentException e) {
         handleException(e);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+       int id = buttonView.getId();
+        Toast.makeText(this,"ddddd",Toast.LENGTH_SHORT).show();
+        switch (id) {
+            case R.id.rb1:
+                mPublisher.setPreviewResolution(640, 480);
+                mPublisher.setOutputResolution(640, 480);//vga效果不错
+                mPublisher.setVideoHDMode();
+                Toast.makeText(this,"2222",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.rb2:
+
+                mPublisher.setPreviewResolution(704, 576);//4cif
+                mPublisher.setOutputResolution(704, 576);//4cif
+                mPublisher.setVideoHDMode();
+                break;
+            case R.id.rb3:
+
+                mPublisher.setPreviewResolution(720, 576);//4cif
+                mPublisher.setOutputResolution(720, 576);//4cif
+                mPublisher.setVideoHDMode();
+                break;
+            case R.id.rb4:
+
+                mPublisher.setPreviewResolution(800, 600);//svga
+                mPublisher.setOutputResolution(800, 600);//svga
+                mPublisher.setVideoHDMode();
+                break;
+            case R.id.rb5:
+
+                mPublisher.setPreviewResolution(1024, 768);//svga
+                mPublisher.setOutputResolution(1024, 768);//svga
+                mPublisher.setVideoHDMode();
+                break;
+            case R.id.rb6:
+
+                mPublisher.setPreviewResolution(1280, 720);//720p
+                mPublisher.setOutputResolution(1280, 720);//720p
+                mPublisher.setVideoHDMode();
+                break;
+            case R.id.rb7:
+
+                mPublisher.setPreviewResolution(1920, 1080);//1080p
+                mPublisher.setOutputResolution(1920, 1080);//1080p
+                mPublisher.setVideoHDMode();
+                break;
+
+        }
     }
 }

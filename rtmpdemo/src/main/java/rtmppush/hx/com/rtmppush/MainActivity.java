@@ -51,7 +51,8 @@ public class MainActivity extends Activity {
 	private final int WIDTH_DEF = 480;
 	private final int HEIGHT_DEF = 640;
 	private final int FRAMERATE_DEF = 20;
-	private final int BITRATE_DEF = 800 * 1000;
+	private final int BITRATE_DEF = 800 * 1000;//1200 * 1024
+//	private final int BITRATE_DEF = 1200 * 1024;//1200 * 1024码率，越大传输质量越好
 
 	private final int SAMPLE_RATE_DEF = 22050;
 	private final int CHANNEL_NUMBER_DEF = 2;
