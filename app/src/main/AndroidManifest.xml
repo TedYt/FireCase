@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+
     <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
@@ -37,11 +38,6 @@
             android:name=".activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
-
-             <!--<intent-filter android:priority="2147483647">-->
-             <!--<action android:name="android.intent.action.MAIN" />-->
-             <!--<category android:name="android.intent.category.LAUNCHER" />-->
-             <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".activity.KeepAliveActivity"
@@ -73,29 +69,13 @@
             android:excludeFromRecents="true"
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.Light.NoTitleBar">
-
-            <!--
-             <intent-filter android:priority="2147483647">
-                 <action android:name="android.intent.action.MAIN" />
-
-                 <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
-            -->
         </activity>
-        <activity
-            android:name=".activity.SettingActivity"
-            android:screenOrientation="portrait" />
+
+        <activity android:name=".activity.SettingActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.FireCaseTable"
             android:screenOrientation="portrait">
-
-            <!--
-            <intent-filter android:priority="2147483647">
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
         </activity>
         <activity
             android:name=".activity.VideoActivity"
