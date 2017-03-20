@@ -43,7 +43,7 @@ public class LoginResponseBean {
          * loginTime : 2017-03-03 15:37:03
          * ip : 192.168.123.76
          * token : 1E5CA34FC811430FBD401CF2187C81C1
-         * orgType : 0 中队，1 大分队，2 小分队，3 社区 4 微站
+         * orgType : 0 大队，1 中队，2 大分队，3 小分队 4 微站
          */
 
         private String userCode;

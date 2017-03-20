@@ -246,16 +246,22 @@ public class FireService extends Service implements IMQConn, IFireService {
         Log.i(TAG, "警情对应的orgID，     org1 = " + org1);
         if (org1 == null) return true; // 若为null，则认为是相等, 可以接受警情
 
+        //TODO  要判断是给中队，还是给分队的
+        String orgLevel = fireCase.getDispatchRecord().getDispatchorglevel();
+        boolean isZhongdui = DataUtil.isZhongDui(orgLevel);
+
         LoginResponseBean.UserBean bean = DataUtil.getLoginUserBean();
         String org2 = bean.getOrgIdentifier();
         Log.i(TAG, "登录账户对应的orgID，  org2 = " + org2);
         if (org2 != null){
-            if (org1.equals(org2.substring(0,7))){
+            if (isZhongdui && org1.equals(org2.substring(0,7))){// 判断中队
+                return true;
+            }else if (!isZhongdui && org1.equals(org2)){// 判断中队以下
                 return true;
             }
             return false;
         }
-        return true;
+        return true; // 默认返回true，在数据不全的情况下，尽量让其能收到警情
     }
 
     /**

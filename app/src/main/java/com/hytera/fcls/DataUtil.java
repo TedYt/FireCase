@@ -288,6 +288,10 @@ public class DataUtil {
         return  type != null && type.equals(ZHONG_DUI);
     }
 
+    public static boolean isZhongDui(String type){
+        return  type != null && type.equals(ZHONG_DUI);
+    }
+
     /**
      * 重置警情状态
      */

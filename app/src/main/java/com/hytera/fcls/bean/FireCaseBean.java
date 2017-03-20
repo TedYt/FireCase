@@ -282,7 +282,7 @@ public class FireCaseBean {
          * delflag : 0
          * dispatcher : system
          * dispatchorgan : system
-         * dispatchorglevel : 1
+         * dispatchorglevel : 1， 4 中队 5，中队以下 调派级别
          * dispatchway : 0
          * guid : 352f0247-c10b-452b-b831-14b31916cca0
          * policetype : 4
