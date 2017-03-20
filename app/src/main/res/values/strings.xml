@@ -20,4 +20,7 @@
     <string name="need_navigation_or_not">是否需要导航</string>
     <string name="need">需要</string>
     <string name="no_need">不需要</string>
+    <!--hard encoder soft encoder-->
+    <string name="hard_encoder">硬编码</string>
+    <string name="soft_encoder">软编码</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.hytera.fcls.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -41,21 +40,18 @@ public class VideoActivity extends BaseActivity implements IVideo {
     @OnClick({R.id.bt_publish, R.id.bt_swCam})
     public void onclick(View view) {
         int id = view.getId();
-        Log.i("ddd","111111");
         switch (id) {
             case R.id.bt_publish:
-                this.show_Toast("????");
                 //执行推流
                 videoPresenter.startPublish();
-                Log.i("ddd","1112222111");
                 break;
             case R.id.bt_swCam:
                 //转换摄像头
                 videoPresenter.switchCamera();
                 break;
             case R.id.bt_record:
-                //转换摄像头
-                videoPresenter.beginRecord(bt_record);
+                //开始录像
+                videoPresenter.Record(bt_record);
                 break;
             case R.id.bt_swEnc:
                 //转换加密方式
