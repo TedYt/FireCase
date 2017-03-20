@@ -38,7 +38,7 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
     private SrsPublisher mPublisher;
     String baseRtmpUrl = "rtmp://192.168.43.22:1935/";//传入rtmurl
     private String recPath = Environment.getExternalStorageDirectory().getPath() + "/test.mp4";
-
+    boolean flag_start = true; //默认点击
     public VideoPresenter(IVideo iVideo, VideoActivity context) {
         this.iVideo = iVideo;
         this.context = context;
@@ -55,7 +55,7 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
 //        mPublisher.setPreviewResolution(1280, 720);
         mPublisher.setOutputResolution(640, 480);///输出这个效果好些
 //        mPublisher.setOutputResolution(1280, 720);
-        mPublisher.setVideoHDMode();
+        mPublisher.setVideoHDMode();//设置高质量模式
     }
 
     private String getCurDateStr() {
@@ -67,7 +67,8 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
 
     public void Publish(TextView view) {
 
-        if (view.getText().toString().contentEquals("开始")){
+        if(flag_start){
+            //开始上传
             SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML, 0);
             String staff_name = sharedPreferences.getString(DataUtil.KEY_STAFFNAME, "amdin");
             staff_name="";
@@ -75,42 +76,19 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
             String rtmpUrl = baseRtmpUrl + staff_name + "_" + usercode + "/" + getCurDateStr();
 
             Log.d(TAG, "rtmurl：" + rtmpUrl);
-//        mPublisher.Publish(rtmpUrl);
-//        mPublisher.startCamera();
             mPublisher.startPublish(rtmpUrl);
             mPublisher.startCamera();
             Log.d(TAG, "开始");
             view.setText("停止");
-        }else if (view.getText().toString().contentEquals("停止")){
+            flag_start= false;
+        }else {
             mPublisher.stopPublish();
             mPublisher.stopRecord();
-
+//
             Log.d(TAG, "停止");
             view.setText("开始");
+            flag_start= true;
         }
-        /* if (btnPublish.getText().toString().contentEquals("publish")) {
-                    rtmpUrl = efu.getText().toString();
-                    SharedPreferences.Editor editor = sp.edit();
-                    editor.putString("rtmpUrl", rtmpUrl);
-                    editor.apply();
-
-                    mPublisher.Publish(rtmpUrl);
-                    mPublisher.startCamera();
-
-                    if (btnSwitchEncoder.getText().toString().contentEquals("soft encoder")) {
-                        Toast.makeText(getApplicationContext(), "Use hard encoder", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Use soft encoder", Toast.LENGTH_SHORT).show();
-                    }
-                    btnPublish.setText("stop");
-                    btnSwitchEncoder.setEnabled(false);
-                } else if (btnPublish.getText().toString().contentEquals("stop")) {
-                    mPublisher.stopPublish();
-                    mPublisher.stopRecord();
-                    btnPublish.setText("publish");
-                    btnRecord.setText("record");
-                    btnSwitchEncoder.setEnabled(true);
-                }*/
     }
 
     public void switchCamera() {
@@ -164,19 +142,21 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
     }
 
     /**
-     * 实现1srcEncoderHandler
+     * 实现1srcEncoderHandler弱网络
      */
     @Override
     public void onNetworkWeak() {
-
+        //弱网络
+        Toast.makeText(context, "Network weak", Toast.LENGTH_SHORT).show();
     }
 
     /**
-     * 实现2srcEncoderHandler
+     * 实现2srcEncoderHandler网络恢复
      */
     @Override
     public void onNetworkResume() {
-
+        //网络恢复
+        Toast.makeText(context, "Network resume", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -195,7 +175,7 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
      */
     @Override
     public void onRtmpConnecting(String msg) {
-
+        //Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -205,7 +185,7 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
      */
     @Override
     public void onRtmpConnected(String msg) {
-
+        //Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -229,6 +209,8 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
      */
     @Override
     public void onRtmpStopped() {
+        //推流停止
+        //Toast.makeText(context, "Stopped", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -237,7 +219,8 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
      */
     @Override
     public void onRtmpDisconnected() {
-
+        //断开连接
+        //Toast.makeText(context, "Disconnected", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -245,7 +228,8 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
      */
     @Override
     public void onRtmpVideoFpsChanged(double fps) {
-
+        //fps
+        Log.i(TAG, String.format("Output Fps: %f", fps));
     }
 
     /**
@@ -253,7 +237,12 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
      */
     @Override
     public void onRtmpVideoBitrateChanged(double bitrate) {
-
+        int rate = (int) bitrate;
+        if (rate / 1000 > 0) {
+            Log.i(TAG, String.format("Video bitrate: %f kbps", bitrate / 1000));
+        } else {
+            Log.i(TAG, String.format("Video bitrate: %d bps", rate));
+        }
     }
 
     /**
@@ -261,7 +250,12 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
      */
     @Override
     public void onRtmpAudioBitrateChanged(double bitrate) {
-
+        int rate = (int) bitrate;
+        if (rate / 1000 > 0) {
+            Log.i(TAG, String.format("Audio bitrate: %f kbps", bitrate / 1000));
+        } else {
+            Log.i(TAG, String.format("Audio bitrate: %d bps", rate));
+        }
     }
 
     /**
@@ -269,7 +263,7 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
      */
     @Override
     public void onRtmpSocketException(SocketException e) {
-
+            handleException(e);
     }
 
     /**
@@ -277,7 +271,7 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
      */
     @Override
     public void onRtmpIOException(IOException e) {
-
+              handleException(e);
     }
 
     /**
@@ -285,7 +279,7 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
      */
     @Override
     public void onRtmpIllegalArgumentException(IllegalArgumentException e) {
-
+              handleException(e);
     }
 
     /**
@@ -293,7 +287,7 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
      */
     @Override
     public void onRtmpIllegalStateException(IllegalStateException e) {
-
+               handleException(e);
     }
     ////////////////////////////////////////////////////////////////////
 
@@ -302,7 +296,7 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
      */
     @Override
     public void onRecordPause() {
-
+        Toast.makeText(context, "Record paused", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -310,7 +304,7 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
      */
     @Override
     public void onRecordResume() {
-
+        Toast.makeText(context, "Record resumed", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -318,7 +312,7 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
      */
     @Override
     public void onRecordStarted(String msg) {
-
+        Toast.makeText(context, "Recording file: " + msg, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -326,7 +320,7 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
      */
     @Override
     public void onRecordFinished(String msg) {
-
+        Toast.makeText(context, "MP4 file saved: " + msg, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -334,7 +328,7 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
      */
     @Override
     public void onRecordIllegalArgumentException(IllegalArgumentException e) {
-
+        handleException(e);
     }
 
     /**
@@ -343,5 +337,22 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
     @Override
     public void onRecordIOException(IOException e) {
 
+    }
+
+    /**
+     * 恢复录制
+     */
+    public void resumeRecord() {
+        mPublisher.resumeRecord();
+    }
+
+    public void pauseRecord() {
+        mPublisher.pauseRecord();
+
+    }
+
+    public void release() {
+        mPublisher.stopPublish();
+        mPublisher.stopRecord();
     }
 }

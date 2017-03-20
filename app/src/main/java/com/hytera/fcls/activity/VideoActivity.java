@@ -19,7 +19,7 @@ public class VideoActivity extends BaseActivity implements IVideo {
     @BindView(R.id.glsurfaceview_camera)
     public SrsCameraView srsCameraView;
     @BindView(R.id.bt_publish)
-    public Button btpublish;
+    public Button bt_publish;
     @BindView(R.id.bt_swCam)
     public Button bt_swam;
     @BindView(R.id.bt_record)
@@ -43,14 +43,14 @@ public class VideoActivity extends BaseActivity implements IVideo {
         switch (id) {
             case R.id.bt_publish:
                 //执行推流
-                videoPresenter.Publish(btpublish);
+                videoPresenter.Publish(bt_publish);
                 break;
             case R.id.bt_swCam:
                 //转换摄像头
                 videoPresenter.switchCamera();
                 break;
             case R.id.bt_record:
-                //开始录像
+                //录像
                 videoPresenter.Record(bt_record);
                 break;
             case R.id.bt_swEnc:
@@ -61,9 +61,25 @@ public class VideoActivity extends BaseActivity implements IVideo {
 
     }
 
+    /**
+     * 恢复时调用
+     */
     @Override
     protected void onResume() {
         super.onResume();
+        bt_publish.setEnabled(true);
+        videoPresenter.resumeRecord();
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        videoPresenter.pauseRecord();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        videoPresenter.release();
     }
 }
