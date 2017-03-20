@@ -63,6 +63,7 @@ public class MainActivity extends BaseActivity implements IMainAtv {
         Log.i(TAG, "onResume");
 
         mainPresenter.stopFireAlarm();
+        // 接受警情后，获取警情的一些信息
         if (DataUtil.isAcceptCase()){
             mainPresenter.getFireCaseInfo();
         }
@@ -97,7 +98,7 @@ public class MainActivity extends BaseActivity implements IMainAtv {
     }
 
     @OnClick({R.id.case_arrive, R.id.case_depart, R.id.case_end_fire, R.id.case_setting,
-        R.id.case_upload_photo, R.id.case_upload_video})
+        R.id.case_upload_photo, R.id.case_upload_video, R.id.case_detail})
     protected void caseFunClick(View view){
         int id = view.getId();
         switch (id){
@@ -119,6 +120,9 @@ public class MainActivity extends BaseActivity implements IMainAtv {
                 break;
             case R.id.case_setting:
                 mainPresenter.goSettingActivity();
+                break;
+            case R.id.case_detail:
+                mainPresenter.showDetail();
                 break;
         }
     }

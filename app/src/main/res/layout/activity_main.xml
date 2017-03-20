@@ -56,6 +56,14 @@
             android:textSize="@dimen/main_case_info_text_size"
             android:visibility="gone"
             android:text="福永中队"/>
+        <Button
+            android:id="@+id/case_setting"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/sel_1_setting"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -143,7 +151,8 @@
             android:background="#d0cede"
             android:layout_width="1px"
             android:layout_height="match_parent"/>--><!--分割线-->
-        <LinearLayout
+        <!--<LinearLayout
+            android:visibility="gone"
             android:id="@+id/case_setting"
             style="@style/MainAtvItemLinearLayoutStyle">
             <ImageView
@@ -153,6 +162,17 @@
                 android:textSize="@dimen/font_main_42px"
                 style="@style/MainAtvItemViewFrameStyle"
                 android:text="@string/str_main_item_setting" />
+        </LinearLayout>-->
+        <LinearLayout
+            android:id="@+id/case_detail"
+            style="@style/MainAtvItemLinearLayoutStyle">
+            <ImageView
+                style="@style/MainAtvItemViewFrameStyle"
+                android:src="@drawable/sel_1_alarm_detail" />
+            <TextView
+                android:textSize="@dimen/font_main_42px"
+                style="@style/MainAtvItemViewFrameStyle"
+                android:text="@string/str_main_item_detail" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

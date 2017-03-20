@@ -3,7 +3,6 @@ package com.hytera.fcls.mqtt;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.hytera.fcls.DataUtil;
@@ -144,7 +143,7 @@ public class MQTT {
         boolean retain=false;
         /**要发布的消息内容*/
         byte[] message = getGPSMsg(lat,lng);
-        if(GPS_TOPIC!=null&&!"".equals(GPS_TOPIC)){
+        if(message != null){
             /**获取client对象*/
             //MqttAndroidClient client = MainActivity.getMqttAndroidClientInstace();
             if(client!=null){
@@ -158,7 +157,7 @@ public class MQTT {
                 Log.e(TAG,"MqttAndroidClient==null");
             }
         }else{
-            Toast.makeText(context,"发布的主题不能为空",Toast.LENGTH_SHORT).show();
+            Log.w(TAG, "向主题topic_type_gps发送的message为null");
         }
     }
 
@@ -172,6 +171,11 @@ public class MQTT {
     }
 
     private byte[] getGPSMsg(double lat, double lng) {
+        if (!DataUtil.haveOneCase()){
+            Log.w(TAG, "No fire case");
+            return null;
+        }
+
         GPSBean gpsBean = new GPSBean();
         gpsBean.setLatitude(lat);
         gpsBean.setLongitude(lng);

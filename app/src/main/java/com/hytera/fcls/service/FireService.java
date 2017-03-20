@@ -138,8 +138,16 @@ public class FireService extends Service implements IMQConn, IFireService {
             return;
         }
 
+        Log.i(TAG, "开始解析Json...");
         Gson gson = new Gson();
-        FireCaseBean fireCase = gson.fromJson(msg,FireCaseBean.class);
+        FireCaseBean fireCase;
+        try{
+            fireCase = gson.fromJson(msg,FireCaseBean.class);
+        }catch (Exception e){
+            Log.e(TAG, "Json SyntaxException : " + e.getMessage());
+            return;
+        }
+        Log.i(TAG, "Json解析成功.");
 
         // orgIdentifier 不相等的时候，不通知警情
         if (!isTheSameOrgIdentifier(fireCase)){

@@ -26,6 +26,7 @@ import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.NaviPara;
 import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.IMainAtv;
+import com.hytera.fcls.activity.FireCaseTable;
 import com.hytera.fcls.activity.MainActivity;
 import com.hytera.fcls.activity.SettingActivity;
 import com.hytera.fcls.activity.VideoActivity;
@@ -514,7 +515,7 @@ public class MainAtvPresenter {
             String levelDesc = DataUtil.getLevelDesc(bean.getCaseLevel());
             iMainAtv.showFireCaseInfo(bean.getCaseLevel(), bean.getCaseDesc(), bean.getCompDeptName());
         }
-        Log.d(TAG, "FireCaseBean is null. Fail get fire case info!");
+        //Log.d(TAG, "FireCaseBean is null. Fail get fire case info!");
     }
 
     /**
@@ -543,5 +544,11 @@ public class MainAtvPresenter {
             return true;
         }
         return false;
+    }
+
+    public void showDetail() {
+        if (noCase()) return;
+        Intent intent = new Intent(context, FireCaseTable.class);
+        context.startActivity(intent);
     }
 }

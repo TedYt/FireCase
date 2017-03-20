@@ -9,6 +9,7 @@ import com.hytera.fcls.R;
 import com.hytera.fcls.bean.FireCaseBean;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Tim on 17/3/13.
@@ -52,6 +53,7 @@ public class FireCaseTable extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fire_case_detail_table);
+        ButterKnife.bind(this);
 
         FireCaseBean bean = DataUtil.getFireCaseBean();
         if (bean != null){
