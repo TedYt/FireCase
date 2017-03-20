@@ -17,20 +17,20 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="publish"
+        android:text="开始"
         android:id="@+id/bt_publish"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
+<!--publish-->
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="switch"
+        android:text="切换"
         android:id="@+id/bt_swCam"
         android:layout_alignBottom="@+id/bt_publish"
         android:layout_toRightOf="@+id/bt_publish" />
-
+<!--switch-->
     <Button
         android:visibility="gone"
         android:layout_width="wrap_content"

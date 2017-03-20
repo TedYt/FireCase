@@ -17,8 +17,12 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
-
     <uses-permission android:name="android.permission.READ_LOGS" />
+
+   <!--视频权限-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
 
     <application
         android:name=".FireApplication"
@@ -104,6 +108,8 @@
             android:name=".service.AmapGpsService"
             android:enabled="true"
             android:exported="true" />
+
+        <activity android:name=".map.LocalNaviActivity"></activity>
     </application>
 
 </manifest>

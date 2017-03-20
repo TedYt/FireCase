@@ -43,7 +43,7 @@ public class VideoActivity extends BaseActivity implements IVideo {
         switch (id) {
             case R.id.bt_publish:
                 //执行推流
-                videoPresenter.startPublish();
+                videoPresenter.Publish(btpublish);
                 break;
             case R.id.bt_swCam:
                 //转换摄像头

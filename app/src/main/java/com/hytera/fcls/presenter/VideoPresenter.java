@@ -36,7 +36,7 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
 
     private VideoActivity context;
     private SrsPublisher mPublisher;
-    String baseRtmpUrl = "rtmp://192.168.1.101:1935/";//传入rtmurl
+    String baseRtmpUrl = "rtmp://192.168.43.22:1935/";//传入rtmurl
     private String recPath = Environment.getExternalStorageDirectory().getPath() + "/test.mp4";
 
     public VideoPresenter(IVideo iVideo, VideoActivity context) {
@@ -65,15 +65,52 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
         return timeStr;
     }
 
-    public void startPublish() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML, 0);
-        String staff_name = sharedPreferences.getString(DataUtil.KEY_STAFFNAME, "amdin");
-        String usercode = sharedPreferences.getString(DataUtil.KEY_USERCODE, "0000");
-        String rtmpUrl = baseRtmpUrl + staff_name + "_" + usercode + "/" + getCurDateStr();
+    public void Publish(TextView view) {
 
-        Log.d(TAG, "rtmurl：" + rtmpUrl);
-        mPublisher.startPublish(rtmpUrl);
-        mPublisher.startCamera();
+        if (view.getText().toString().contentEquals("开始")){
+            SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML, 0);
+            String staff_name = sharedPreferences.getString(DataUtil.KEY_STAFFNAME, "amdin");
+            staff_name="";
+            String usercode = sharedPreferences.getString(DataUtil.KEY_USERCODE, "0000");
+            String rtmpUrl = baseRtmpUrl + staff_name + "_" + usercode + "/" + getCurDateStr();
+
+            Log.d(TAG, "rtmurl：" + rtmpUrl);
+//        mPublisher.Publish(rtmpUrl);
+//        mPublisher.startCamera();
+            mPublisher.startPublish(rtmpUrl);
+            mPublisher.startCamera();
+            Log.d(TAG, "开始");
+            view.setText("停止");
+        }else if (view.getText().toString().contentEquals("停止")){
+            mPublisher.stopPublish();
+            mPublisher.stopRecord();
+
+            Log.d(TAG, "停止");
+            view.setText("开始");
+        }
+        /* if (btnPublish.getText().toString().contentEquals("publish")) {
+                    rtmpUrl = efu.getText().toString();
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putString("rtmpUrl", rtmpUrl);
+                    editor.apply();
+
+                    mPublisher.Publish(rtmpUrl);
+                    mPublisher.startCamera();
+
+                    if (btnSwitchEncoder.getText().toString().contentEquals("soft encoder")) {
+                        Toast.makeText(getApplicationContext(), "Use hard encoder", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Use soft encoder", Toast.LENGTH_SHORT).show();
+                    }
+                    btnPublish.setText("stop");
+                    btnSwitchEncoder.setEnabled(false);
+                } else if (btnPublish.getText().toString().contentEquals("stop")) {
+                    mPublisher.stopPublish();
+                    mPublisher.stopRecord();
+                    btnPublish.setText("publish");
+                    btnRecord.setText("record");
+                    btnSwitchEncoder.setEnabled(true);
+                }*/
     }
 
     public void switchCamera() {

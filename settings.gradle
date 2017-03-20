@@ -1,1 +1,1 @@
-include ':app', ':okhttputils', ':liveRtmpPushSDK', ':rtmpdemo', ':hardlibrary', ':rtmpdemo2', ':library'
+include ':app', ':okhttputils', ':liveRtmpPushSDK', ':rtmpdemo', ':hardlibrary', ':rtmpdemo2'
