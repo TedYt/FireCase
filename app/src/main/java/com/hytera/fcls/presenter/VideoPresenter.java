@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.github.faucamp.simplertmp.RtmpHandler;
 import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.IVideo;
+import com.hytera.fcls.R;
 import com.hytera.fcls.activity.VideoActivity;
 
 import net.ossrs.yasea.SrsCameraView;
@@ -79,7 +80,11 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
         mPublisher.switchCameraFace((mPublisher.getCamraId() + 1) % Camera.getNumberOfCameras());
     }
 
-    public void beginRecord(TextView view) {
+    /**
+     * 录像功能
+     * @param view
+     */
+    public void Record(TextView view) {
         if (view.getText().toString().contentEquals("record")) {
             if (mPublisher.startRecord(recPath)) {
                 view.setText("pause");
@@ -94,13 +99,17 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
 
     }
 
+    /**
+     * 软硬解加密
+     * @param view
+     */
     public void switchEncode(TextView view) {
-        if (view.getText().toString().contentEquals("soft encoder")) {
+        if (view.getText().toString().contentEquals("软编码")) {
             mPublisher.switchToSoftEncoder();
-            view.setText("hard encoder");
-        } else if (view.getText().toString().contentEquals("hard encoder")) {
+            view.setText(R.string.hard_encoder);
+        } else if (view.getText().toString().contentEquals("硬编码")) {
             mPublisher.switchToHardEncoder();
-            view.setText("soft encoder");
+            view.setText(R.string.soft_encoder);
         }
     }
 
@@ -134,7 +143,7 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
     }
 
     /**
-     * 实现3srcEncoderHandler
+     * 实现3srcEncoderHandler 处理编码异常
      */
     @Override
     public void onEncodeIllegalArgumentException(IllegalArgumentException e) {
