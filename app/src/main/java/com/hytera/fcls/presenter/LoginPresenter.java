@@ -6,6 +6,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.ILogin;
+import com.hytera.fcls.TestClass;
 import com.hytera.fcls.activity.LoginActivity;
 import com.hytera.fcls.bean.LoginResponseBean;
 
@@ -17,15 +18,9 @@ public class LoginPresenter {
 
     private static final String TAG = "y20650" + LoginPresenter.class.getSimpleName();
 
-    private static final int LOGIN_STATE_SUCCESS = 0;
-    private static final int LOGIN_STATE_FAILED = 1;
-
     private ILogin iLogin;
 
     private LoginActivity context;
-
-    //private final String URL_FOR_GET =
-    //        "http://192.168.72.37:8080/fcls/system/login/doLogin?userCode=303798&password=123456";
 
     public LoginPresenter(ILogin iLogin, LoginActivity context) {
         this.context = context;
@@ -41,12 +36,8 @@ public class LoginPresenter {
                 Log.i(TAG, "response is : " + response);
                 Gson gson = new Gson();
                 LoginResponseBean bean = gson.fromJson(response, LoginResponseBean.class);
-                if (null == bean) {
-                    /**
-                     * {"msg":"登陆成功！","user":{"userCode":"baoan","staffName":"于大宝","orgGuid":"A86681A696D7451E8AB06863A533C253","orgIdentifier":"000-002","orgName":"宝安中队","orgType":"1","loginTime":"2017-03-16 09:18:16","ip":"192.168.26.20","token":"12316307B1A24A1EA7E8E7EDF54B0D5E"},"key":"1"}
-                     */
-                    response = "{\"msg\":\"登陆成功！\",\"user\":{\"userCode\":\"baoan\",\"staffName\":\"于大宝\",\"orgGuid\":\"A86681A696D7451E8AB06863A533C253\",\"orgIdentifier\":\"000-002\",\"orgName\":\"宝安中队\",\"orgType\":\"1\",\"loginTime\":\"2017-03-16 09:18:16\",\"ip\":\"192.168.26.20\",\"token\":\"12316307B1A24A1EA7E8E7EDF54B0D5E\"},\"key\":\"1\"}";
-                    bean = gson.fromJson(response, LoginResponseBean.class);
+                if (null == bean) { // 测试数据
+                    bean = TestClass.getTestLoginBean();
                 }
                 if (response == null || bean.getUser() == null) {
                     context.runOnUiThread(new LoginFailureRunnable());

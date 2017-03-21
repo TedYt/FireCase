@@ -73,7 +73,7 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
             String staff_name = sharedPreferences.getString(DataUtil.KEY_STAFFNAME, "amdin");
             staff_name="";
             String usercode = sharedPreferences.getString(DataUtil.KEY_USERCODE, "0000");
-            String rtmpUrl = baseRtmpUrl + staff_name + "_" + usercode + "/" + getCurDateStr();
+            String rtmpUrl = baseRtmpUrl + usercode + "/" + getCurDateStr();
 
             Log.d(TAG, "rtmurl：" + rtmpUrl);
             mPublisher.startPublish(rtmpUrl);
