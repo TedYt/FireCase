@@ -274,7 +274,7 @@ public class SrsCameraView extends GLSurfaceView implements GLSurfaceView.Render
         int[] range = adaptFpsRange(SrsEncoder.VFPS, params.getSupportedPreviewFpsRange());
         params.setPreviewFpsRange(range[0], range[1]);
         params.setPreviewFormat(ImageFormat.NV21);
-        params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+        //params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
         params.setWhiteBalance(Camera.Parameters.WHITE_BALANCE_AUTO);
         params.setSceneMode(Camera.Parameters.SCENE_MODE_AUTO);
 
@@ -293,9 +293,9 @@ public class SrsCameraView extends GLSurfaceView implements GLSurfaceView.Render
         List<String> supportedFlashModes = params.getSupportedFlashModes();
         if (supportedFlashModes != null && !supportedFlashModes.isEmpty()) {
             if (supportedFlashModes.contains(Camera.Parameters.FLASH_MODE_TORCH)) {
-                params.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                //params.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
             } else {
-                params.setFlashMode(supportedFlashModes.get(0));
+                //params.setFlashMode(supportedFlashModes.get(0));
             }
         }
 
