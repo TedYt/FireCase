@@ -58,7 +58,8 @@ public class GpsUtil {
         mlocationClient.setLocationOption(mLocationOption);// 设置定位参数
         mlocationClient.setLocationListener(aMapLocationListener);
         aMapLocation = mlocationClient.getLastKnownLocation(); // 初始化
-        aMapLocation.setLocationType(AMapLocation.LOCATION_TYPE_GPS);
+        // 某些情况下初始化会失败，故不做下面的设置
+        //aMapLocation.setLocationType(AMapLocation.LOCATION_TYPE_GPS);
         // 此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
         // 注意设置合适的定位时间的间隔（最小间隔支持为2000ms），并且在合适时间调用stopLocation()方法来取消定位请求
         // 在定位结束后，在合适的生命周期调用onDestroy()方法
