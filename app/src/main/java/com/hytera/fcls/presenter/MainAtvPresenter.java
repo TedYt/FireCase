@@ -445,6 +445,8 @@ public class MainAtvPresenter {
      * 导航同时，会上报GPS数据
      */
     public void launchNav() {
+        postState(DataUtil.CASE_STATE_DEPART);
+
         GpsUtil.init(context);
         FireCaseBean fireCaseBean = DataUtil.getFireCaseBean();
         double lng = fireCaseBean.getMapx();
