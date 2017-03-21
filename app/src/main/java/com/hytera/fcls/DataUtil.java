@@ -28,16 +28,18 @@ public class DataUtil {
     public static final String XIAO_FEN_DUI = "3"; // 小分队
     public static final String WEI_ZHAN = "4"; // 微站
 
+    public static final String BASE_IP = "192.168.123.64";
+
     public static String FIRE_CASE_STATE_URL =
-            "http://192.168.123.64:8080/icc_fcls/alarmStatus/reportStatus";
+            "http://" + BASE_IP + ":8080/icc_fcls/alarmStatus/reportStatus";
 
     public static String FIRE_CASE_IMG_URL =
-            "http://192.168.123.64:8080/icc_fcls/media/save?";
+            "http://" + BASE_IP + ":8080/icc_fcls/media/save?";
 
     public static String LOGIN_URL =
-            "http://192.168.123.64:8080/icc_fcls/system/login/doLogin?";
+            "http://" + BASE_IP + ":8080/icc_fcls/system/login/doLogin?";
 
-    public static String MQ_URL = "192.168.123.64";
+    public static String MQ_URL = BASE_IP;
 
     /**
      * 检查自动更新网址

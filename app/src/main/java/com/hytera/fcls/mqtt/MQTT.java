@@ -43,6 +43,7 @@ public class MQTT {
     private static final String PRE_FINISH_TOPIC = "topic_type_case_pre_finish";
     /** 中队结束警情，服务器下发通知分队 */
     private static final String CASE_FINISH_TOPIC = "topic_type_case_finish";
+
     private Context context;
 
     private MqttAndroidClient client;

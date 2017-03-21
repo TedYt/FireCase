@@ -36,7 +36,7 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
 
     private VideoActivity context;
     private SrsPublisher mPublisher;
-    String baseRtmpUrl = "rtmp://192.168.43.22:1935/";//传入rtmurl
+    String baseRtmpUrl = "rtmp://" + DataUtil.BASE_IP + ":1935/";//传入rtmurl
     private String recPath = Environment.getExternalStorageDirectory().getPath() + "/test.mp4";
     boolean flag_start = true; //默认点击
     public VideoPresenter(IVideo iVideo, VideoActivity context) {
@@ -56,11 +56,13 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
         mPublisher.setOutputResolution(640, 480);///输出这个效果好些
 //        mPublisher.setOutputResolution(1280, 720);
         mPublisher.setVideoHDMode();//设置高质量模式
+
+        mPublisher.startCamera();
     }
 
     private String getCurDateStr() {
         Date date = new Date(System.currentTimeMillis());
-        String timeStr = new SimpleDateFormat("yyyMMdd_hhmmss", Locale.CHINA).format(date);
+        String timeStr = new SimpleDateFormat("yyyMMdd", Locale.CHINA).format(date); // _hhmmss
         Log.i(TAG, "timeStr is : " + timeStr);
         return timeStr;
     }
@@ -70,14 +72,14 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
         if(flag_start){
             //开始上传
             SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML, 0);
-            String staff_name = sharedPreferences.getString(DataUtil.KEY_STAFFNAME, "amdin");
-            staff_name="";
+            //String staff_name = sharedPreferences.getString(DataUtil.KEY_STAFFNAME, "amdin");
+            //staff_name="";
             String usercode = sharedPreferences.getString(DataUtil.KEY_USERCODE, "0000");
             String rtmpUrl = baseRtmpUrl + usercode + "/" + getCurDateStr();
 
             Log.d(TAG, "rtmurl：" + rtmpUrl);
             mPublisher.startPublish(rtmpUrl);
-            mPublisher.startCamera();
+            //mPublisher.startCamera();
             Log.d(TAG, "开始");
             view.setText("停止");
             flag_start= false;
