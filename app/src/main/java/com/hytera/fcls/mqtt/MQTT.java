@@ -9,6 +9,7 @@ import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.IMQConn;
 import com.hytera.fcls.bean.GPSBean;
 import com.hytera.fcls.bean.LoginResponseBean;
+import com.hytera.fcls.bean.RtmpVideoBean;
 import com.hytera.fcls.mqtt.callback.ConnectCallBackHandler;
 import com.hytera.fcls.mqtt.callback.MqttCallbackHandler;
 import com.hytera.fcls.mqtt.callback.PublishCallBackHandler;
@@ -43,6 +44,8 @@ public class MQTT {
     private static final String PRE_FINISH_TOPIC = "topic_type_case_pre_finish";
     /** 中队结束警情，服务器下发通知分队 */
     private static final String CASE_FINISH_TOPIC = "topic_type_case_finish";
+    /** 视频推送主题， */
+    private static final String VIDEO_TOPIC = "topic_type_video";
 
     private Context context;
 
@@ -67,7 +70,9 @@ public class MQTT {
     }
 
     public void setContext(Context context){
-        _instance.context = context;
+        if (_instance.context == null){
+            _instance.context = context;
+        }
     }
 
     public void startConnect(IMQConn imqConn) {
@@ -158,8 +163,57 @@ public class MQTT {
                 Log.e(TAG,"MqttAndroidClient==null");
             }
         }else{
-            Log.w(TAG, "向主题topic_type_gps发送的message为null");
+            Log.w(TAG, "向主题" + GPS_TOPIC + "发送的message为null");
         }
+    }
+
+    /**
+     * 推送视频信息，主要是告诉服务器推送流的url
+     * @param url
+     */
+    public void pushVideoURL(String url){
+        int qos = 0;
+        boolean retain = false;
+        byte[] message = getVideoMsg(url);
+        if (message != null){
+            if (client != null){
+                /**发布一个主题:如果主题名一样不会新建一个主题，会复用*/
+                try {
+                    client.publish(VIDEO_TOPIC,message,qos,retain,null,new PublishCallBackHandler(context));
+                } catch (MqttException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                Log.e(TAG,"MqttAndroidClient==null");
+            }
+        }else {
+            Log.w(TAG, "向主题" + VIDEO_TOPIC + "发送的message为null");
+        }
+    }
+
+    /**
+     * 获取video的信息，包括rtmp的url和登录用户的信息
+     * @param url
+     * @return
+     */
+    private byte[] getVideoMsg(String url) {
+        if (!DataUtil.haveOneCase()){
+            Log.w(TAG, "No fire case");
+            return null;
+        }
+
+        RtmpVideoBean videoBean = new RtmpVideoBean();
+
+        Gson gson = new Gson();
+        // 将loginbean转成json
+        String json = gson.toJson(DataUtil.getLoginUserBean());
+        // 再将json转成rtmp的userbean
+        videoBean.setUser(gson.fromJson(json, RtmpVideoBean.UserBean.class));
+        videoBean.setUrl(url);
+        // 将videobean转成json
+        json = gson.toJson(videoBean);
+
+        return json.getBytes(Charset.defaultCharset());
     }
 
     /**

@@ -97,6 +97,7 @@ public class AmapGpsService extends Service {
         );
         // 上传位置信息
         MQTT mqtt = MQTT.getInstance();
+        mqtt.setContext(getApplicationContext());
         mqtt.pushGPSLocation(aMapLocation.getLatitude(), aMapLocation.getLongitude());
     }
 }

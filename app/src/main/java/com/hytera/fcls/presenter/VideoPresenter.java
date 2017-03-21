@@ -12,6 +12,7 @@ import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.IVideo;
 import com.hytera.fcls.R;
 import com.hytera.fcls.activity.VideoActivity;
+import com.hytera.fcls.mqtt.MQTT;
 
 import net.ossrs.yasea.SrsCameraView;
 import net.ossrs.yasea.SrsEncodeHandler;
@@ -36,7 +37,7 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
 
     private VideoActivity context;
     private SrsPublisher mPublisher;
-    String baseRtmpUrl = "rtmp://" + DataUtil.BASE_IP + ":1935/";//传入rtmurl
+    //String baseRtmpUrl = "rtmp://" + DataUtil.BASE_IP + ":1935/";//传入rtmurl
     private String recPath = Environment.getExternalStorageDirectory().getPath() + "/test.mp4";
     boolean flag_start = true; //默认点击
     public VideoPresenter(IVideo iVideo, VideoActivity context) {
@@ -51,10 +52,10 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
         mPublisher.setRtmpHandler(new RtmpHandler(this));
         mPublisher.setRecordHandler(new SrsRecordHandler(this));
         //参数配置详见ReadMe
-        mPublisher.setPreviewResolution(640, 480);
-//        mPublisher.setPreviewResolution(1280, 720);
-        mPublisher.setOutputResolution(640, 480);///输出这个效果好些
-//        mPublisher.setOutputResolution(1280, 720);
+//        mPublisher.setPreviewResolution(640, 480);
+        mPublisher.setPreviewResolution(1280, 720);
+//        mPublisher.setOutputResolution(640, 480);///输出这个效果好些
+        mPublisher.setOutputResolution(1280, 720);
         mPublisher.setVideoHDMode();//设置高质量模式
 
         mPublisher.startCamera();
@@ -62,7 +63,7 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
 
     private String getCurDateStr() {
         Date date = new Date(System.currentTimeMillis());
-        String timeStr = new SimpleDateFormat("yyyMMdd", Locale.CHINA).format(date); // _hhmmss
+        String timeStr = new SimpleDateFormat("yyyMMdd_hhmmss", Locale.CHINA).format(date); // _hhmmss
         Log.i(TAG, "timeStr is : " + timeStr);
         return timeStr;
     }
@@ -70,12 +71,15 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
     public void Publish(TextView view) {
 
         if(flag_start){
+
             //开始上传
             SharedPreferences sharedPreferences = context.getSharedPreferences(DataUtil.LOGIN_XML, 0);
             //String staff_name = sharedPreferences.getString(DataUtil.KEY_STAFFNAME, "amdin");
             //staff_name="";
             String usercode = sharedPreferences.getString(DataUtil.KEY_USERCODE, "0000");
-            String rtmpUrl = baseRtmpUrl + usercode + "/" + getCurDateStr();
+            String rtmpUrl = DataUtil.VIDEO_RTMP_URL + usercode + "/" + getCurDateStr();
+
+            pushVideoURL(rtmpUrl);
 
             Log.d(TAG, "rtmurl：" + rtmpUrl);
             mPublisher.startPublish(rtmpUrl);
@@ -91,6 +95,16 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
             view.setText("开始");
             flag_start= true;
         }
+    }
+
+    /**
+     * 通过总线向服务器发送
+     * @param rtmpUrl
+     */
+    private void pushVideoURL(String rtmpUrl) {
+        MQTT mqtt = MQTT.getInstance();
+        mqtt.setContext(context.getApplicationContext());
+        MQTT.getInstance().pushVideoURL(rtmpUrl); // 告诉服务器视频推流的URL
     }
 
     public void switchCamera() {

@@ -63,7 +63,7 @@ public class FireService extends Service implements IMQConn, IFireService {
         EventBus.getDefault().register(this); // 订阅消息总线
 
         mqtt = MQTT.getInstance();
-        mqtt.setContext(this);
+        mqtt.setContext(getApplicationContext());
         new Thread(new Runnable() {
             @Override
             public void run() {
