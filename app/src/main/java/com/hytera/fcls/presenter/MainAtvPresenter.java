@@ -413,6 +413,8 @@ public class MainAtvPresenter {
             return;
         }
 
+        postState(DataUtil.CASE_STATE_DEPART);
+
         iMainAtv.showNavDialog();
     }
 
@@ -445,8 +447,6 @@ public class MainAtvPresenter {
      * 导航同时，会上报GPS数据
      */
     public void launchNav() {
-        postState(DataUtil.CASE_STATE_DEPART);
-
         GpsUtil.init(context);
         FireCaseBean fireCaseBean = DataUtil.getFireCaseBean();
         double lng = fireCaseBean.getMapx();
@@ -469,8 +469,7 @@ public class MainAtvPresenter {
      * 仅上报状态，不开启导航
      * 但是会开始GPS服务，上报GPS数据
      */
-    public void justPostArrState() {
-        postState(DataUtil.CASE_STATE_DEPART);
+    public void justPostGPS() {
         startGPSService();
     }
 

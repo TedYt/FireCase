@@ -215,7 +215,7 @@ public class MainActivity extends BaseActivity implements IMainAtv {
                 .setNegativeButton(R.string.no_need, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
-                        mainPresenter.justPostArrState();
+                        mainPresenter.justPostGPS();
                         dialog.dismiss();
                     }
                 });
