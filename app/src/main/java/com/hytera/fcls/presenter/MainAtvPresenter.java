@@ -495,7 +495,6 @@ public class MainAtvPresenter {
         if (view.getBackground() instanceof AnimationDrawable) {
             animation = (AnimationDrawable) view.getBackground();
             animation.stop();
-
         }
     }
 
