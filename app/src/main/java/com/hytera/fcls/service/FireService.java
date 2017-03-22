@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.hytera.fcls.DataUtil;
@@ -132,9 +131,6 @@ public class FireService extends Service implements IMQConn, IFireService {
         if (isFinishTopic(event) && !isZhongdui()
                 && isOneCaseIn() && isCurrentCase(event)){
             Log.i(TAG, "这是结束警情的消息，通知给分队");
-            Toast.makeText(this, "警情已由中队结束", Toast.LENGTH_SHORT).show();
-            DataUtil.clearFireCase();
-            DataUtil.resetCaseState();
             return;
         }
 
