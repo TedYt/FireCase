@@ -27,6 +27,30 @@ public class FireCaseStateUtil {
     }
 
     /**
+     * 当前是出发状态
+     * @return
+     */
+    public static boolean isDepartState(){
+        if (DataUtil.fireCaseState ==  DataUtil.CASE_STATE_DEPART){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 已经进入出发的下一个状态
+     * @return
+     */
+    public static boolean hasDeparted(){
+        if (DataUtil.fireCaseState > DataUtil.CASE_STATE_DEPART &&
+                DataUtil.fireCaseState <= DataUtil.CASE_STATE_PRE_FINISH &&
+                DataUtil.fireCaseState != DataUtil.CASE_STATE_REJECT){ // 由于变量值得设计没有考虑好，后期无法改变了
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * 前一个状态是否是 出发
      * @return
      */

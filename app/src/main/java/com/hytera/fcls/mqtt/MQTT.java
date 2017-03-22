@@ -207,6 +207,7 @@ public class MQTT {
         Gson gson = new Gson();
         // 将loginbean转成json
         String json = gson.toJson(DataUtil.getLoginUserBean());
+        Log.i(TAG, "json is : " + json);
         // 再将json转成rtmp的userbean
         videoBean.setUser(gson.fromJson(json, RtmpVideoBean.UserBean.class));
         videoBean.setUrl(url);

@@ -410,6 +410,17 @@ public class MainAtvPresenter {
             return;
         }
 
+        /** 处理多次点击出发的情况 */
+        if (FireCaseStateUtil.isDepartState()){
+            iMainAtv.showNavDialog();
+            return;
+        }
+        /** 进入出发之后的状态后，再点击出发，无效 */
+        if (FireCaseStateUtil.hasDeparted()){
+            context.show_Toast("已进入下一个状态，该按钮无效");
+            return;
+        }
+
         if (!FireCaseStateUtil.lastStateIsCopy()) {
             Log.w(TAG, "last state is not copy");
             Toast.makeText(context, "请先接警!", Toast.LENGTH_SHORT).show();
