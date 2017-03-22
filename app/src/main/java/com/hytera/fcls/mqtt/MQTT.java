@@ -197,10 +197,6 @@ public class MQTT {
      * @return
      */
     private byte[] getVideoMsg(String url) {
-        if (!DataUtil.haveOneCase()){
-            Log.w(TAG, "No fire case");
-            return null;
-        }
 
         RtmpVideoBean videoBean = new RtmpVideoBean();
 
