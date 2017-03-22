@@ -8,6 +8,8 @@ import android.view.WindowManager;
 
 /**
  * Created by Tim on 17/2/24.
+ *
+ * 没作用
  */
 
 public class KeepAliveActivity extends Activity {

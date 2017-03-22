@@ -37,7 +37,6 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
 
     private VideoActivity context;
     private SrsPublisher mPublisher;
-    //String baseRtmpUrl = "rtmp://" + DataUtil.BASE_IP + ":1935/";//传入rtmurl
     private String recPath = Environment.getExternalStorageDirectory().getPath() + "/test.mp4";
     boolean flag_start = true; //默认点击
     public VideoPresenter(IVideo iVideo, VideoActivity context) {
@@ -149,9 +148,6 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
             mPublisher.stopPublish();
             mPublisher.stopRecord();
-//            btnPublish.setText("publish");
-//            btnRecord.setText("record");
-//            btnSwitchEncoder.setEnabled(true);
         } catch (Exception e1) {
             //
         }

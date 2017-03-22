@@ -12,7 +12,7 @@ public class BootupReceive extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         // 启动后台服务
-        Intent intent1 = new Intent(context, FireService.class);
-        context.startService(intent1);
+        //Intent intent1 = new Intent(context, FireService.class);
+        //context.startService(intent1);
     }
 }
