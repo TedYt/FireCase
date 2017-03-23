@@ -71,7 +71,7 @@ public class SettingActivity extends BaseActivity {
                 break;
             case R.id.rl_checkupdate:
 //                检查更新
-//                CheckVersionUtil.startCheckAndDown(this);
+                CheckVersionUtil.startCheckAndDown(this);
                 break;
         }
     }

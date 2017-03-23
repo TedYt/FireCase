@@ -173,7 +173,7 @@ public class CheckVersionUtil {
             }
         });
 
-        builder.setNegativeButton("不升不行", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("暂不更新", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //升级
@@ -190,8 +190,8 @@ public class CheckVersionUtil {
 //      File file = new File(sdDir, SystemClock.uptimeMillis() + ".apk");
 //      String mdownloadpath = "http://192.168.43.22:8080/update/xxx.apk";
         String mdownloadpath = downloadpath;
-        String dest = Environment.getExternalStorageDirectory().getAbsolutePath();
-        String destFileName = "test.apk";
+        final String dest = Environment.getExternalStorageDirectory().getAbsolutePath();
+        final String destFileName = "fcls.apk";
         OkHttpUtils
                 .get()
                 .url(mdownloadpath)
@@ -221,7 +221,7 @@ public class CheckVersionUtil {
                     public void onResponse(File response, int id) {
                         Log.e(TAG, "onResponse :下载完成" + response.getAbsolutePath());
                         pd.dismiss();
-                        Toast.makeText(mcontext, "下载成功",
+                        Toast.makeText(mcontext, "下载成功"+dest+destFileName,
                                 Toast.LENGTH_SHORT).show();
                         // 覆盖安装apk文件
                         Intent intent = new Intent();
