@@ -4,41 +4,47 @@
     android:id="@+id/activity_setting"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#dddbe7"
+    android:orientation="vertical"
     tools:context="com.hytera.fcls.activity.SettingActivity">
 
     <LinearLayout
-        android:background="@drawable/bg_s_setting"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="160px"
+        android:background="@drawable/bg_s_setting"
+        android:gravity="center"
         android:orientation="horizontal">
+
         <TextView
-            android:text="设置"
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/font_normal_46px"/>
+            android:text="设置"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_normal_46px" />
     </LinearLayout>
 
     <RelativeLayout
-        android:visibility="gone"
-        style="@style/setting_rl_item_1">
+        style="@style/setting_rl_item_1"
+        android:visibility="gone">
+
         <TextView
-            android:text="账户与安全"
-            style="@style/settting_text_item" />
+            style="@style/settting_text_item"
+            android:text="账户与安全" />
+
         <ImageView style="@style/setting_img_item" />
     </RelativeLayout>
 
     <include layout="@layout/view_normal_1" />
 
     <RelativeLayout style="@style/setting_rl_item_1">
+
         <TextView
-            android:text="视频设置"
-            style="@style/settting_text_item" />
-        <ImageView style="@style/setting_img_item"
-            android:layout_centerVertical="true"/>
+            style="@style/settting_text_item"
+            android:text="视频设置" />
+
+        <ImageView
+            style="@style/setting_img_item"
+            android:layout_centerVertical="true" />
     </RelativeLayout>
 
     <include layout="@layout/view_normal_1" />
@@ -46,21 +52,23 @@
     <RelativeLayout
         android:id="@+id/rl_checkupdate"
         style="@style/setting_rl_item_1">
+
         <TextView
             android:id="@+id/tv_checkupdate"
-            android:text="检查更新"
-            style="@style/settting_text_item" />
+            style="@style/settting_text_item"
+            android:text="检查更新" />
+
         <TextView
             android:id="@+id/tv_version"
-            android:layout_toRightOf="@id/tv_checkupdate"
             style="@style/settting_text_item"
+            android:layout_toRightOf="@id/tv_checkupdate"
             android:text="(1.0.0)"
-            android:textColor="@color/darkgrey"/>
+            android:textColor="@color/darkgrey" />
+
         <ImageView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
             style="@style/setting_img_item"
-            />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 
     <include layout="@layout/view_normal_1" />
@@ -68,40 +76,52 @@
     <RelativeLayout
         android:id="@+id/exit_application"
         style="@style/setting_rl_item_2"
-        android:layout_marginTop="30px"
-        >
+        android:layout_marginTop="30px">
+
         <TextView
-            android:text="退出登录"
-            style="@style/settting_text_item" />
+            style="@style/settting_text_item"
+            android:text="退出登录" />
     </RelativeLayout>
     <!--为了测试加的设置ip的接口
         正式发布时，可以删除-->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="请输入服务器IP"/>
-    <EditText
-        android:id="@+id/server_ip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="192.168."/>
-    <EditText
-        android:id="@+id/server_port"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="8080"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="请输入MQ服务器IP"/>
-    <EditText
-        android:id="@+id/mq_server_ip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="192.168."/>
-    <Button
-        android:id="@+id/confirm_server_ip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="确定"/>
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入服务器IP" />
+
+        <EditText
+            android:id="@+id/server_ip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="192.168." />
+
+        <EditText
+            android:id="@+id/server_port"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="8080" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入MQ服务器IP" />
+
+        <EditText
+            android:id="@+id/mq_server_ip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="192.168." />
+
+        <Button
+            android:id="@+id/confirm_server_ip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="确定" />
+    </LinearLayout>
 </LinearLayout>
