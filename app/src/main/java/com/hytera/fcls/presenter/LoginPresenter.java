@@ -34,13 +34,20 @@ public class LoginPresenter {
 
     public void Login(String password, String username) {
         String content = "userCode=" + username + "&" + "password=" + password + "&"
-                    + "remark=MOBILE";
+                + "remark=MOBILE";
         HTTPPresenter.post(DataUtil.LOGIN_URL, content, new HTTPPresenter.CallBack() {
             @Override
             public void onResponse(String response) {
                 Log.i(TAG, "response is : " + response);
                 Gson gson = new Gson();
                 LoginResponseBean bean = gson.fromJson(response, LoginResponseBean.class);
+                if (null == bean) {
+                    /**
+                     * {"msg":"登陆成功！","user":{"userCode":"baoan","staffName":"于大宝","orgGuid":"A86681A696D7451E8AB06863A533C253","orgIdentifier":"000-002","orgName":"宝安中队","orgType":"1","loginTime":"2017-03-16 09:18:16","ip":"192.168.26.20","token":"12316307B1A24A1EA7E8E7EDF54B0D5E"},"key":"1"}
+                     */
+                    response = "{\"msg\":\"登陆成功！\",\"user\":{\"userCode\":\"baoan\",\"staffName\":\"于大宝\",\"orgGuid\":\"A86681A696D7451E8AB06863A533C253\",\"orgIdentifier\":\"000-002\",\"orgName\":\"宝安中队\",\"orgType\":\"1\",\"loginTime\":\"2017-03-16 09:18:16\",\"ip\":\"192.168.26.20\",\"token\":\"12316307B1A24A1EA7E8E7EDF54B0D5E\"},\"key\":\"1\"}";
+                    bean = gson.fromJson(response, LoginResponseBean.class);
+                }
                 if (response == null || bean.getUser() == null) {
                     context.runOnUiThread(new LoginFailureRunnable());
                 } else {

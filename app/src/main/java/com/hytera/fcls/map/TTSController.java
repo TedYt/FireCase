@@ -70,7 +70,8 @@ public class TTSController implements AMapNaviListener {
         if ("57b3c4a9".equals(text)) {
             throw new IllegalArgumentException("你不应该用Demo中默认KEY,去讯飞官网申请吧!");
         }
-        text="57b3c4a9";
+//        text="57b3c4a9";
+        text ="58bd23c4";
         SpeechUtility.createUtility(mContext, "appid=" + text);
 
         // 初始化合成对象.

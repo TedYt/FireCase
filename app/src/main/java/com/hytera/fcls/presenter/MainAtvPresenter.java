@@ -32,6 +32,8 @@ import com.hytera.fcls.activity.SettingActivity;
 import com.hytera.fcls.activity.VideoActivity;
 import com.hytera.fcls.bean.FireCaseBean;
 import com.hytera.fcls.bean.LoginResponseBean;
+import com.hytera.fcls.comutil.GpsUtil;
+import com.hytera.fcls.map.LocalNaviActivity;
 import com.hytera.fcls.mqtt.MQTT;
 import com.hytera.fcls.service.AmapGpsService;
 
@@ -309,7 +311,7 @@ public class MainAtvPresenter {
     public void arriveDest() {
         if (noCase()) return;
 
-        if (FireCaseStateUtil.lastStateIsArrive()){
+        if (FireCaseStateUtil.lastStateIsArrive()) {
             Log.i(TAG, "已到达现场，直接拍照");
             startCamera(context);
             return;
@@ -338,7 +340,7 @@ public class MainAtvPresenter {
     public void finishCase() {
         if (noCase()) return;
 
-        if (FireCaseStateUtil.lastStateIsFinish()){
+        if (FireCaseStateUtil.lastStateIsFinish()) {
             Log.w(TAG, "the state was finish");
             Toast.makeText(context, "已结束案情，勿重复点击", Toast.LENGTH_SHORT).show();
             return;
@@ -360,10 +362,10 @@ public class MainAtvPresenter {
         iMainAtv.showTitle();
         // 只有中队或者以上才有权限结束火警
         LoginResponseBean.UserBean userBean = DataUtil.getLoginUserBean();
-        if (userBean.getOrgType().equals(DataUtil.ZHONG_DUI)){
+        if (userBean.getOrgType().equals(DataUtil.ZHONG_DUI)) {
             Log.i(TAG, "中队结束警情");
             postState(DataUtil.CASE_STATE_FINISH);
-        }else {
+        } else {
             // 中队以下的队伍只能申请结束
             Log.i(TAG, "分队申请结束警情");
             postState(DataUtil.CASE_STATE_PRE_FINISH);
@@ -400,7 +402,7 @@ public class MainAtvPresenter {
         double lng = fireCaseBean.getMapx();
         double lat = fireCaseBean.getMapy();
 
-        if (lng < 0.0 || lng >= 180.0 || lat < 0.0 || lat >= 90.0){
+        if (lng < 0.0 || lng >= 180.0 || lat < 0.0 || lat >= 90.0) {
             Log.e(TAG, "GPS is not available : mapx = " + lng + ", mapy = " + lat);
             return;
         }
@@ -443,17 +445,22 @@ public class MainAtvPresenter {
      * 导航同时，会上报GPS数据
      */
     public void launchNav() {
+        GpsUtil.init(context);
         FireCaseBean fireCaseBean = DataUtil.getFireCaseBean();
         double lng = fireCaseBean.getMapx();
         double lat = fireCaseBean.getMapy();
-
-        //开启外部导航
-        InstatNav(lng,lat);
-        //内置导航，暂未修订
-        //Intent intent = new Intent(MainActivity.this,NaviActivity.class);
-        //startActivity(intent);
-
+        if (0.0f == lng || 0.0f == lat) {
+            Log.e(TAG, "服务器传入经纬度为空：lng:" + lng + ",lat:" + lat);
+            context.show_Toast("地址无效，不能开启导航");
+        } else {
+            //开启外部导航
+            //InstatNav(lng,lat);
+            //内置导航，暂未修订
+            Intent intent = new Intent(context, LocalNaviActivity.class);
+            context.startActivity(intent);
+        }
         startGPSService();
+
     }
 
     /**
@@ -478,6 +485,7 @@ public class MainAtvPresenter {
 
     /**
      * 播放主界面中的波浪动画
+     *
      * @param view
      */
     public void playWaveAnim(View view) {
@@ -489,6 +497,7 @@ public class MainAtvPresenter {
 
     /**
      * 停止主界面中的波浪动画
+     *
      * @param view
      */
     public void endWaveAnim(View view) {
@@ -500,7 +509,7 @@ public class MainAtvPresenter {
 
     public void stopFireAlarm() {
         MediaPlayer mediaPlayer = MPPresenter.getInstance();
-        if (mediaPlayer.isPlaying()){
+        if (mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
         }
     }
@@ -528,16 +537,18 @@ public class MainAtvPresenter {
     /**
      * 打开视频界面开始录像
      */
-    public void goVideoActivity(){
+    public void goVideoActivity() {
         Intent videointent = new Intent(context, VideoActivity.class);
         context.startActivity(videointent);
     }
+
     /**
      * 判断 没有警情
+     *
      * @return
      */
-    public boolean noCase(){
-        if (!DataUtil.haveOneCase()){
+    public boolean noCase() {
+        if (!DataUtil.haveOneCase()) {
             Log.i(TAG, "There is no case!");
             Toast.makeText(context, "没用新警情要处理", Toast.LENGTH_SHORT).show();
             return true;

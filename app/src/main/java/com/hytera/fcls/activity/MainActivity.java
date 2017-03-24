@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.IMainAtv;
 import com.hytera.fcls.R;
+import com.hytera.fcls.map.LocalNaviActivity;
 import com.hytera.fcls.presenter.MainAtvPresenter;
 import com.hytera.fcls.service.FireService;
 
@@ -103,7 +104,10 @@ public class MainActivity extends BaseActivity implements IMainAtv {
         int id = view.getId();
         switch (id){
             case R.id.case_upload_photo:
-                mainPresenter.startCamera(MainActivity.this);
+//                mainPresenter.startCamera(MainActivity.this);
+                Intent intent = new Intent(this, LocalNaviActivity.class);
+                this.startActivity(intent);
+//                mainPresenter.launchNav();
                 break;
             case R.id.case_upload_video:
                 mainPresenter.goVideoActivity();
