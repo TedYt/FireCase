@@ -11,7 +11,7 @@ import com.hytera.fcls.R;
 import com.hytera.fcls.comutil.GpsUtil;
 
 public class LocalNaviActivity extends AMapBaseActivity {
-    public static final String TAG = "y20650" + LocalNaviActivity.class.getSimpleName();
+    public static final String TAG = DataUtil.BASE_TAG + LocalNaviActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

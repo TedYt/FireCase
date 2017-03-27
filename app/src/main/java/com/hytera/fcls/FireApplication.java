@@ -17,7 +17,7 @@ public class FireApplication extends Application {
 
     private static FireApplication _instance;
     private List<Activity> runningActivities = new ArrayList<Activity>();//用于存放启动的activity的集合
-    private static final String TAG = "y20650" + FireApplication.class.getSimpleName();
+    private static final String TAG = DataUtil.BASE_TAG + FireApplication.class.getSimpleName();
     //private FireApplication(){}
 
     public static FireApplication getInstance(){

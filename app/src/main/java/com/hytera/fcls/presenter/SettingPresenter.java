@@ -14,7 +14,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
  */
 
 public class SettingPresenter {
-    public static final String TAG = "y20650" + MainAtvPresenter.class.getSimpleName();
+    public static final String TAG = DataUtil.BASE_TAG + MainAtvPresenter.class.getSimpleName();
     private SettingActivity context;
     private long time = 0;
 

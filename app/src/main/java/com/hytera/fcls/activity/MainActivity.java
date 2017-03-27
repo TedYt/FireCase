@@ -27,7 +27,7 @@ import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements IMainAtv {
 
-    public static final String TAG = "y20650" + MainActivity.class.getSimpleName();
+    public static final String TAG = DataUtil.BASE_TAG + MainActivity.class.getSimpleName();
 
     @BindView(R.id.image_wave)
     public ImageView image_wave;

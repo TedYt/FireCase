@@ -16,7 +16,7 @@ import com.amap.api.maps.model.LatLng;
  */
 
 public class GpsUtil {
-    public static final String TAG = "y20650" + "GpsUtil";
+    public static final String TAG = DataUtil.BASE_TAG + "GpsUtil";
     public AMapLocationClient mlocationClient;
     public AMapLocationClientOption mLocationOption = null;
     public AMapLocation aMapLocation = null;

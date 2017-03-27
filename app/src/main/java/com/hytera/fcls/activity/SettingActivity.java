@@ -1,17 +1,17 @@
 package com.hytera.fcls.activity;
 
 import android.os.Bundle;
-import com.hytera.fcls.comutil.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.RelativeLayout;
 
 import com.hytera.fcls.R;
 import com.hytera.fcls.comutil.AppInfoUtils;
 import com.hytera.fcls.comutil.CheckVersionUtil;
+import com.hytera.fcls.comutil.Log;
 import com.hytera.fcls.presenter.SettingPresenter;
 
 import butterknife.BindView;

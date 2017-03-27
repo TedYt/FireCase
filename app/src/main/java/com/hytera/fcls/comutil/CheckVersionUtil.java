@@ -5,12 +5,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import com.hytera.fcls.comutil.Log;
 import android.widget.Toast;
 
 import com.hytera.fcls.DataUtil;
@@ -27,6 +29,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Request;
@@ -37,7 +40,7 @@ import okhttp3.Request;
  */
 
 public class CheckVersionUtil {
-    private static final String TAG = "y20650" + CheckVersionUtil.class.getSimpleName();
+    private static final String TAG = DataUtil.BASE_TAG + CheckVersionUtil.class.getSimpleName();
     private static final int SHOW_UPDATA_DIALOG = 1;
     public static final int ERROR = 2;
     public static final String updatePath = DataUtil.UPDATE_URL;//获取网址
@@ -233,5 +236,24 @@ public class CheckVersionUtil {
                         mcontext.startActivity(intent);
                     }
                 });
+    }
+
+    /**
+     * 检查 DownloadeManager是否可以用
+     * @param context
+     * @return
+     */
+    public static boolean isDownloadManangerAvailable(Context context){
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD){
+            return false;
+        }
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        intent.setClassName("com.android.providers.downloads.ui",
+                "com.android.providers.downloads.ui.DownloadList");
+        List<ResolveInfo> list = context.getPackageManager().queryIntentActivities(intent,
+                PackageManager.MATCH_DEFAULT_ONLY);
+        Log.i(DataUtil.BASE_TAG, "list size is " + list.size());
+        return list.size() > 0;
     }
 }

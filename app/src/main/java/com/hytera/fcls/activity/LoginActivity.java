@@ -30,7 +30,7 @@ import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity implements ILogin {
 
-    private static final String TAG = "y20650" + LoginActivity.class.getSimpleName();
+    private static final String TAG = DataUtil.BASE_TAG + LoginActivity.class.getSimpleName();
 
     @BindView(R.id.login_btn)
     protected Button login_btn;

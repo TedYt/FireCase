@@ -27,7 +27,7 @@ import butterknife.OnClick;
  */
 public class FireCasePopActivity extends BaseActivity implements IFireCasePop {
 
-    public static final String TAG = "y20650" + "FireCasePop";
+    public static final String TAG = DataUtil.BASE_TAG + "FireCasePop";
 
     @BindView(R.id.fire_case_info)
     protected TextView fireCaseInfo;

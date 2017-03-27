@@ -16,7 +16,7 @@ public class KeepLiveReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
          String action = intent.getAction();
         if (action.equals(Intent.ACTION_SCREEN_OFF)){ // 灭屏时，启动activity
-            //Log.i("y20650", "KeepLiveReceiver, ACTION_SCREEN_OFF");
+            //Log.i(DataUtil.BASE_TAG, "KeepLiveReceiver, ACTION_SCREEN_OFF");
             //FireApplication.getInstance().startKeepLiveActivity();
         }else if (action.equals(Intent.ACTION_USER_PRESENT)){ // 解锁后，注销activity
             //FireApplication.getInstance().startKeepLiveActivity();

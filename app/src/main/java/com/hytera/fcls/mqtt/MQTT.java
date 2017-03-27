@@ -30,11 +30,11 @@ import java.util.Locale;
 
 public class MQTT {
 
-    public static final String TAG = "y20650" + "MQTT";
+    public static final String TAG = DataUtil.BASE_TAG + "MQTT";
 
     //private static final String ServerIP = "192.168.1.104"; // 测试地址
     private static final String PORTID = "1883"; // MQTT 协议的对应的端口
-    //private static final String ClientID = "y20650";
+    //private static final String ClientID = DataUtil.BASE_TAG;
 
     /** 接受警情的主题 */
     private static final String PUSH_STATE_TOPIC = "topic_type_case_push";
@@ -80,7 +80,7 @@ public class MQTT {
         try{
             clientID = DataUtil.getLoginUserBean().getUserCode();
         }catch (NullPointerException e){
-            clientID = "y20650";
+            clientID = DataUtil.BASE_TAG;
         }
 
 

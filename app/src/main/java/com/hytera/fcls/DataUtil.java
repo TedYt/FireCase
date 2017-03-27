@@ -14,6 +14,9 @@ import com.hytera.fcls.bean.LoginResponseBean;
  */
 
 public class DataUtil {
+
+    public static final String BASE_TAG = "fcls";
+
     public static final String LOGIN_XML = "Login";
     public static final String KEY_USERCODE = "usercode";
     public static final String KEY_PASSWORD = "password";
@@ -149,13 +152,13 @@ public class DataUtil {
      * 测试方法 设置服务器端口
      */
     /*public static void setServerIP(String ip, String port, String mq){
-        Log.i("y20650", "setServerIP : " + ip + ", port : " + port);
+        Log.i(DataUtil.BASE_TAG, "setServerIP : " + ip + ", port : " + port);
         FIRE_CASE_IMG_URL = "http://" + ip + ":" + port + "/fcls/media/save?";
         FIRE_CASE_STATE_URL = "http://" + ip + ":" + port + "/icc_fcls/alarmStatus/reportStatus";
         LOGIN_URL = "http://" + ip + ":" + port + "/icc_fcls/system/login/doLogin?";
         MQ_URL = mq;
 
-        Log.i("y20650", FIRE_CASE_IMG_URL + "\n"
+        Log.i(DataUtil.BASE_TAG, FIRE_CASE_IMG_URL + "\n"
                     + FIRE_CASE_STATE_URL + "\n"
                     + LOGIN_URL + "\n"
                     + MQ_URL);

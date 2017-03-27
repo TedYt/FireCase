@@ -31,7 +31,7 @@ import java.util.Locale;
 
 public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpHandler.RtmpListener, SrsRecordHandler.SrsRecordListener {
 
-    public static final String TAG = "y20650" + "VideoPresenter";
+    public static final String TAG = DataUtil.BASE_TAG + "VideoPresenter";
 
     private IVideo iVideo;
 

@@ -16,7 +16,7 @@ import com.hytera.fcls.bean.LoginResponseBean;
 
 public class LoginPresenter {
 
-    private static final String TAG = "y20650" + LoginPresenter.class.getSimpleName();
+    private static final String TAG = DataUtil.BASE_TAG + LoginPresenter.class.getSimpleName();
 
     private ILogin iLogin;
 

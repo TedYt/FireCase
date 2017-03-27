@@ -15,7 +15,7 @@ import com.hytera.fcls.comutil.Log;
  */
 public class MPPresenter extends MediaPlayer {
 
-    public static final String TAG = "y20650" + MPPresenter.class.getSimpleName();
+    public static final String TAG = DataUtil.BASE_TAG + MPPresenter.class.getSimpleName();
 
     private static MPPresenter _instance;
 

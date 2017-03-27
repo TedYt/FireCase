@@ -12,7 +12,7 @@ import com.hytera.fcls.mqtt.MQTT;
 import java.util.Date;
 
 public class AmapGpsService extends Service {
-    public static final String TAG = "y20650" + "AmapGpsService";
+    public static final String TAG = DataUtil.BASE_TAG + "AmapGpsService";
     public boolean flag_upload_gps =true; //true开启上传
     Date date;//应用当前时间
 

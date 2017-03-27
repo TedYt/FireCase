@@ -24,7 +24,7 @@ import java.net.URL;
  */
 public class NetUtils {
 
-    private static final String TAG = "y20650" + "NetUtils";
+    private static final String TAG = DataUtil.BASE_TAG + "NetUtils";
 
     public static String post(final String url, final String data){
         HttpURLConnection conn = null;

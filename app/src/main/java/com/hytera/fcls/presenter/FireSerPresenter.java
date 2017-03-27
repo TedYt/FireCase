@@ -13,7 +13,7 @@ import com.hytera.fcls.IFireService;
 
 public class FireSerPresenter {
 
-    public static final String TAG = "y20650" + "FireSerPresenter";
+    public static final String TAG = DataUtil.BASE_TAG + "FireSerPresenter";
 
     private static FireSerPresenter _instance;
     private IFireService iFireService;

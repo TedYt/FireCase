@@ -14,7 +14,7 @@ import com.hytera.fcls.comutil.GpsUtil;
 
 public class FireCasePopPresenter {
 
-    public static final String TAG = "y20650" + "CasePopPresenter";
+    public static final String TAG = DataUtil.BASE_TAG + "CasePopPresenter";
 
     private IFireCasePop iFireCasePop;
 

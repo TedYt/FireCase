@@ -48,7 +48,7 @@ import java.util.Locale;
 
 public class MainAtvPresenter {
 
-    public static final String TAG = "y20650" + MainAtvPresenter.class.getSimpleName();
+    public static final String TAG = DataUtil.BASE_TAG + MainAtvPresenter.class.getSimpleName();
     public static final int CAMERA_RESULT = 100;
 
     /**

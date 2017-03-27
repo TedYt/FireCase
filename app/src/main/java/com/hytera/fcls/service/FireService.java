@@ -41,7 +41,7 @@ import java.io.IOException;
 
 public class FireService extends Service implements IMQConn, IFireService {
 
-    public static final String TAG = "y20650" + FireService.class.getSimpleName();
+    public static final String TAG = DataUtil.BASE_TAG + FireService.class.getSimpleName();
 
     public static final String FIRE_ALARM_FILE = "firealarm.wav";
 
