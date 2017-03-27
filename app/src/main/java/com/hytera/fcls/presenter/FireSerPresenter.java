@@ -1,8 +1,8 @@
 package com.hytera.fcls.presenter;
 
-import com.hytera.fcls.comutil.Log;
-
+import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.IFireService;
+import com.hytera.fcls.comutil.Log;
 
 /**
  * Created by Tim on 17/3/16.

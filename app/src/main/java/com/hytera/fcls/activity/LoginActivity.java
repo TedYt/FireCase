@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.ILogin;
 import com.hytera.fcls.R;
 import com.hytera.fcls.comutil.Log;

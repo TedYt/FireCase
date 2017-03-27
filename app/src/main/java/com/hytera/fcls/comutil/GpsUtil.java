@@ -1,7 +1,6 @@
 package com.hytera.fcls.comutil;
 
 import android.content.Context;
-import com.hytera.fcls.comutil.Log;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -9,6 +8,7 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps.AMapUtils;
 import com.amap.api.maps.model.LatLng;
+import com.hytera.fcls.DataUtil;
 
 /**
  * @Description 高德地图定位工具类

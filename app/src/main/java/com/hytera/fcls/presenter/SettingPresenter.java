@@ -3,6 +3,7 @@ package com.hytera.fcls.presenter;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.activity.SettingActivity;
 import com.hytera.fcls.mqtt.MQTT;
 import com.hytera.fcls.service.FireService;

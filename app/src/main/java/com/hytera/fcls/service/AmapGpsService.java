@@ -3,10 +3,11 @@ package com.hytera.fcls.service;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import com.hytera.fcls.comutil.Log;
 
 import com.amap.api.location.AMapLocation;
+import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.comutil.GpsUtil;
+import com.hytera.fcls.comutil.Log;
 import com.hytera.fcls.mqtt.MQTT;
 
 import java.util.Date;
