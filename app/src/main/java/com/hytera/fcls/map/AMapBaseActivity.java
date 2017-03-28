@@ -2,7 +2,7 @@ package com.hytera.fcls.map;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
+import com.hytera.fcls.comutil.Log;
 import android.view.Window;
 import android.widget.Toast;
 

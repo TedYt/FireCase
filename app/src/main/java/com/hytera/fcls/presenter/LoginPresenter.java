@@ -1,7 +1,7 @@
 package com.hytera.fcls.presenter;
 
 import android.content.SharedPreferences;
-import android.util.Log;
+import com.hytera.fcls.comutil.Log;
 
 import com.google.gson.Gson;
 import com.hytera.fcls.DataUtil;

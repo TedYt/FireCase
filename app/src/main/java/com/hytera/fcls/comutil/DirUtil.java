@@ -14,7 +14,7 @@
 package com.hytera.fcls.comutil;
 
 import android.os.Environment;
-import android.util.Log;
+import com.hytera.fcls.comutil.Log;
 
 import java.io.File;
 

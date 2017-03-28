@@ -10,7 +10,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
+import com.hytera.fcls.comutil.Log;
 import android.widget.Toast;
 
 import com.hytera.fcls.DataUtil;

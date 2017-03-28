@@ -1,7 +1,7 @@
 package com.hytera.fcls.map;
 
 import android.os.Bundle;
-import android.util.Log;
+import com.hytera.fcls.comutil.Log;
 
 import com.amap.api.navi.AMapNaviView;
 import com.amap.api.navi.enums.NaviType;

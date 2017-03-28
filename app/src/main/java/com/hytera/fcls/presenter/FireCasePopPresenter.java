@@ -1,7 +1,7 @@
 package com.hytera.fcls.presenter;
 
 import android.media.MediaPlayer;
-import android.util.Log;
+import com.hytera.fcls.comutil.Log;
 
 import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.IFireCasePop;

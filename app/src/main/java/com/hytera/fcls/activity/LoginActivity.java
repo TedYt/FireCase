@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -17,6 +16,7 @@ import android.widget.Toast;
 
 import com.hytera.fcls.ILogin;
 import com.hytera.fcls.R;
+import com.hytera.fcls.comutil.Log;
 import com.hytera.fcls.presenter.LoginPresenter;
 
 import butterknife.BindView;

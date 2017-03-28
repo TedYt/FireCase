@@ -3,7 +3,7 @@ package com.hytera.fcls.map;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
+import com.hytera.fcls.comutil.Log;
 import android.widget.Toast;
 
 import com.amap.api.navi.AMapNaviListener;

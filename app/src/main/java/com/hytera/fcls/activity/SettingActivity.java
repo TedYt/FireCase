@@ -1,7 +1,7 @@
 package com.hytera.fcls.activity;
 
 import android.os.Bundle;
-import android.util.Log;
+import com.hytera.fcls.comutil.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;

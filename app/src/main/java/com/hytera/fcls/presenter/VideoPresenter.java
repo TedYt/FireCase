@@ -3,7 +3,7 @@ package com.hytera.fcls.presenter;
 import android.content.SharedPreferences;
 import android.hardware.Camera;
 import android.os.Environment;
-import android.util.Log;
+import com.hytera.fcls.comutil.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 

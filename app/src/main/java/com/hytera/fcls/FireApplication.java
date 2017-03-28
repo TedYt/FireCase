@@ -2,9 +2,9 @@ package com.hytera.fcls;
 
 import android.app.Activity;
 import android.app.Application;
-import android.util.Log;
 
 import com.hytera.fcls.comutil.GpsUtil;
+import com.hytera.fcls.comutil.Log;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;

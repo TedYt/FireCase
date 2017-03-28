@@ -1,7 +1,7 @@
 package com.hytera.fcls.comutil;
 
 import android.content.Context;
-import android.util.Log;
+import com.hytera.fcls.comutil.Log;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;

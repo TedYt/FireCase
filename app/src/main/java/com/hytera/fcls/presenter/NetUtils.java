@@ -5,7 +5,7 @@ package com.hytera.fcls.presenter;
  */
 
 import android.accounts.NetworkErrorException;
-import android.util.Log;
+import com.hytera.fcls.comutil.Log;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;

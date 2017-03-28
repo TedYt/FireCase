@@ -1,6 +1,6 @@
 package com.hytera.fcls.presenter;
 
-import android.util.Log;
+import com.hytera.fcls.comutil.Log;
 
 import com.hytera.fcls.IFireService;
 

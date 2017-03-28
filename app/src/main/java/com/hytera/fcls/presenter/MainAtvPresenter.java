@@ -17,7 +17,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
+import com.hytera.fcls.comutil.Log;
 import android.view.View;
 import android.widget.Toast;
 
