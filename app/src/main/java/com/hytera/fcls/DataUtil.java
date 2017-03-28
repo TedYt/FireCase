@@ -28,7 +28,7 @@ public class DataUtil {
     public static final String XIAO_FEN_DUI = "3"; // 小分队
     public static final String WEI_ZHAN = "4"; // 微站
 
-    public static final String BASE_IP = "192.168.123.64";
+    public static final String BASE_IP = "120.77.158.245";//120.77.158.245阿里云；//192.168.123.64
 
     public static String FIRE_CASE_STATE_URL =
             "http://" + BASE_IP + ":8080/icc_fcls/alarmStatus/reportStatus";
@@ -40,20 +40,18 @@ public class DataUtil {
             "http://" + BASE_IP + ":8080/icc_fcls/system/login/doLogin?";
 
     public static String MQ_URL = BASE_IP;
-
     public static final String VIDEO_RTMP_URL = "rtmp://" + BASE_IP + ":1935/";
 
     /**
      * 检查自动更新网址
      */
-    public static String UPDATE_URL= "http://192.168.123.64:8080/appupdate/updateinfo.json";//192.168.1.103
+    public static String UPDATE_URL=  "http://" + BASE_IP + ":8080/"+"appupdate/updateinfo.json";//192.168.1.103
     // userCode=303798&password=123456
 
     /** 传递输入的key */
     public static final String EXTRA_FIRE_LEVERL = "fire_level";
     public static final String EXTRA_FIRE_DESC = "fire_desc";
     public static final String EXTRA_FIRE_DEPR = "fire_dept";
-
     /** 初始状态 */
     public static final int CASE_STATE_INIT = 0;
     /** 接收警情 */

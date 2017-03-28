@@ -17,10 +17,10 @@ android {
             abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
 
-    lintOptions{
-        checkReleaseBuilds false
+        lintOptions {
+            checkReleaseBuilds false
 
-    }
+        }
 
     }
 
@@ -43,6 +43,13 @@ android {
                     )
                 }
             }
+
+            // 不显示LogLOG_DEBUG
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+        }
+        debug {
+            //显示log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
         }
     }
 }

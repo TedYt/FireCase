@@ -191,7 +191,7 @@ public class CheckVersionUtil {
 //      String mdownloadpath = "http://192.168.43.22:8080/update/xxx.apk";
         String mdownloadpath = downloadpath;
         final String dest = Environment.getExternalStorageDirectory().getAbsolutePath();
-        final String destFileName = "fcls.apk";
+        final String destFileName = "fcls_hytera"+localVersion+".apk";
         OkHttpUtils
                 .get()
                 .url(mdownloadpath)
