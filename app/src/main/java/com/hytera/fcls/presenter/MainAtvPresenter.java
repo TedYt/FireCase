@@ -374,8 +374,8 @@ public class MainAtvPresenter {
         FireSerPresenter.getInstance().onCaseFinish();
         // 清除火情信息
         DataUtil.clearFireCase();
-        //结束定位
-        GpsUtil.stopLocation();
+        //结束定位[确认到达时服务中停止定位]
+//        GpsUtil.getInstance().stopLocation();
     }
 
     /**
@@ -458,7 +458,7 @@ public class MainAtvPresenter {
     }
 
     /**
-     * 启动导航，调用外部或者内置地图
+     * 启动导航，调用外部或者内置地图，需要判断起点终点位置是否有数据
      * 导航同时，会上报GPS数据
      */
     public void launchNav() {
@@ -473,7 +473,7 @@ public class MainAtvPresenter {
             //开启外部导航
             //InstatNav(lng,lat);
             //内置导航
-            if (GpsUtil.getLocation().getLatitude() == 0.0f || GpsUtil.getLocation().getLongitude() == 0.0f) {
+            if (GpsUtil.getInstance().getLocation().getLatitude() == 0.0f || GpsUtil.getInstance().getLocation().getLongitude() == 0.0f) {
                 //初始Gps为0不能开启导航
                 context.show_Toast("初始化本地定位失败,不能开启导航");
             }else{

@@ -12,6 +12,7 @@ import com.hytera.fcls.comutil.GpsUtil;
 
 public class LocalNaviActivity extends AMapBaseActivity {
     public static final String TAG = "y20650" + LocalNaviActivity.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,14 +53,14 @@ public class LocalNaviActivity extends AMapBaseActivity {
 //        double latend = 22.69247;
         NaviLatLng mEndLatlng = new NaviLatLng(latend, lngend);
 //
-        double lngstart = GpsUtil.getLocation().getLongitude();
-        double latstart = GpsUtil.getLocation().getLatitude();
+        double lngstart = GpsUtil.getInstance().getLocation().getLongitude();
+        double latstart = GpsUtil.getInstance().getLocation().getLatitude();
 //        double lngstart = 113.901231;
 //        double latstart = 22.39247;
         NaviLatLng mStartLatlng = new NaviLatLng(latstart, lngstart);
         sList.add(mStartLatlng);
         eList.add(mEndLatlng);
-        Log.d(TAG,"起点坐标"+mStartLatlng.toString()+"/r/n"+"终点坐标"+mEndLatlng.toString());
+        Log.d(TAG, "起点坐标" + mStartLatlng.toString() + "/r/n" + "终点坐标" + mEndLatlng.toString());
         mAMapNavi.calculateDriveRoute(sList, eList, mWayPointList, strategy);
     }
 

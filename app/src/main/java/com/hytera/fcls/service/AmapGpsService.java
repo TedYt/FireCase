@@ -37,7 +37,7 @@ public class AmapGpsService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         //开启前需要先执行定位。
-        GpsUtil.startLocation();
+        GpsUtil.getInstance().startLocation();
         Log.d(TAG, "执行上传");
         startGps();
         return super.onStartCommand(intent, flags, startId);
@@ -48,7 +48,8 @@ public class AmapGpsService extends Service {
     public void onDestroy() {
         super.onDestroy();
         flag_upload_gps =false;
-        GpsUtil.destroy();
+        GpsUtil.getInstance().stopLocation();
+//        GpsUtil.destroy();
         Log.d(TAG, "关闭服务");
     }
 
@@ -79,7 +80,7 @@ public class AmapGpsService extends Service {
      * 获得位置信息并上传位置信息
      */
     public void getLocationInfo(){
-        AMapLocation aMapLocation = GpsUtil.getLocation();
+        AMapLocation aMapLocation = GpsUtil.getInstance().getLocation();
         if (aMapLocation == null) return;
 
         //获取定位时间

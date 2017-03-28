@@ -17,21 +17,30 @@ import com.amap.api.maps.model.LatLng;
 
 public class GpsUtil {
     public static final String TAG = "y20650" + "GpsUtil";
-    public static AMapLocationClient mlocationClient;
-    public static AMapLocationClientOption mLocationOption = null;
-    public static AMapLocation aMapLocation = null;
+    public AMapLocationClient mlocationClient;
+    public AMapLocationClientOption mLocationOption = null;
+    public AMapLocation aMapLocation = null;
+    private static GpsUtil _instance;
 
-    static AMapLocationListener aMapLocationListener = new AMapLocationListener() {
+
+    public static GpsUtil getInstance(){
+        if (_instance == null){
+            synchronized (GpsUtil.class){
+                if (_instance == null){
+                    _instance = new GpsUtil();
+                }
+            }
+        }
+
+        return _instance;
+    }
+
+    AMapLocationListener aMapLocationListener = new AMapLocationListener() {
         @Override
         public void onLocationChanged(AMapLocation a) {
-//            if (a !=null){
-//                aMapLocation = a;
-//            }else {
-//                //获取定位数据失败
-//                Log.e("GpsUtil","获取定位数据失败");
-//            }
             if (a != null && a.getErrorCode() == 0) {
                 aMapLocation = a;
+
             } else {
                 String errText = "定位失败," + a.getErrorCode() + ": " + a.getErrorInfo();
                 Log.e("AmapErr获取定位数据失败", errText);
@@ -44,7 +53,7 @@ public class GpsUtil {
      * @Title init
      * @Description :初始化地图导航，在Application Oncreate中调用，只需要调用一次
      */
-    public static void init(Context context) {
+    public void init(Context context) {
         // 声明mLocationOption对象
         mlocationClient = new AMapLocationClient(context);
         // 初始化定位参数
@@ -74,7 +83,7 @@ public class GpsUtil {
     }
 
 
-    public static AMapLocation getLocation() {
+    public AMapLocation getLocation() {
         return aMapLocation;
     }
 
@@ -82,7 +91,8 @@ public class GpsUtil {
      * @Title: destroy
      * @Description: 销毁定位，必须在退出程序时调用，否则定位会发生异常
      */
-    public static void destroy() {
+    public void destroy() {
+        Log.d(TAG,"destory");
         mlocationClient.onDestroy();
         mlocationClient = null;
         mLocationOption = null;
@@ -93,7 +103,7 @@ public class GpsUtil {
     /**
      * 需要执行先执行定位才能获得client
      */
-    public static void startLocation() {
+    public void startLocation() {
         mlocationClient.startLocation();
         Log.i(TAG,"开始定位");
     }
@@ -101,7 +111,7 @@ public class GpsUtil {
     /**
      * 停止定位
      */
-    public static void stopLocation() {
+    public void stopLocation() {
         Log.i(TAG,"停止定位");
         if (mlocationClient!=null){
             mlocationClient.stopLocation();

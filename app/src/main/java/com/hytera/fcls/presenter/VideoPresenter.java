@@ -52,10 +52,10 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
         mPublisher.setRtmpHandler(new RtmpHandler(this));
         mPublisher.setRecordHandler(new SrsRecordHandler(this));
         //参数配置详见ReadMe
-//        mPublisher.setPreviewResolution(640, 480);
+//        mPublisher.setPreviewResolution(640, 480);//1.41
         mPublisher.setPreviewResolution(1280, 720);
 //        mPublisher.setOutputResolution(640, 480);///输出这个效果好些
-        mPublisher.setOutputResolution(1280, 720);
+        mPublisher.setOutputResolution(1280, 720);//1.78
         mPublisher.setVideoHDMode();//设置高质量模式
 
         mPublisher.startCamera();

@@ -30,7 +30,7 @@ public class FireCasePopPresenter {
      */
     public void acceptCase() {
         //接收警情开始定位
-        GpsUtil.startLocation();
+        GpsUtil.getInstance().startLocation();
         iFireCasePop.showMainActivity();
         stopFireAlarm();
 

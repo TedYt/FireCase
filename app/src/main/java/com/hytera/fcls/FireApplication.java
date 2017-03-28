@@ -30,7 +30,8 @@ public class FireApplication extends Application {
         _instance = this;
         // 初始化Bugly
         CrashReport.initCrashReport(getApplicationContext(), "db81990995", false);
-        GpsUtil.init(getApplicationContext());
+
+        GpsUtil.getInstance().init(getApplicationContext());
 //        GpsUtil.startLocation();
     }
 
