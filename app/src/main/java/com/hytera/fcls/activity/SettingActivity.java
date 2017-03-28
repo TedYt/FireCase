@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hytera.fcls.ISetting;
 import com.hytera.fcls.R;
 import com.hytera.fcls.comutil.AppInfoUtils;
 import com.hytera.fcls.comutil.CheckVersionUtil;
@@ -19,7 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class SettingActivity extends BaseActivity {
+public class SettingActivity extends BaseActivity implements ISetting {
     @BindView(R.id.tv_version)
     public TextView tv_version;
     @BindView(R.id.rl_checkupdate)
@@ -37,6 +38,8 @@ public class SettingActivity extends BaseActivity {
     public EditText server_port;
     @BindView(R.id.mq_server_ip)
     public TextView mq_server_ip;
+    boolean flag_loading = false;
+    CheckVersionUtil checkVersionUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class SettingActivity extends BaseActivity {
         ButterKnife.bind(this);
         settingPresenter = new SettingPresenter(this);
         tv_version.setText("(" + AppInfoUtils.getPackageVersion(this) + ")");
+        checkVersionUtil = new CheckVersionUtil(this);
     }
 
     /**
@@ -71,8 +75,31 @@ public class SettingActivity extends BaseActivity {
                 break;
             case R.id.rl_checkupdate:
 //                检查更新
-                CheckVersionUtil.startCheckAndDown(this);
+                if (flag_loading){
+                    Toast.makeText(this,"检查更新中，请勿重复点击",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                checkVersionUtil.startCheckAndDown(SettingActivity.this);
+//                rl_about.setEnabled(false);
+                rl_about.postDelayed(new Runnable() { // 防止快速点击，出现多个对话框
+                    @Override
+                    public void run() {
+                        rl_about.setEnabled(true);
+                    }
+                }, 100);
                 break;
         }
+    }
+
+    @Override
+    public void btenable() {
+        rl_about.setEnabled(true);
+        flag_loading=false;
+    }
+
+    @Override
+    public void btcancle() {
+        rl_about.setEnabled(false);
+        flag_loading=true;
     }
 }

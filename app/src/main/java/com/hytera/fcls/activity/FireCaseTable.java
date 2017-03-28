@@ -2,11 +2,13 @@ package com.hytera.fcls.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.R;
 import com.hytera.fcls.bean.FireCaseBean;
+import com.hytera.fcls.comutil.LayoutUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +50,8 @@ public class FireCaseTable extends Activity {
     protected TextView shuiyuan;
     @BindView(R.id.fire_case_detail_beizhu)
     protected TextView beizhu;
+    @BindView(R.id.lay_firecase_table)
+    protected LinearLayout lay_firecase_table;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,5 +65,6 @@ public class FireCaseTable extends Activity {
             zhuguan_zhongdui.setText(bean.getCompDeptName());
             anfa_dizhi.setText(bean.getCaseDesc());
         }
+        LayoutUtils.doResize(this, lay_firecase_table);
     }
 }

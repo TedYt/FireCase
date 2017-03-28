@@ -3,7 +3,6 @@ package com.hytera.fcls.presenter;
 import android.content.SharedPreferences;
 import android.hardware.Camera;
 import android.os.Environment;
-import com.hytera.fcls.comutil.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,6 +11,7 @@ import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.IVideo;
 import com.hytera.fcls.R;
 import com.hytera.fcls.activity.VideoActivity;
+import com.hytera.fcls.comutil.Log;
 import com.hytera.fcls.mqtt.MQTT;
 
 import net.ossrs.yasea.SrsCameraView;
@@ -51,12 +51,12 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
         mPublisher.setRtmpHandler(new RtmpHandler(this));
         mPublisher.setRecordHandler(new SrsRecordHandler(this));
         //参数配置详见ReadMe
-//        mPublisher.setPreviewResolution(640, 480);//1.41
-        mPublisher.setPreviewResolution(1280, 720);
-//        mPublisher.setOutputResolution(640, 480);///输出这个效果好些
-        mPublisher.setOutputResolution(1280, 720);//1.78
-        mPublisher.setVideoHDMode();//设置高质量模式
-
+        mPublisher.setPreviewResolution(640, 480);//1.41
+//        mPublisher.setPreviewResolution(1280, 720);
+        mPublisher.setOutputResolution(640, 480);///输出这个效果好些
+//        mPublisher.setOutputResolution(1280, 720);//1.78
+//        mPublisher.setVideoHDMode();//设置高质量模式
+        mPublisher.setVideoSmoothMode();
         mPublisher.startCamera();
     }
 
