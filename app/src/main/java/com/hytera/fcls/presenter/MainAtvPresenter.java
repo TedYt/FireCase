@@ -560,11 +560,10 @@ public class MainAtvPresenter {
      * 打开视频界面开始录像
      */
     public void goVideoActivity() {
-        if (!DataUtil.haveOneCase()){
-            Log.w(TAG, "No fire case");
-            context.show_Toast("没用新警情要处理");
+        if (noCase()){
             return;
         }
+
         Intent videointent = new Intent(context, VideoActivity.class);
         context.startActivity(videointent);
     }
