@@ -82,7 +82,7 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
 
             Log.d(TAG, "rtmurl：" + rtmpUrl);
             mPublisher.startPublish(rtmpUrl);
-            //mPublisher.startCamera();
+            mPublisher.startCamera();
             Log.d(TAG, "开始");
             view.setText("停止");
             flag_start= false;
