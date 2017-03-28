@@ -66,41 +66,7 @@
             android:background="@drawable/sel_1_setting"/>
     </RelativeLayout>
 
-    <LinearLayout
-        style="@style/MainAtvItemLinearLayoutStyle2">
-        <LinearLayout
-            android:id="@+id/case_upload_photo"
-            style="@style/MainAtvItemLinearLayoutStyle">
-            <ImageView
-                style="@style/MainAtvItemViewFrameStyle"
-                android:src="@drawable/sel_1_upload_photo" />
-            <TextView
-                style="@style/MainAtvItemViewFrameStyle"
-                android:textSize="@dimen/font_main_42px"
-                android:text="@string/str_main_item_photo" />
-        </LinearLayout>
-        <!--<View
-            android:background="#d0cede"
-            android:layout_width="1px"
-            android:layout_height="match_parent"/>--><!--分割线-->
-        <LinearLayout
-            android:id="@+id/case_upload_video"
-            style="@style/MainAtvItemLinearLayoutStyle">
-            <ImageView
-                style="@style/MainAtvItemViewFrameStyle"
-                android:src="@drawable/sel_1_upload_video" />
 
-            <TextView
-                style="@style/MainAtvItemViewFrameStyle"
-                android:textSize="@dimen/font_main_42px"
-                android:text="@string/str_main_item_video"
-                android:id="@+id/textView" />
-        </LinearLayout>
-    </LinearLayout>
-    <!--<View
-        android:background="#d0cede"
-        android:layout_width="match_parent"
-        android:layout_height="1px"/>--><!--分割线-->
     <LinearLayout
         style="@style/MainAtvItemLinearLayoutStyle2">
         <LinearLayout
@@ -175,4 +141,39 @@
                 android:text="@string/str_main_item_detail" />
         </LinearLayout>
     </LinearLayout>
+    <LinearLayout
+        style="@style/MainAtvItemLinearLayoutStyle2">
+        <LinearLayout
+            android:id="@+id/case_upload_photo"
+            style="@style/MainAtvItemLinearLayoutStyle">
+            <ImageView
+                style="@style/MainAtvItemViewFrameStyle"
+                android:src="@drawable/sel_1_upload_photo" />
+            <TextView
+                style="@style/MainAtvItemViewFrameStyle"
+                android:textSize="@dimen/font_main_42px"
+                android:text="@string/str_main_item_photo" />
+        </LinearLayout>
+        <!--<View
+            android:background="#d0cede"
+            android:layout_width="1px"
+            android:layout_height="match_parent"/>--><!--分割线-->
+        <LinearLayout
+            android:id="@+id/case_upload_video"
+            style="@style/MainAtvItemLinearLayoutStyle">
+            <ImageView
+                style="@style/MainAtvItemViewFrameStyle"
+                android:src="@drawable/sel_1_upload_video" />
+
+            <TextView
+                style="@style/MainAtvItemViewFrameStyle"
+                android:textSize="@dimen/font_main_42px"
+                android:text="@string/str_main_item_video"
+                android:id="@+id/textView" />
+        </LinearLayout>
+    </LinearLayout>
+    <!--<View
+        android:background="#d0cede"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>--><!--分割线-->
 </LinearLayout>
