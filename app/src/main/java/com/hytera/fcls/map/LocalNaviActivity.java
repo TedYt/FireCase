@@ -5,10 +5,13 @@ import android.util.Log;
 
 import com.amap.api.navi.AMapNaviView;
 import com.amap.api.navi.enums.NaviType;
+import com.amap.api.navi.model.NaviLatLng;
+import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.R;
+import com.hytera.fcls.comutil.GpsUtil;
 
 public class LocalNaviActivity extends AMapBaseActivity {
-
+    public static final String TAG = "y20650" + LocalNaviActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,28 +44,29 @@ public class LocalNaviActivity extends AMapBaseActivity {
             e.printStackTrace();
         }
 
-//        sList.clear();
-//        eList.clear();
-//        double lngend = DataUtil.getFireCaseBean().getMapx(); //mapx : 113.801231经度
-//        double latend = DataUtil.getFireCaseBean().getMapy();//mapy : 22.69247纬度
+        sList.clear();
+        eList.clear();
+        double lngend = DataUtil.getFireCaseBean().getMapx(); //mapx : 113.801231经度
+        double latend = DataUtil.getFireCaseBean().getMapy();//mapy : 22.69247纬度
 //        double lngend = 113.801231;
 //        double latend = 22.69247;
-//        NaviLatLng mEndLatlng = new NaviLatLng(latend, lngend);
+        NaviLatLng mEndLatlng = new NaviLatLng(latend, lngend);
 //
-//        double lngstart = GpsUtil.getLocation().getLongitude();
-//        double latstart = GpsUtil.getLocation().getLatitude();
+        double lngstart = GpsUtil.getLocation().getLongitude();
+        double latstart = GpsUtil.getLocation().getLatitude();
 //        double lngstart = 113.901231;
 //        double latstart = 22.39247;
-//        NaviLatLng mStartLatlng = new NaviLatLng(latstart, lngstart);
-//        sList.add(mStartLatlng);
-//        eList.add(mEndLatlng);
+        NaviLatLng mStartLatlng = new NaviLatLng(latstart, lngstart);
+        sList.add(mStartLatlng);
+        eList.add(mEndLatlng);
+        Log.d(TAG,"起点坐标"+mStartLatlng.toString()+"/r/n"+"终点坐标"+mEndLatlng.toString());
         mAMapNavi.calculateDriveRoute(sList, eList, mWayPointList, strategy);
     }
 
     @Override
     public void onCalculateRouteSuccess() {
         super.onCalculateRouteSuccess();
-        Log.e("aaaaa", "计算成功");
+        Log.i(TAG, "计算路径成功开启导航");
         mAMapNavi.startNavi(NaviType.GPS);
     }
 }

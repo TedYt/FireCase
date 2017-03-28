@@ -18,7 +18,6 @@ import android.widget.Toast;
 import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.IMainAtv;
 import com.hytera.fcls.R;
-import com.hytera.fcls.map.LocalNaviActivity;
 import com.hytera.fcls.presenter.MainAtvPresenter;
 import com.hytera.fcls.service.FireService;
 
@@ -65,7 +64,7 @@ public class MainActivity extends BaseActivity implements IMainAtv {
 
         mainPresenter.stopFireAlarm();
         // 接受警情后，获取警情的一些信息
-        if (DataUtil.isAcceptCase()){
+        if (DataUtil.isAcceptCase()) {
             mainPresenter.getFireCaseInfo();
         }
     }
@@ -77,9 +76,9 @@ public class MainActivity extends BaseActivity implements IMainAtv {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == mainPresenter.CAMERA_RESULT && resultCode == RESULT_OK){
+        if (requestCode == mainPresenter.CAMERA_RESULT && resultCode == RESULT_OK) {
             String sdStatus = Environment.getExternalStorageState();
-            if(!sdStatus.equals(Environment.MEDIA_MOUNTED)){
+            if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) {
                 Log.e(TAG, "SD card is not available right now.");
             }
             mainPresenter.postImage();
@@ -91,23 +90,22 @@ public class MainActivity extends BaseActivity implements IMainAtv {
         /**
          * 按返回键时，启动home界面
          */
-        Intent intent =  new Intent(Intent.ACTION_MAIN);
+        Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                    | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+                | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
         startActivity(intent);
     }
 
     @OnClick({R.id.case_arrive, R.id.case_depart, R.id.case_end_fire, R.id.case_setting,
-        R.id.case_upload_photo, R.id.case_upload_video, R.id.case_detail})
-    protected void caseFunClick(View view){
+            R.id.case_upload_photo, R.id.case_upload_video, R.id.case_detail})
+    protected void caseFunClick(View view) {
         int id = view.getId();
-        switch (id){
+        switch (id) {
             case R.id.case_upload_photo:
-//                mainPresenter.startCamera(MainActivity.this);
-                Intent intent = new Intent(this, LocalNaviActivity.class);
-                this.startActivity(intent);
-//                mainPresenter.launchNav();
+                mainPresenter.startCamera(MainActivity.this);
+//                Intent intent = new Intent(this, LocalNaviActivity.class);
+//                this.startActivity(intent);
                 break;
             case R.id.case_upload_video:
                 mainPresenter.goVideoActivity();
@@ -149,6 +147,7 @@ public class MainActivity extends BaseActivity implements IMainAtv {
 
     /**
      * 在主界面显示警情
+     *
      * @param levelDesc
      * @param caseDesc
      * @param deptName
@@ -222,12 +221,12 @@ public class MainActivity extends BaseActivity implements IMainAtv {
         dialog.show();
     }
 
-    private boolean checkCameraPermissoin(){
+    private boolean checkCameraPermissoin() {
         //降低应用支持版本22，否则动态权限在华为7.0获取不成功
-        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA )
-                != PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this,
-                    new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     2);
             return false;
         }
@@ -237,11 +236,11 @@ public class MainActivity extends BaseActivity implements IMainAtv {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode){
+        switch (requestCode) {
             case 2:
-                if (grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     mainPresenter.startCamera(MainActivity.this);
-                }else {
+                } else {
                     Toast.makeText(MainActivity.this, "权限未开启", Toast.LENGTH_SHORT).show();
                 }
         }

@@ -29,8 +29,8 @@ public class AmapGpsService extends Service {
 
     @Override
     public void onCreate() {
-        // 定位工具初始化
-        GpsUtil.init(this);
+        //TODO 定位工具初始化
+//        GpsUtil.init(this);
     }
 
     //调用Gps开启
@@ -56,7 +56,6 @@ public class AmapGpsService extends Service {
      * 开启gps上传
      */
     public  void startGps(){
-        GpsUtil.mlocationClient.startLocation();
         Log.d(TAG, "位置信息上传准备开始");
         new Thread(new Runnable() {
             @Override
@@ -87,14 +86,16 @@ public class AmapGpsService extends Service {
         //SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         //date = new Date(aMapLocation.getTime());
         //df.format(date);
+        //定位方向：amapLocation.getBearing()
         Log.d(TAG,
                 "获取纬度"+aMapLocation.getLatitude()+"\r \n"+
                 "获取经度"+aMapLocation.getLongitude()+"\r \n"+
                 "地址"+ aMapLocation.getAddress()+"\r \n"+
                 "城市信息"+ aMapLocation.getCity()+"\r \n"+
                 "gps状态"+ aMapLocation.getGpsAccuracyStatus()+"\r \n"+
-                "gps来源"+ aMapLocation.getLocationType()+"\r \n"
-        );
+                "gps来源"+ aMapLocation.getLocationType()+"\r \n"+
+                "gps错误码"+aMapLocation.getErrorCode()
+        );//错误码为0定位成功
         // 上传位置信息
         MQTT mqtt = MQTT.getInstance();
         mqtt.setContext(getApplicationContext());

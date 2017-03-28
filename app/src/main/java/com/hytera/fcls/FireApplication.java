@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.util.Log;
 
+import com.hytera.fcls.comutil.GpsUtil;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.ArrayList;
@@ -29,6 +30,8 @@ public class FireApplication extends Application {
         _instance = this;
         // 初始化Bugly
         CrashReport.initCrashReport(getApplicationContext(), "db81990995", false);
+        GpsUtil.init(getApplicationContext());
+//        GpsUtil.startLocation();
     }
 
     /**

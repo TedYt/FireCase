@@ -374,10 +374,13 @@ public class MainAtvPresenter {
         FireSerPresenter.getInstance().onCaseFinish();
         // 清除火情信息
         DataUtil.clearFireCase();
+        //结束定位
+        GpsUtil.stopLocation();
     }
 
     /**
      * 上传状态
+     *
      * @param state
      */
     private void postState(final int state) {
@@ -420,6 +423,7 @@ public class MainAtvPresenter {
 
     /**
      * 调动外部导航
+     *
      * @param lng
      * @param lat
      */
@@ -447,7 +451,7 @@ public class MainAtvPresenter {
      * 导航同时，会上报GPS数据
      */
     public void launchNav() {
-        GpsUtil.init(context);
+//        GpsUtil.init(context);
         FireCaseBean fireCaseBean = DataUtil.getFireCaseBean();
         double lng = fireCaseBean.getMapx();
         double lat = fireCaseBean.getMapy();
@@ -457,9 +461,15 @@ public class MainAtvPresenter {
         } else {
             //开启外部导航
             //InstatNav(lng,lat);
-            //内置导航，暂未修订
-            Intent intent = new Intent(context, LocalNaviActivity.class);
-            context.startActivity(intent);
+            //内置导航
+            if (GpsUtil.getLocation().getLatitude() == 0.0f || GpsUtil.getLocation().getLongitude() == 0.0f) {
+                //初始Gps为0不能开启导航
+                context.show_Toast("初始化本地定位失败,不能开启导航");
+            }else{
+                Intent intent = new Intent(context, LocalNaviActivity.class);
+                context.startActivity(intent);
+            }
+
         }
         startGPSService();
 
@@ -476,7 +486,7 @@ public class MainAtvPresenter {
     /**
      * 开启GPS服务，在服务里会上报GPS数据
      */
-    private void startGPSService() {
+    public void startGPSService() {
         Intent startGpsLocation = new Intent(context, AmapGpsService.class);
         context.startService(startGpsLocation);
         Log.d(TAG, "depart: 开始导航服务开启");

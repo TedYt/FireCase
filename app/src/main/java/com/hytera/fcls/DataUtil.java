@@ -41,7 +41,7 @@ public class DataUtil {
 
     public static String MQ_URL = BASE_IP;
 
-`    public static final String VIDEO_RTMP_URL = "rtmp://" + BASE_IP + ":1935/";
+    public static final String VIDEO_RTMP_URL = "rtmp://" + BASE_IP + ":1935/";
 
     /**
      * 检查自动更新网址

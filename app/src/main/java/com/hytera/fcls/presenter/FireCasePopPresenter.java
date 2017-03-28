@@ -6,6 +6,7 @@ import android.util.Log;
 import com.hytera.fcls.DataUtil;
 import com.hytera.fcls.IFireCasePop;
 import com.hytera.fcls.activity.FireCasePopActivity;
+import com.hytera.fcls.comutil.GpsUtil;
 
 /**
  * Created by Tim on 17/3/6.
@@ -28,7 +29,8 @@ public class FireCasePopPresenter {
      * 接收警情
      */
     public void acceptCase() {
-
+        //接收警情开始定位
+        GpsUtil.startLocation();
         iFireCasePop.showMainActivity();
         stopFireAlarm();
 
