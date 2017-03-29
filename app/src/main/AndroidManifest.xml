@@ -37,12 +37,11 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="f91a1c395e2a86b94a5d1a4346fb1d5f" />
-
+        <!--发布keyf91a1c395e2a86b94a5d1a4346fb1d5f-->
         <activity
             android:name=".activity.MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activity.KeepAliveActivity"
             android:excludeFromRecents="true"

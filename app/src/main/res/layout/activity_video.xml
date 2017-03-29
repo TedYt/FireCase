@@ -13,13 +13,12 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+    <!-- android:drawableTop="@drawable/sel_2_bt_video_publish"-->
+
     <Button
-        android:drawableTop="@drawable/video_start_pressed"
-        android:text="开始"
         android:textColor="@color/white"
-        android:drawablePadding="20px"
         android:id="@+id/bt_publish"
-       android:background="@null"
+        android:background="@drawable/sel_2_bt_video_publish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -27,8 +26,8 @@
         android:layout_marginBottom="28dp" />
     <Button
         android:id="@+id/bt_swCam"
-        android:layout_margin="20px"
-        android:background="@drawable/camera_switch_normal"
+        android:layout_margin="80px"
+        android:background="@drawable/sel_2_bt_camera_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"/>

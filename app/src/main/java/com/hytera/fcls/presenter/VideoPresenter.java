@@ -79,19 +79,17 @@ public class VideoPresenter implements SrsEncodeHandler.SrsEncodeListener, RtmpH
             String rtmpUrl = DataUtil.VIDEO_RTMP_URL + usercode + "/" + getCurDateStr();
 
             pushVideoURL(rtmpUrl);
-
+            view.setBackgroundResource(R.drawable.sel_2_bt_video_stop);
             Log.d(TAG, "rtmurl：" + rtmpUrl);
             mPublisher.startPublish(rtmpUrl);
             mPublisher.startCamera();
             Log.d(TAG, "开始");
-            view.setText("停止");
             flag_start= false;
         }else {
             mPublisher.stopPublish();
             mPublisher.stopRecord();
-//
             Log.d(TAG, "停止");
-            view.setText("开始");
+            view.setBackgroundResource(R.drawable.sel_2_bt_video_publish);
             flag_start= true;
         }
     }
